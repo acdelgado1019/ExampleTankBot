@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -95,14 +94,13 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(m_chooser);
     SmartDashboard.putData(t_chooser);
 
-    AutoCommand.getConstraint();
-    AutoCommand.getTrajectoryConfig();
+    // AutoCommand.getConstraint();
+    // AutoCommand.getTrajectoryConfig();
       
     // Create and push Field2d to SmartDashboard.
     m_field = new Field2d();
     SmartDashboard.putData(m_field);
     SmartDashboard.putBoolean("Test Complete", testComplete);
-    SmartDashboard.putBoolean("",LiveWindow.isEnabled());
   }
 
   /**
