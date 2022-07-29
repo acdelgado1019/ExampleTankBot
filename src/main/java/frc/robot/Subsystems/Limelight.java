@@ -30,7 +30,6 @@ public class Limelight extends SubsystemBase {
         tv = table.getEntry("tv");
         
         SmartDashboard.putBoolean("IN RANGE", Math.abs(tx.getDouble(0.0))<15 && tx.getDouble(0.0)!= 0.0 ? true : false);
-        SmartDashboard.putBoolean("TARGET FOUND", tv.getBoolean(false));
     }
 
     public double getTX() {

@@ -15,9 +15,8 @@ public class OneBallAuto extends SequentialCommandGroup {
         AutoCommand.delay(0);
         AutoCommand.lowerIntake();
         AutoCommand.limelightShoot(.8);
-        AutoCommand.timerDrive(0.3, 1.0);
         AutoCommand.runRamsete(path);
         AutoCommand.runIntake(-Constants.HORIZONTAL_INTAKE_SPEED);
-        AutoCommand.rotate(-90);
+        // AutoCommand.rotate(-90);
     }
 }
