@@ -93,9 +93,10 @@ public class Robot extends TimedRobot {
     // Put the choosers on the dashboard
     SmartDashboard.putData(m_chooser);
     SmartDashboard.putData(t_chooser);
+    SmartDashboard.putString("System Testing", "NOT TESTED");
 
-    // AutoCommand.getConstraint();
-    // AutoCommand.getTrajectoryConfig();
+    AutoCommand.getConstraint();
+    AutoCommand.getTrajectoryConfig();
       
     // Create and push Field2d to SmartDashboard.
     m_field = new Field2d();
@@ -170,6 +171,7 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
     if (!testComplete){
       //Intake Lift Test
+      SmartDashboard.putString("System Testing", "INTAKE LIFT");
       shooterIntake.setIntakeLift(-Constants.INTAKE_LIFT_SPEED);
       Timer.delay(2);
       shooterIntake.setIntakeLift(0);
@@ -179,6 +181,7 @@ public class Robot extends TimedRobot {
       shooterIntake.setIntakeLift(0);
 
       //Intake Test
+      SmartDashboard.putString("System Testing", "INTAKE");
       shooterIntake.setHorizontalIntake(-Constants.HORIZONTAL_INTAKE_SPEED);
       Timer.delay(1);
       shooterIntake.setHorizontalIntake(0);
@@ -188,6 +191,7 @@ public class Robot extends TimedRobot {
       shooterIntake.setHorizontalIntake(0);
 
       //Trigger Test
+      SmartDashboard.putString("System Testing", "TRIGGER");
       shooterIntake.setVerticalIntake(-Constants.VERTICAL_INTAKE_SPEED);
       Timer.delay(1);
       shooterIntake.setVerticalIntake(0);
@@ -197,6 +201,7 @@ public class Robot extends TimedRobot {
       shooterIntake.setVerticalIntake(0);
 
       //Shooter Test
+      SmartDashboard.putString("System Testing", "SHOOTER");
       shooter.setShooterMotor(-Constants.SHOOTER_IDLE_SPEED);
       Timer.delay(2);
       shooter.setShooterMotor(-Constants.SHOOTER_LOW_SPEED);
@@ -208,6 +213,7 @@ public class Robot extends TimedRobot {
       shooter.setShooterMotor(0);
 
       //Climber Rotate Test
+      SmartDashboard.putString("System Testing", "CLIMBER ROT");
       climbers.setClimberRotation(Constants.CLIMBER_ROTATION_STATIC);
       Timer.delay(2);
       climbers.setClimberRotation(-Constants.CLIMBER_ROTATION_SPEED);
@@ -219,6 +225,7 @@ public class Robot extends TimedRobot {
       climbers.setClimberRotation(0);
 
       //Climber Rotate Test
+      SmartDashboard.putString("System Testing", "CLIMBER EXT");
       climbers.setLeftClimber(1);
       climbers.setRightClimber(1);
       Timer.delay(2);
@@ -229,6 +236,7 @@ public class Robot extends TimedRobot {
       climbers.setRightClimber(0);
 
       //Drivetrain Test
+      SmartDashboard.putString("System Testing", "DRIVETRAIN");
       drivetrain.setLeftDrivetrain(Constants.MAX_DRIVE_SPEED);
       Timer.delay(1);
       drivetrain.setRightDrivetrain(Constants.MAX_DRIVE_SPEED);
@@ -241,7 +249,7 @@ public class Robot extends TimedRobot {
       Timer.delay(1);
       drivetrain.setRightDrivetrain(0);
     }
-
+    SmartDashboard.putString("System Testing", "COMPLETE");
     testComplete = true;
     SmartDashboard.putBoolean("Test Complete", testComplete);
   }

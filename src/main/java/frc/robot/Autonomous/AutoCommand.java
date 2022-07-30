@@ -86,16 +86,12 @@ public class AutoCommand {
         Robot.drivetrain.setLeftDrivetrain(0);
     }
 
-    public static void rotate(double angle){
-        Robot.drivetrain.zeroHeading();
-        double degOff = Math.abs(angle);
-        while(Math.abs(degOff) > 1)
-        {
-            double speed = .3 * degOff/(Math.abs(degOff));
-            Robot.drivetrain.setLeftDrivetrain(speed);
-            Robot.drivetrain.setRightDrivetrain(-speed);
-            degOff = Math.abs(angle) - Math.abs(Robot.drivetrain.getHeading());
-        }
+    public static void rotate(double time){
+            Robot.drivetrain.setLeftDrivetrain(-0.3);
+            Robot.drivetrain.setRightDrivetrain(0.3);
+            Timer.delay(time);
+            Robot.drivetrain.setLeftDrivetrain(0);
+            Robot.drivetrain.setRightDrivetrain(0);
     }   
 
     public static void updateEncoderValues() {
