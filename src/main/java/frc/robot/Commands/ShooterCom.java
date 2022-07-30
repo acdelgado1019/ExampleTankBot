@@ -25,9 +25,9 @@ public class ShooterCom extends CommandBase{
             Robot.shooter.setShooterMotor(Constants.SHOOTER_MID_SPEED);
         }else if(controller1_buttonY == true){
             Robot.shooter.setShooterMotor(Constants.SHOOTER_LOW_SPEED);
-        }else{
+        }else if(!Robot.climbers.getClimbMode()){
             Robot.shooter.setShooterMotor(Constants.SHOOTER_IDLE_SPEED);
-        }
+        }else {Robot.shooter.setShooterMotor(0);}
         Robot.shooter.updateDashboard();
     }
 }

@@ -72,7 +72,8 @@ public class Robot extends TimedRobot {
   public static SendableChooser<String> t_chooser = new SendableChooser<>();
 
   //Field display to Shuffleboard
-  public static Field2d m_field = new Field2d();
+  public static Field2d m_field;
+  public static Field2d logo;
 
   //Test Timer & Flag
   Timer timer = new Timer();
@@ -101,7 +102,10 @@ public class Robot extends TimedRobot {
       
     // Create and push Field2d to SmartDashboard.
     m_field = new Field2d();
+    logo = new Field2d();
+
     SmartDashboard.putData(m_field);
+    SmartDashboard.putData(logo);
     SmartDashboard.putBoolean("Test Complete", testComplete);
   }
 
@@ -121,6 +125,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    climbers.resetEncoders();
+    shooterIntake.resetEncoder();
+    
     autoSequence = m_chooser.getSelected();
     autoSequence.schedule();
   }
