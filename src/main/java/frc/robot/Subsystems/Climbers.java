@@ -90,7 +90,7 @@ public class Climbers extends SubsystemBase{
     }
 
     public void setClimbMode(){
-        climbMode = true;
+        climbMode = !climbMode;
     }
 
     public boolean getClimbMode(){
