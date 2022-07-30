@@ -10,7 +10,7 @@ import frc.robot.Robot;
 import frc.robot.Commands.ShooterCom;
 
 public class Shooter extends SubsystemBase{
-    public CANSparkMax shooter;
+    private CANSparkMax shooter;
     private static RelativeEncoder shooterEncoder;
 
     public Shooter(int shoot){

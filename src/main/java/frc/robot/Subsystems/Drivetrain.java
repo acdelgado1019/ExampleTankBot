@@ -17,10 +17,10 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Drivetrain extends SubsystemBase{
-    public CANSparkMax motorLeft0;
-    public CANSparkMax motorLeft1;
-    public CANSparkMax motorRight0;
-    public CANSparkMax motorRight1;
+    private CANSparkMax motorLeft0;
+    private CANSparkMax motorLeft1;
+    private CANSparkMax motorRight0;
+    private CANSparkMax motorRight1;
     private RelativeEncoder rightDrivetrain;
     private RelativeEncoder leftDrivetrain;   
     private final MotorControllerGroup m_leftMotors;

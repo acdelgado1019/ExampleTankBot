@@ -67,6 +67,7 @@ public class Robot extends TimedRobot {
   private final Command oneBall = new OneBallAuto();
   private final Command twoBall = new TwoBallAuto();
   private final Command threeBall = new ThreeBallAuto();
+  
   public SendableChooser<Command> m_chooser = new SendableChooser<>();
   public static SendableChooser<String> t_chooser = new SendableChooser<>();
 
@@ -159,11 +160,8 @@ public class Robot extends TimedRobot {
   /** This function is called once when test mode is enabled. */
   @Override
   public void testInit() {
-    climbers.climberEncoderLeft.setPosition(0);
-    climbers.climberEncoderRight.setPosition(0);
-    climbers.rightRotateEncoder.setPosition(0);
-    climbers.leftRotateEncoder.setPosition(0);
-    shooterIntake.intakeLiftEncoder.setPosition(0);
+    climbers.resetEncoders();
+    shooterIntake.resetEncoder();
   }
 
   /** This function is called periodically during test mode. */

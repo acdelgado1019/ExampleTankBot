@@ -13,8 +13,8 @@ import frc.robot.Commands.ShooterIntakeCom;
 public class ShooterIntake extends SubsystemBase{
 
     private VictorSPX horizontalIntake;
-    public CANSparkMax intakeLift;
-    public RelativeEncoder intakeLiftEncoder;
+    private CANSparkMax intakeLift;
+    private RelativeEncoder intakeLiftEncoder;
     private VictorSPX verticalIntake;
 
     public ShooterIntake (int horIntake, int vertIntake, int inLift) {
@@ -34,6 +34,10 @@ public class ShooterIntake extends SubsystemBase{
 
     public void setIntakeLift(double speed){
         intakeLift.set(-speed);
+    }
+
+    public void resetEncoder(){
+        intakeLiftEncoder.setPosition(0.0);
     }
 
     @Override

@@ -20,15 +20,11 @@ public class Limelight extends SubsystemBase {
     private NetworkTableEntry tx;
     private NetworkTableEntry ta;
     private NetworkTableEntry tv;
-    //private NetworkTableEntry ledMode;
 
     public void updateData() {
         // update table, then update from updated table
         table = NetworkTableInstance.getDefault().getTable("limelight");
         tx = table.getEntry("tx");
-        ta = table.getEntry("ta");
-        tv = table.getEntry("tv");
-        
         SmartDashboard.putBoolean("IN RANGE", Math.abs(tx.getDouble(0.0))<15 && tx.getDouble(0.0)!= 0.0 ? true : false);
     }
 

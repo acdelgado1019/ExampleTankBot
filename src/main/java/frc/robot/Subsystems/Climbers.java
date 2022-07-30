@@ -11,16 +11,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Commands.ClimbersCom;
 
 public class Climbers extends SubsystemBase{
-    public CANSparkMax leftClimber0;
-    public CANSparkMax leftClimber1;
-    public CANSparkMax leftClimberRotate;
-    public CANSparkMax rightClimber0;
-    public CANSparkMax rightClimber1;
-    public CANSparkMax rightClimberRotate;
-    public RelativeEncoder climberEncoderRight;
-    public RelativeEncoder rightRotateEncoder;
-    public RelativeEncoder climberEncoderLeft;
-    public RelativeEncoder leftRotateEncoder;
+    private CANSparkMax leftClimber0;
+    private CANSparkMax leftClimber1;
+    private CANSparkMax leftClimberRotate;
+    private CANSparkMax rightClimber0;
+    private CANSparkMax rightClimber1;
+    private CANSparkMax rightClimberRotate;
+    private RelativeEncoder climberEncoderRight;
+    private RelativeEncoder rightRotateEncoder;
+    private RelativeEncoder climberEncoderLeft;
+    private RelativeEncoder leftRotateEncoder;
 
 
     public Climbers(int climberL0, int climberL1, int climberLR, int climberR0, int climberR1, int climberRR) {
@@ -88,18 +88,19 @@ public class Climbers extends SubsystemBase{
         rightClimberRotate.set(speed);
     }
 
+    public void resetEncoders(){
+        climberEncoderLeft.setPosition(0);
+        climberEncoderRight.setPosition(0);
+        rightRotateEncoder.setPosition(0);
+        leftRotateEncoder.setPosition(0);
+    }
+
     public void updateDashboard()
     {
         SmartDashboard.putNumber("Right Climber Position ", climberEncoderRight.getPosition());
         SmartDashboard.putNumber("Left Climber Position ", climberEncoderLeft.getPosition());
         SmartDashboard.putNumber("Left Rotator Position ", leftRotateEncoder.getPosition());
         SmartDashboard.putNumber("Right Rotator Position ", rightRotateEncoder.getPosition());
-    }
-
-    public void encoderMatchClimbers(double speed, int direction){
-        double encoderDifference = climberEncoderRight.getPosition() - climberEncoderLeft.getPosition();
-        this.setLeftClimber(direction + ((encoderDifference * speed) > 1 ? (encoderDifference * speed) : 1));
-        this.setRightClimber(direction - ((encoderDifference * speed) > 1 ? (encoderDifference * speed) : 1));
     }
 
     public double getRightEncoder(){
