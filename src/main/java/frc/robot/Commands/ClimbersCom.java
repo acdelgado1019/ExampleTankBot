@@ -21,9 +21,11 @@ public class ClimbersCom extends CommandBase{
         double controller1_dpad = Robot.controller1.getPOV();
 
         if(controller1_leftTrigger){
+            Robot.climbers.setClimbMode();
             Robot.climbers.setLeftClimber(-1);
             Robot.climbers.setRightClimber(-1);
         } else if (controller1_leftBumper) {
+            Robot.climbers.setClimbMode();
             Robot.climbers.setLeftClimber(1);
             Robot.climbers.setRightClimber(1);
         } else {

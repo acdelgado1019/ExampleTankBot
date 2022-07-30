@@ -21,6 +21,7 @@ public class Climbers extends SubsystemBase{
     private RelativeEncoder rightRotateEncoder;
     private RelativeEncoder climberEncoderLeft;
     private RelativeEncoder leftRotateEncoder;
+    private boolean climbMode = false;
 
 
     public Climbers(int climberL0, int climberL1, int climberLR, int climberR0, int climberR1, int climberRR) {
@@ -86,6 +87,14 @@ public class Climbers extends SubsystemBase{
     {
         leftClimberRotate.set(-speed);
         rightClimberRotate.set(speed);
+    }
+
+    public void setClimbMode(){
+        climbMode = true;
+    }
+
+    public boolean getClimbMode(){
+        return climbMode;
     }
 
     public void resetEncoders(){
