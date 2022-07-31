@@ -22,7 +22,7 @@ public class Constants {
         public static final int SHOOTER = 15;
 
         //Intake
-        public static final int VERTICAL_INTAKE = 6;
+        public static final int TRIGGER = 6;
         public static final int HORIZONTAL_INTAKE = 17;
         public static final int INTAKE_LIFT = 5;
 
@@ -30,9 +30,6 @@ public class Constants {
         public static final int DUMPER_INTAKE = 17;
         public static final int LEFT_DUMPER_LIFT = 5;
         public static final int RIGHT_DUMPER_LIFT = 15;
-
-        //Lights
-        public static final int NUM_LIGHTS = 57;
 
     //Controller Assignments
         public static final int DRIVER_CONTROLLER_0 = 0;
@@ -63,16 +60,16 @@ public class Constants {
         public static final int RIGHT_JOYSTICK_BUTTON = 10;
 
     //Speed Variables
-        public static final double MAX_DRIVE_SPEED = .5; // Min = 0, Max = 1
-        public static final double FULL_SPEED = 1;
-        public static final double SLOW_SPEED = .4;
+        public static final double MAX_DRIVE_SPEED = .8; // Min = 0, Max = 1
+        // public static final double FULL_SPEED = 1;
+        // public static final double SLOW_SPEED = .4;
         public static final double CLIMBER_ROTATION_SPEED = .25;
         public static final double CLIMBER_ROTATION_STATIC = -.02;
         public static final double MAX_TURN_SPEED = 1; // Min = 0, Max = 1;
         public static final double LEFT_RIGHT_TRIM = -.1; // Min = -1, Max = 1;+
-        public static final double INTAKE_LIFT_SPEED = .20;
+        public static final double INTAKE_LIFT_SPEED = .3;
         public static final double HORIZONTAL_INTAKE_SPEED = -.8;
-        public static final double VERTICAL_INTAKE_SPEED = 1;
+        public static final double TRIGGER_SPEED = 1;
         public static final double SHOOTER_HI_SPEED = 12;
         public static final double SHOOTER_MID_SPEED = 10;
         public static final double SHOOTER_LOW_SPEED = 8;
@@ -89,4 +86,7 @@ public class Constants {
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
         public static final double kEncoderDistancePerPulse = 1/6 * 2 * Math.PI * Units.inchesToMeters(4);
+
+        public static final double camHeight = 45;
+        public static final double goalHeight = 100;
 }

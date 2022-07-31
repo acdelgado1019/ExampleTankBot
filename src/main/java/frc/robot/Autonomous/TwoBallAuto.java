@@ -1,6 +1,7 @@
 package frc.robot.Autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class TwoBallAuto extends SequentialCommandGroup {
@@ -12,9 +13,9 @@ public class TwoBallAuto extends SequentialCommandGroup {
         else if (team == "BLUE"){path = 1;};
         
         AutoCommand.lowerIntake();
-        AutoCommand.runIntake(0.8);
+        AutoCommand.runIntake(Constants.HORIZONTAL_INTAKE_SPEED);
         AutoCommand.runRamsete(path);
         AutoCommand.runIntake(0);
-        AutoCommand.limelightShoot(.6);
+        AutoCommand.limelightShoot(Constants.SHOOTER_LOW_SPEED);
     }
 }

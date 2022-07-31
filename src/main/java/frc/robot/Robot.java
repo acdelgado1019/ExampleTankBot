@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
   
   public static final ShooterIntake shooterIntake = new ShooterIntake(
     Constants.HORIZONTAL_INTAKE,
-    Constants.VERTICAL_INTAKE,
+    Constants.TRIGGER,
     Constants.INTAKE_LIFT
   );
 
@@ -197,13 +197,13 @@ public class Robot extends TimedRobot {
 
       //Trigger Test
       SmartDashboard.putString("System Testing", "TRIGGER");
-      shooterIntake.setVerticalIntake(-Constants.VERTICAL_INTAKE_SPEED);
+      shooterIntake.setTrigger(-Constants.TRIGGER_SPEED);
       Timer.delay(1);
-      shooterIntake.setVerticalIntake(0);
+      shooterIntake.setTrigger(0);
       Timer.delay(0.5);
-      shooterIntake.setVerticalIntake(Constants.VERTICAL_INTAKE_SPEED);
+      shooterIntake.setTrigger(Constants.TRIGGER_SPEED);
       Timer.delay(1);
-      shooterIntake.setVerticalIntake(0);
+      shooterIntake.setTrigger(0);
 
       //Shooter Test
       SmartDashboard.putString("System Testing", "SHOOTER");

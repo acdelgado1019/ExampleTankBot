@@ -24,8 +24,17 @@ public class ShooterIntakeCom extends CommandBase{
         boolean controller1_rightBumper = Robot.controller1.getButton(Constants.RIGHT_BUMPER);
         boolean controller1_rightTrigger = Robot.controller1.getTrigger(Constants.RIGHT_TRIGGER);
 
-        Robot.shooterIntake.setVerticalIntake(controller0_rightBumper ? Constants.VERTICAL_INTAKE_SPEED : (controller0_rightTrigger ? -Constants.VERTICAL_INTAKE_SPEED : 0));
         Robot.shooterIntake.setHorizontalIntake(controller0_leftTrigger ? Constants.HORIZONTAL_INTAKE_SPEED : (controller0_leftBumper ? -Constants.HORIZONTAL_INTAKE_SPEED : 0));
         Robot.shooterIntake.setIntakeLift(controller1_rightBumper ? Constants.INTAKE_LIFT_SPEED : (controller1_rightTrigger ? -Constants.INTAKE_LIFT_SPEED : 0));
+        
+        if (controller0_rightBumper){
+            Robot.shooterIntake.pulse();
+        } else if (controller0_rightTrigger){
+            Robot.shooterIntake.setTrigger(-Constants.TRIGGER_SPEED);
+            Robot.shooterIntake.stopPulse();
+        } else {
+            Robot.shooterIntake.setTrigger(0);
+            Robot.shooterIntake.stopPulse();
         }
     }
+}

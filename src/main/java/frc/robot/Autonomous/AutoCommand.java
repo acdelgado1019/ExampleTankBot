@@ -40,11 +40,11 @@ public class AutoCommand {
         }
         Robot.drivetrain.setLeftDrivetrain(0);
         Robot.drivetrain.setRightDrivetrain(0);
-        Timer.delay(4);
-        Robot.shooterIntake.setVerticalIntake(-1);
+        Timer.delay(1);
+        Robot.shooterIntake.pulse();
         Timer.delay(.5);
-        Robot.shooterIntake.setVerticalIntake(0);
-        Robot.shooter.setShooterMotor(0.2);
+        Robot.shooterIntake.stopPulse();
+        Robot.shooter.setShooterMotor(Constants.SHOOTER_IDLE_SPEED);
     }
 
     public static void runIntake(double speed){
