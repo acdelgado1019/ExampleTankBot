@@ -72,7 +72,7 @@ public class Constants {
         public static final double TRIGGER_SPEED = 1;
         public static final double SHOOTER_HI_SPEED = 12;
         public static final double SHOOTER_MID_SPEED = 10;
-        public static final double SHOOTER_LOW_SPEED = 8;
+        public static final double SHOOTER_LOW_SPEED = 7.2;
         public static final double SHOOTER_IDLE_SPEED = 3;
 
     //Characterization Constants
