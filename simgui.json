@@ -66,6 +66,9 @@
     }
   },
   "NetworkTables": {
+    "FMSInfo": {
+      "open": true
+    },
     "LiveWindow": {
       ".status": {
         "open": true

@@ -87,6 +87,7 @@ public class Constants {
         public static final double kRamseteZeta = 0.7;
         public static final double kEncoderDistancePerPulse = 1/6 * 2 * Math.PI * Units.inchesToMeters(4);
 
-        public static final double camHeight = 45;
-        public static final double goalHeight = 100;
+        public static final double camHeight = 40;
+        public static final double goalHeight = 102.5;
+        public static final double camAngle = 15;
 }

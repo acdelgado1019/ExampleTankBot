@@ -1,6 +1,7 @@
 package frc.robot.Subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Commands.LimelightCom;
 /* LimeLight specific Imports*/
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -11,26 +12,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Limelight extends SubsystemBase {
 
-    public static final double kDistancePerRevolution = 18.84; // guestimate from your code
-    public static final double kPulsesPerRevolution = 1024; // for an AS5145B Magnetic Encoder
-    public static final double kDistancePerPulse = kDistancePerRevolution / kPulsesPerRevolution;
+    public double distance;
+
 
     // Creates a new LimeLight.
     private NetworkTable table;
     private NetworkTableEntry tx;
     private NetworkTableEntry ta;
     private NetworkTableEntry tv;
+    private NetworkTableEntry ty;
 
     public void updateData() {
         // update table, then update from updated table
         table = NetworkTableInstance.getDefault().getTable("limelight");
+        ta = table.getEntry("ta");
+        tv = table.getEntry("tv");
         tx = table.getEntry("tx");
-        SmartDashboard.putBoolean("IN RANGE", Math.abs(tx.getDouble(0.0))<15 && tx.getDouble(0.0)!= 0.0 ? true : false);
+        ty = table.getEntry("ty");
     }
 
     public double getTX() {
         updateData();
         return tx.getDouble(0.0);
+    }
+
+    public double getTY() {
+        updateData();
+        return ty.getDouble(0.0);
     }
 
     public double getTA() {
@@ -41,6 +49,14 @@ public class Limelight extends SubsystemBase {
     public double getTV() {
         updateData();
         return tv.getDouble(0.0);
+    }
+    public void getRange(){
+        SmartDashboard.putBoolean("IN RANGE", Math.abs(tx.getDouble(0.0))<15 && tx.getDouble(0.0)!= 0.0 ? true : false);
+    }
+
+    public void getDistance(){
+        distance = (Constants.goalHeight - Constants.camHeight)/Math.tan((Constants.camAngle + getTY()) * (Math.PI / 180.0))/12;
+        SmartDashboard.putNumber("Distance", distance);
     }
 
     public void switchCameraMode(){
