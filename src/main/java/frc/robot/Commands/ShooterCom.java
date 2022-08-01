@@ -18,7 +18,8 @@ public class ShooterCom extends CommandBase{
         boolean controller1_buttonY = Robot.controller1.getButton(Constants.BUTTON_Y);
 
         if(controller1_buttonA == true){
-            Robot.shooter.limelightShoot(Constants.SHOOTER_LOW_SPEED);
+            Robot.shooter.setShooterMotor(Robot.shooter.shooterSpeedAdjust(Robot.limelight.getDistance()));
+            Robot.shooter.limelightTrack();
         }else if(controller1_buttonB == true){
             Robot.shooter.setShooterMotor(Constants.SHOOTER_HI_SPEED);
         }else if(controller1_buttonX == true){

@@ -27,9 +27,8 @@ public class Shooter extends SubsystemBase{
         return outputVoltage;
     }
 
-    public void limelightShoot(double power)
+    public void limelightTrack()
     {
-        shooter.set(shooterSpeedAdjust(Robot.limelight.getDistance()));
         double degOff = Robot.limelight.getTX();
         if(Math.abs(degOff) > 1 && Robot.limelight.getTV() != 0)
         {

@@ -37,6 +37,7 @@ public class AutoCommand {
             Robot.drivetrain.setLeftDrivetrain(-speed);
             Robot.drivetrain.setRightDrivetrain(speed);
             degOff = Robot.limelight.getTX();
+            Robot.shooter.setShooterMotor(Robot.shooter.shooterSpeedAdjust(Robot.limelight.getDistance()));
         }
         Robot.drivetrain.setLeftDrivetrain(0);
         Robot.drivetrain.setRightDrivetrain(0);
