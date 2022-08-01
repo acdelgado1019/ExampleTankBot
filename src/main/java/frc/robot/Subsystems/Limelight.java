@@ -54,9 +54,10 @@ public class Limelight extends SubsystemBase {
         SmartDashboard.putBoolean("IN RANGE", Math.abs(tx.getDouble(0.0))<15 && tx.getDouble(0.0)!= 0.0 ? true : false);
     }
 
-    public void getDistance(){
+    public double getDistance(){
         distance = (Constants.goalHeight - Constants.camHeight)/Math.tan((Constants.camAngle + getTY()) * (Math.PI / 180.0))/12;
         SmartDashboard.putNumber("Distance", distance);
+        return distance;
     }
 
     public void switchCameraMode(){

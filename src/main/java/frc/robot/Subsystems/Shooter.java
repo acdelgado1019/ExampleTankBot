@@ -19,12 +19,17 @@ public class Shooter extends SubsystemBase{
     }
 
     public void setShooterMotor(double speed){
-        shooter.setVoltage(speed);
+        shooter.setVoltage(-speed);
+    }
+
+    public double shooterSpeedAdjust(double distance){
+        double outputVoltage = (4-Math.sqrt(16+0.8*(-3.5-distance)))/0.4;
+        return outputVoltage;
     }
 
     public void limelightShoot(double power)
     {
-        shooter.set(-power);
+        shooter.set(shooterSpeedAdjust(Robot.limelight.getDistance()));
         double degOff = Robot.limelight.getTX();
         if(Math.abs(degOff) > 1 && Robot.limelight.getTV() != 0)
         {
