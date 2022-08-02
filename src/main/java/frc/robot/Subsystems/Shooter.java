@@ -7,7 +7,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
-import frc.robot.Commands.ShooterCom;
+import frc.robot.Commands.ShooterTOCom;
 
 public class Shooter extends SubsystemBase{
     private CANSparkMax shooter;
@@ -45,6 +45,6 @@ public class Shooter extends SubsystemBase{
 
     @Override
     public void periodic(){
-        setDefaultCommand(new ShooterCom());
+        setDefaultCommand(new ShooterTOCom());
     }
 }

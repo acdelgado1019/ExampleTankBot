@@ -4,9 +4,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class ShooterIntakeCom extends CommandBase{
+public class IntakeTOCom extends CommandBase{
 
-    public ShooterIntakeCom(){
+    public IntakeTOCom(){
         addRequirements(Robot.shooterIntake);
     }
 

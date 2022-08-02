@@ -8,7 +8,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Commands.ClimbersCom;
+import frc.robot.Commands.ClimbersTOCom;
 
 public class Climbers extends SubsystemBase{
     private CANSparkMax leftClimber0;
@@ -118,6 +118,6 @@ public class Climbers extends SubsystemBase{
 
     @Override
     public void periodic(){
-        setDefaultCommand(new ClimbersCom());
+        setDefaultCommand(new ClimbersTOCom());
     }
 }

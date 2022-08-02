@@ -11,15 +11,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Autonomous.AutoCommand;
-import frc.robot.Autonomous.OneBallAuto;
-import frc.robot.Autonomous.ThreeBallAuto;
-import frc.robot.Autonomous.TwoBallAuto;
+import frc.robot.Commands.Autonomous.AutoCommand;
+import frc.robot.Commands.Autonomous.PostMove;
+import frc.robot.Commands.Autonomous.PreMove;
 import frc.robot.Subsystems.Climbers;
 import frc.robot.Subsystems.Drivetrain;
 import frc.robot.Subsystems.Limelight;
 import frc.robot.Subsystems.Shooter;
-import frc.robot.Subsystems.ShooterIntake;
+import frc.robot.Subsystems.Intake;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -37,7 +36,7 @@ public class Robot extends TimedRobot {
     Constants.RIGHT_DRIVE_TRAIN_1
   );
   
-  public static final ShooterIntake shooterIntake = new ShooterIntake(
+  public static final Intake shooterIntake = new Intake(
     Constants.HORIZONTAL_INTAKE,
     Constants.TRIGGER,
     Constants.INTAKE_LIFT
@@ -63,12 +62,16 @@ public class Robot extends TimedRobot {
   public static final Controller controller1 = new Controller(Constants.DRIVER_CONTROLLER_1);
 
   //Auto Commands
-  Command autoSequence;
-  private final Command oneBall = new OneBallAuto();
-  private final Command twoBall = new TwoBallAuto();
-  private final Command threeBall = new ThreeBallAuto();
+  public static String autoSequence;
+  public static String team;
+  public static int path = 0;
+  private final String oneBall = "One Ball Auto";
+  private final String twoBall = "Two Ball Auto";
+  private final String threeBall = "Three Ball Auto";
+  private Command preMove;
+  private Command postMove;
   
-  public SendableChooser<Command> m_chooser = new SendableChooser<>();
+  public static SendableChooser<String> m_chooser = new SendableChooser<>();
   public static SendableChooser<String> t_chooser = new SendableChooser<>();
 
   //Field display to Shuffleboard
@@ -96,6 +99,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData(m_chooser);
     SmartDashboard.putData(t_chooser);
     SmartDashboard.putString("System Testing", "NOT TESTED");
+    SmartDashboard.putString("Auto Step", "NOT STARTED");
 
     AutoCommand.getConstraint();
     AutoCommand.getTrajectoryConfig();
@@ -119,6 +123,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+    SmartDashboard.putData(CommandScheduler.getInstance());
     m_field.setRobotPose(drivetrain.odometry.getPoseMeters());
     drivetrain.m_drive.feed();
   }
@@ -127,14 +132,20 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     climbers.resetEncoders();
     shooterIntake.resetEncoder();
+
+    preMove = new PreMove(autoSequence);
+    postMove = new PostMove(autoSequence);
     
-    autoSequence = m_chooser.getSelected();
-    autoSequence.schedule();
+    preMove.schedule();
+    AutoCommand.runRamsete(path).schedule();
+    postMove.schedule();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    
+  }
 
   /** This function is called once when teleop is enabled. */
   @Override
@@ -151,17 +162,19 @@ public class Robot extends TimedRobot {
   /** This function is called periodically when disabled. */
   @Override
   public void disabledPeriodic() {
-    Command chosenRoutine = m_chooser.getSelected();
-    String team = t_chooser.getSelected();
-
-    if (chosenRoutine == twoBall && team == "BLUE"){AutoCommand.getTrajectory(1);}
-    else if (chosenRoutine == threeBall && team == "BLUE"){AutoCommand.getTrajectory(2);}
-    else if (chosenRoutine == twoBall && team == "RED"){AutoCommand.getTrajectory(3);}
-    else if (chosenRoutine == threeBall && team == "RED"){AutoCommand.getTrajectory(4);}
-    else if (chosenRoutine == oneBall && team == "BLUE"){AutoCommand.getTrajectory(5);}
-    else if (chosenRoutine == oneBall && team == "RED"){AutoCommand.getTrajectory(6);}
-      m_field.getObject("traj").setTrajectory(AutoCommand.trajectory);
-      AutoCommand.resetOdometry(AutoCommand.trajectory);
+    autoSequence = m_chooser.getSelected();
+    team = Robot.t_chooser.getSelected();
+    if (team == "RED" && autoSequence == "One Ball Auto"){path = 6;}
+    else if (team == "BLUE" && autoSequence == "One Ball Auto"){path = 5;}
+    else if (team == "RED" && autoSequence == "Three Ball Auto"){path = 4;}
+    else if (team == "RED" && autoSequence == "Two Ball Auto"){path = 3;}
+    else if (team == "BLUE" && autoSequence == "Three Ball Auto"){path = 2;}
+    else if (team == "BLUE" && autoSequence == "Two Ball Auto"){path = 1;}
+    SmartDashboard.putNumber("Path", path);
+    
+    AutoCommand.getTrajectory(path);
+    m_field.getObject("traj").setTrajectory(AutoCommand.trajectory);
+    AutoCommand.resetOdometry(AutoCommand.trajectory);
   }
 
   /** This function is called once when test mode is enabled. */
@@ -258,4 +271,12 @@ public class Robot extends TimedRobot {
     testComplete = true;
     SmartDashboard.putBoolean("Test Complete", testComplete);
   }
+
+  /** This function is called once when the robot is first started up. */
+  @Override
+  public void simulationInit() {}
+
+  /** This function is called periodically whilst in simulation. */
+  @Override
+  public void simulationPeriodic() {}
 }

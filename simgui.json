@@ -32,6 +32,7 @@
       "/FMSInfo": "FMSInfo",
       "/LiveWindow/Climbers": "Subsystem",
       "/LiveWindow/Drivetrain": "Subsystem",
+      "/LiveWindow/Intake": "Subsystem",
       "/LiveWindow/Limelight": "Subsystem",
       "/LiveWindow/Shooter": "Subsystem",
       "/LiveWindow/ShooterIntake": "Subsystem",
@@ -47,8 +48,10 @@
       "/LiveWindow/Ungrouped/PIDController[8]": "PIDController",
       "/LiveWindow/Ungrouped/PWMSparkMax[0]": "Motor Controller",
       "/LiveWindow/Ungrouped/PWMSparkMax[1]": "Motor Controller",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/navX-Sensor[2]": "Gyro",
       "/SmartDashboard/Field": "Field2d",
+      "/SmartDashboard/Scheduler": "Scheduler",
       "/SmartDashboard/SendableChooser[0]": "String Chooser",
       "/SmartDashboard/SendableChooser[1]": "String Chooser"
     },
@@ -59,6 +62,25 @@
         }
       },
       "/SmartDashboard/Field": {
+        "traj": {
+          "length": 0.0,
+          "width": 0.0
+        },
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Scheduler": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/SendableChooser[0]": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/SendableChooser[1]": {
         "window": {
           "visible": true
         }

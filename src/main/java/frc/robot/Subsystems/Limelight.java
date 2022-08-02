@@ -2,7 +2,7 @@ package frc.robot.Subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Commands.LimelightCom;
+import frc.robot.Commands.LimelightTOCom;
 /* LimeLight specific Imports*/
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
@@ -67,7 +67,7 @@ public class Limelight extends SubsystemBase {
 
     @Override
     public void periodic() {
-        setDefaultCommand(new LimelightCom());
+        setDefaultCommand(new LimelightTOCom());
         // This method will be called once per scheduler run
     }
 }

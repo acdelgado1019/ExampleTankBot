@@ -1,4 +1,4 @@
-package frc.robot.Autonomous;
+package frc.robot.Commands.Autonomous;
 
 import java.util.HashMap;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -12,12 +12,12 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import java.util.List;
 import frc.robot.Constants;
 import frc.robot.Robot;
-
 
 public class AutoCommand {
     public static DifferentialDriveVoltageConstraint autoVoltageConstraint;
@@ -97,6 +97,15 @@ public class AutoCommand {
 
     public static void updateEncoderValues() {
         drivetrainEncoderValues = Robot.drivetrain.getEncoderValues();
+    }
+
+    public Integer PathSelect(int red, int blue){
+        SmartDashboard.putString("Auto Step", "Start Auto");
+        String team = Robot.t_chooser.getSelected();
+        int path=0;
+        if (team == "RED"){path = red;}
+        else if (team == "BLUE"){path = blue;};
+        return path;
     }
 
     // Create a voltage constraint to ensure we don't accelerate too fast

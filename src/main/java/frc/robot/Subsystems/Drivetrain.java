@@ -1,7 +1,7 @@
 package frc.robot.Subsystems;
 
 import frc.robot.Constants;
-import frc.robot.Commands.DrivetrainCom;
+import frc.robot.Commands.DrivetrainTOCom;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
@@ -60,7 +60,7 @@ public class Drivetrain extends SubsystemBase{
             leftDrivetrain.getPosition(), 
             rightDrivetrain.getPosition()
         );
-        setDefaultCommand(new DrivetrainCom());
+        setDefaultCommand(new DrivetrainTOCom());
     }
 
     public Pose2d getPose(){

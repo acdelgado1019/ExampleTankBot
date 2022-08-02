@@ -10,10 +10,9 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Commands.ShooterIntakeCom;
+import frc.robot.Commands.IntakeTOCom;
 
-
-public class ShooterIntake extends SubsystemBase{
+public class Intake extends SubsystemBase{
 
     private VictorSPX horizontalIntake;
     private CANSparkMax intakeLift;
@@ -22,7 +21,7 @@ public class ShooterIntake extends SubsystemBase{
 
     private boolean pulsing = false;
 
-    public ShooterIntake (int horIntake, int vertIntake, int inLift) {
+    public Intake (int horIntake, int vertIntake, int inLift) {
         horizontalIntake = new VictorSPX(horIntake);
         trigger = new VictorSPX(vertIntake);
         intakeLift = new CANSparkMax(inLift, MotorType.kBrushless);
@@ -65,6 +64,6 @@ public class ShooterIntake extends SubsystemBase{
 
     @Override
     public void periodic(){
-        setDefaultCommand(new ShooterIntakeCom());
+        setDefaultCommand(new IntakeTOCom());
     }
 }
