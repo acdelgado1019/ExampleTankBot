@@ -31,6 +31,7 @@ public class AutoCommand {
     {
         double degOff = Robot.limelight.getTX();
         Robot.shooter.setShooterMotor(power);
+        Timer.delay(2);
         while(Math.abs(degOff) > 1 && Robot.limelight.getTV() != 0)
         {
             double speed = .15 * degOff/(Math.abs(degOff));
