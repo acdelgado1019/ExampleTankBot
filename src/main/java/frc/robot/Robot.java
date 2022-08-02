@@ -9,11 +9,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Commands.Autonomous.AutoCommand;
-import frc.robot.Commands.Autonomous.PostMove;
-import frc.robot.Commands.Autonomous.PreMove;
+import frc.robot.Commands.AutoMethods;
 import frc.robot.Subsystems.Climbers;
 import frc.robot.Subsystems.Drivetrain;
 import frc.robot.Subsystems.Limelight;
@@ -68,8 +65,10 @@ public class Robot extends TimedRobot {
   private final String oneBall = "One Ball Auto";
   private final String twoBall = "Two Ball Auto";
   private final String threeBall = "Three Ball Auto";
-  private Command preMove;
-  private Command postMove;
+  public Boolean preMoveMode;
+  public Boolean moveMode;
+  public Boolean postMoveMode;
+  public double timeCheck;
   
   public static SendableChooser<String> m_chooser = new SendableChooser<>();
   public static SendableChooser<String> t_chooser = new SendableChooser<>();
@@ -101,12 +100,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("System Testing", "NOT TESTED");
     SmartDashboard.putString("Auto Step", "NOT STARTED");
 
-    AutoCommand.getConstraint();
-    AutoCommand.getTrajectoryConfig();
+    AutoMethods.getConstraint();
+    AutoMethods.getTrajectoryConfig();
       
     // Create and push Field2d to SmartDashboard.
     m_field = new Field2d();
-    logo = new Field2d();
 
     SmartDashboard.putData(m_field);
     SmartDashboard.putData(logo);
@@ -123,7 +121,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    SmartDashboard.putData(CommandScheduler.getInstance());
     m_field.setRobotPose(drivetrain.odometry.getPoseMeters());
     drivetrain.m_drive.feed();
   }
@@ -132,19 +129,68 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     climbers.resetEncoders();
     shooterIntake.resetEncoder();
-
-    preMove = new PreMove(autoSequence);
-    postMove = new PostMove(autoSequence);
-    
-    preMove.schedule();
-    AutoCommand.runRamsete(path).schedule();
-    postMove.schedule();
+    preMoveMode = true;
+    moveMode = false;
+    postMoveMode = false;
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    
+    if (preMoveMode){
+      if (autoSequence == "One Ball Auto"){
+        AutoMethods.timerDrive(0.6, 2);
+        SmartDashboard.putString("Auto Step", "Delay");
+        Timer.delay(0);
+
+        SmartDashboard.putString("Auto Step", "Intake Down");
+        AutoMethods.lowerIntake();
+        SmartDashboard.putString("Auto Step", "Shooting");
+        AutoMethods.limelightShoot(Constants.SHOOTER_HI_SPEED);
+        SmartDashboard.putString("Auto Step", "Run Away");
+      } else if (autoSequence == "Two Ball Auto"){
+        SmartDashboard.putString("Auto Step", "Intake Down");
+        AutoMethods.lowerIntake();
+        SmartDashboard.putString("Auto Step", "Run Intake");
+        AutoMethods.runIntake(Constants.HORIZONTAL_INTAKE_SPEED);
+        SmartDashboard.putString("Auto Step", "Collect");
+      } else if (autoSequence == "Three Ball Auto") {
+        SmartDashboard.putString("Auto Step", "Intake Down");
+        AutoMethods.lowerIntake();
+        SmartDashboard.putString("Auto Step", "Shooting");
+        AutoMethods.limelightShoot(Constants.SHOOTER_HI_SPEED);
+        SmartDashboard.putString("Auto Step", "Run Intake");
+        AutoMethods.runIntake(Constants.HORIZONTAL_INTAKE_SPEED);
+        SmartDashboard.putString("Auto Step", "Collect");
+      }
+      moveMode = true;
+      preMoveMode = false;
+    } else if (moveMode){
+      AutoMethods.runRamsete(path).schedule();
+      postMoveMode = true;
+      moveMode = false;
+      timeCheck = Timer.getFPGATimestamp();
+    } else if (postMoveMode){
+      if(Timer.getFPGATimestamp() - timeCheck > 5){
+        if (autoSequence == "One Ball Auto"){
+          SmartDashboard.putString("Auto Step", "Run Intake");
+          AutoMethods.runIntake(-Constants.HORIZONTAL_INTAKE_SPEED);
+          SmartDashboard.putString("Auto Step", "Rotate");
+          AutoMethods.rotate(1);
+        } else if (autoSequence == "Two Ball Auto"){
+          SmartDashboard.putString("Auto Step", "Stop Intake");
+          AutoMethods.runIntake(0);
+          SmartDashboard.putString("Auto Step", "Shoot");
+          AutoMethods.limelightShoot(Constants.SHOOTER_LOW_SPEED);
+        } else if (autoSequence == "Three Ball Auto") {
+          SmartDashboard.putString("Auto Step", "Stop Intake");
+          AutoMethods.runIntake(0);
+          SmartDashboard.putString("Auto Step", "Shoot");
+          AutoMethods.limelightShoot(Constants.SHOOTER_LOW_SPEED);
+        }
+        postMoveMode = false;
+      }
+    }
   }
 
   /** This function is called once when teleop is enabled. */
@@ -164,17 +210,17 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
     autoSequence = m_chooser.getSelected();
     team = Robot.t_chooser.getSelected();
+
     if (team == "RED" && autoSequence == "One Ball Auto"){path = 6;}
     else if (team == "BLUE" && autoSequence == "One Ball Auto"){path = 5;}
     else if (team == "RED" && autoSequence == "Three Ball Auto"){path = 4;}
     else if (team == "RED" && autoSequence == "Two Ball Auto"){path = 3;}
     else if (team == "BLUE" && autoSequence == "Three Ball Auto"){path = 2;}
     else if (team == "BLUE" && autoSequence == "Two Ball Auto"){path = 1;}
-    SmartDashboard.putNumber("Path", path);
     
-    AutoCommand.getTrajectory(path);
-    m_field.getObject("traj").setTrajectory(AutoCommand.trajectory);
-    AutoCommand.resetOdometry(AutoCommand.trajectory);
+    AutoMethods.getTrajectory(path);
+    m_field.getObject("traj").setTrajectory(AutoMethods.trajectory);
+    AutoMethods.resetOdometry(AutoMethods.trajectory);
   }
 
   /** This function is called once when test mode is enabled. */

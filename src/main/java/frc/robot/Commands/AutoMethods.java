@@ -1,4 +1,4 @@
-package frc.robot.Commands.Autonomous;
+package frc.robot.Commands;
 
 import java.util.HashMap;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -19,7 +19,7 @@ import java.util.List;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class AutoCommand {
+public class AutoMethods {
     public static DifferentialDriveVoltageConstraint autoVoltageConstraint;
     public static TrajectoryConfig config;
     public static Trajectory trajectory;

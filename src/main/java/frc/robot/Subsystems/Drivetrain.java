@@ -6,6 +6,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -80,8 +81,14 @@ public class Drivetrain extends SubsystemBase{
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts){
+        var batteryVoltage = RobotController.getBatteryVoltage();
+        if (Math.max(Math.abs(leftVolts), Math.abs(rightVolts)) > batteryVoltage) {
+          leftVolts *= batteryVoltage / 12.0;
+          rightVolts *= batteryVoltage / 12.0;
+        }
         m_leftMotors.setVoltage(leftVolts);
         m_rightMotors.setVoltage(rightVolts);
+        m_drive.feed();
     }
 
     public void resetEncoders() {
