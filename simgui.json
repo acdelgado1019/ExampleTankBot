@@ -62,10 +62,18 @@
         }
       },
       "/SmartDashboard/Field": {
+        "image": "/Users/antoniosave/Downloads/2022_Field_Crop_White.png",
         "traj": {
+          "color": [
+            255.0,
+            240.0,
+            0.0,
+            255.0
+          ],
           "length": 0.0,
-          "width": 0.0
+          "width": 0.03999999910593033
         },
+        "width": 16.5,
         "window": {
           "visible": true
         }
@@ -117,5 +125,8 @@
     "SmartDashboard": {
       "open": true
     }
+  },
+  "NetworkTables View": {
+    "visible": false
   }
 }

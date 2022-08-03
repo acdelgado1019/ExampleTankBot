@@ -188,9 +188,9 @@ public class AutoMethods {
             // Start at the origin facing goal
             new Pose2d(5.9, 4.1, new Rotation2d(0)),
             // Pass through ball 2 and 3
-            List.of(new Translation2d(4, 3.3), new Translation2d(1.5, 5)),
+            List.of(new Translation2d(4.5, 3.3), new Translation2d(4.5, 3.5)),
             // Turn to goal and come in range
-            new Pose2d(1.5, 6, new Rotation2d(Math.PI/2)),
+            new Pose2d(5.5, 3.9, new Rotation2d(Math.PI/8)),
             // Pass config
             config);
         } else if (path == 6){
@@ -199,9 +199,9 @@ public class AutoMethods {
             // Start at the origin facing goal
             new Pose2d(10.55, 4.1, new Rotation2d(Math.PI)),
             // Pass through ball 2 and 3
-            List.of(new Translation2d(12.5, 5.0), new Translation2d(14.5, 4)),
+            List.of(new Translation2d(12.1, 5.0), new Translation2d(12.1, 4.8)),
             // Turn to goal and come in range
-            new Pose2d(14.5, 2, new Rotation2d(-Math.PI/2)),
+            new Pose2d(10.55, 4.1, new Rotation2d(9*Math.PI/8)),
             // Pass config
             config);
         }
