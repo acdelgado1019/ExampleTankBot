@@ -142,66 +142,66 @@ public class AutoMethods {
             trajectory =
             TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing ball
-            new Pose2d(6.1, 5.1, new Rotation2d(136.5*Math.PI*2/360)),
+            new Pose2d(6.1, 5.2, new Rotation2d(136.5*Math.PI*2/360)),
             // pass through ball location
             List.of(new Translation2d(4.5, 6.7), new Translation2d(5, 7.2)),
             // Loop back around, facing goal
-            new Pose2d(6.1, 6.2, new Rotation2d(-43.5*Math.PI*2/360)),
+            new Pose2d(6.1, 6.2, new Rotation2d(-50*Math.PI*2/360)),
             // Pass config
             config);
         } else if (path == 2){
             trajectory =
             TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing goal
-            new Pose2d(8, 1.9, new Rotation2d(80*Math.PI*2/360)),
+            new Pose2d(7.8, 1.9, new Rotation2d(80*Math.PI*2/360)),
             // Pass through ball 2 and 3
-            List.of(new Translation2d(7.6, 0.6), new Translation2d(5.3, 1.8)),
+            List.of(new Translation2d(7.7, 0.7), new Translation2d(5.1, 1.8)),
             // Turn to goal and come in range
-            new Pose2d(5.6, 2.1, new Rotation2d(-320*Math.PI*2/360)),
+            new Pose2d(5.5, 2.2, new Rotation2d(-325*Math.PI*2/360)),
             // Pass config
             config);
         } else if (path == 3){
             trajectory =
             TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing ball
-            new Pose2d(10.4, 3.2, new Rotation2d(-43.5*Math.PI*2/360)),
+            new Pose2d(10.4, 3.0, new Rotation2d(-43.5*Math.PI*2/360)),
             // pass through ball location
             List.of(new Translation2d(12, 1.5), new Translation2d(11.5, 1)),
             // Loop back around, facing goal
-            new Pose2d(10.5, 1.8, new Rotation2d(136.5*Math.PI*2/360)),
+            new Pose2d(10.5, 1.8, new Rotation2d(130.5*Math.PI*2/360)),
             // Pass config
             config);
         } else if (path == 4){
             trajectory =
             TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing goal
-            new Pose2d(8.6, 6.4, new Rotation2d(-100*Math.PI*2/360)),
+            new Pose2d(8.75, 6.4, new Rotation2d(-100*Math.PI*2/360)),
             // Pass through ball 2 and 3
-            List.of(new Translation2d(8.8, 7.6), new Translation2d(11.3, 6.6)),
+            List.of(new Translation2d(8.7, 7.5), new Translation2d(11.3, 6.6)),
             // Turn to goal and come in range
-            new Pose2d(11, 6.3, new Rotation2d(-140*Math.PI*2/360)),
+            new Pose2d(11, 6.3, new Rotation2d(-145*Math.PI*2/360)),
             // Pass config
             config);
         } else if (path == 5){
             trajectory =
             TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing goal
-            new Pose2d(6, 4.2, new Rotation2d(0)),
+            new Pose2d(5.9, 4.1, new Rotation2d(0)),
             // Pass through ball 2 and 3
-            List.of(new Translation2d(4, 3.4), new Translation2d(1.5, 5)),
+            List.of(new Translation2d(4, 3.3), new Translation2d(1.5, 5)),
             // Turn to goal and come in range
-            new Pose2d(1.5, 7, new Rotation2d(Math.PI/2)),
+            new Pose2d(1.5, 6, new Rotation2d(Math.PI/2)),
             // Pass config
             config);
-        } else {
+        } else if (path == 6){
             trajectory =
             TrajectoryGenerator.generateTrajectory(
             // Start at the origin facing goal
-            new Pose2d(10.5, 4.2, new Rotation2d(Math.PI)),
+            new Pose2d(10.55, 4.1, new Rotation2d(Math.PI)),
             // Pass through ball 2 and 3
-            List.of(new Translation2d(12.5, 5.2), new Translation2d(14.5, 4)),
+            List.of(new Translation2d(12.5, 5.0), new Translation2d(14.5, 4)),
             // Turn to goal and come in range
-            new Pose2d(14.5, 1, new Rotation2d(-Math.PI/2)),
+            new Pose2d(14.5, 2, new Rotation2d(-Math.PI/2)),
             // Pass config
             config);
         }
