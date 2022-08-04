@@ -23,8 +23,6 @@ public class DrivetrainTOCom extends CommandBase{
         // Calculate values to set motors
         leftMotorSet = ((controller0_leftStickY - (Constants.LEFT_RIGHT_TRIM + (controller0_rightStickX * Constants.MAX_TURN_SPEED))) * Constants.MAX_DRIVE_SPEED);
         rightMotorSet = ((controller0_leftStickY + (Constants.LEFT_RIGHT_TRIM + (controller0_rightStickX * Constants.MAX_TURN_SPEED))) * Constants.MAX_DRIVE_SPEED);
-        SmartDashboard.putNumber("LMS", leftMotorSet);
-        SmartDashboard.putNumber("RMS", rightMotorSet);
 
         //Set motors
         Robot.drivetrain.setLeftDrivetrain(leftMotorSet);

@@ -95,13 +95,21 @@ public class Constants {
         public static final double m_armReduction = 30;
         public static final double m_armMass = 5.2; // Kilograms
         public static final double m_armLength = Units.inchesToMeters(40);
-        public static final double kArmEncoderDistPerPulse = 2.0 * Math.PI / 4000;
-        public static final String kLArmPositionKey = "LArmPosition";
-        public static final String kLArmPKey = "LArmP";
-        public static final String kRArmPositionKey = "RArmPosition";
-        public static final String kRArmPKey = "RArmP";
+        public static final double kRotatorEncoderDistPerPulse = 2.0 * Math.PI / m_armReduction;
         public static double kLArmKp = 50;
         public static double LarmPositionDeg = Units.degreesToRadians(-26.0);
         public static double kRArmKp = 50;
         public static double RarmPositionDeg = Units.degreesToRadians(26.0);
+
+    //Intake Lift Constants
+        public static final double m_IntakeLiftReduction = 125;
+        public static final double m_IntakeLiftMass = 8; // Kilograms
+        public static final double m_IntakeLiftLength = Units.inchesToMeters(40);
+        public static final double kIntakeLiftEncoderDistPerPulse = 2.0 * Math.PI / m_IntakeLiftReduction;
+
+        // The P gain for the PID controller that drives this Lift.
+        public static double kIntakeLiftKp = 5;
+        public static double hiILPositionDeg = Units.degreesToRadians(-10);
+        public static double midILPositionDeg = Units.degreesToRadians(-50);
+        public static double loILPositionDeg = Units.degreesToRadians(-80);
 }

@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,6 +19,8 @@ public class Intake extends SubsystemBase{
     private CANSparkMax intakeLift;
     private RelativeEncoder intakeLiftEncoder;
     private VictorSPX trigger;
+    public final PIDController Lift_controller = new PIDController(Constants.kIntakeLiftKp, 0, 0);
+
 
     private boolean pulsing = false;
 
@@ -26,6 +29,7 @@ public class Intake extends SubsystemBase{
         trigger = new VictorSPX(vertIntake);
         intakeLift = new CANSparkMax(inLift, MotorType.kBrushless);
         intakeLiftEncoder = intakeLift.getEncoder();
+        intakeLiftEncoder.setPositionConversionFactor(Constants.kIntakeLiftEncoderDistPerPulse);
     }
 
     public void setHorizontalIntake(double speed) {
@@ -36,8 +40,8 @@ public class Intake extends SubsystemBase{
         trigger.set(ControlMode.PercentOutput, speed);
     }
 
-    public void setIntakeLift(double speed){
-        intakeLift.set(-speed);
+    public void setIntakeLift(double voltage){
+        intakeLift.setVoltage(voltage);
     }
 
     public void pulse(){
@@ -60,6 +64,10 @@ public class Intake extends SubsystemBase{
 
     public void resetEncoder(){
         intakeLiftEncoder.setPosition(0.0);
+    }
+
+    public double getEncoder(){
+        return intakeLiftEncoder.getPosition();
     }
 
     @Override

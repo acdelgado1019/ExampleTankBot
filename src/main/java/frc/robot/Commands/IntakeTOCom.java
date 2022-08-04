@@ -25,8 +25,21 @@ public class IntakeTOCom extends CommandBase{
         boolean controller1_rightTrigger = Robot.controller1.getTrigger(Constants.RIGHT_TRIGGER);
 
         Robot.shooterIntake.setHorizontalIntake(controller0_leftTrigger ? Constants.HORIZONTAL_INTAKE_SPEED : (controller0_leftBumper ? -Constants.HORIZONTAL_INTAKE_SPEED : 0));
-        Robot.shooterIntake.setIntakeLift(controller1_rightBumper ? Constants.INTAKE_LIFT_SPEED : (controller1_rightTrigger ? -Constants.INTAKE_LIFT_SPEED : 0));
         
+        if (controller0_rightBumper){
+            var pidOutput =
+                Robot.shooterIntake.Lift_controller.calculate(Robot.shooterIntake.getEncoder(), Constants.hiILPositionDeg);
+            Robot.shooterIntake.setIntakeLift(pidOutput);
+        } else if(controller0_rightTrigger){
+            var pidOutput =
+                Robot.shooterIntake.Lift_controller.calculate(Robot.shooterIntake.getEncoder(), Constants.midILPositionDeg);
+            Robot.shooterIntake.setIntakeLift(pidOutput);
+        } else{
+            var pidOutput =
+                Robot.shooterIntake.Lift_controller.calculate(Robot.shooterIntake.getEncoder(), Constants.loILPositionDeg);
+            Robot.shooterIntake.setIntakeLift(pidOutput);
+        }   
+
         if (controller0_rightBumper){
             Robot.shooterIntake.pulse();
         } else if (controller0_rightTrigger){

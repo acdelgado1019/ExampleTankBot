@@ -64,6 +64,9 @@ public class Climbers extends SubsystemBase{
         leftClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
         rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 270);
         rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
+
+        rightRotateEncoder.setPositionConversionFactor(Constants.kRotatorEncoderDistPerPulse);
+        leftRotateEncoder.setPositionConversionFactor(Constants.kRotatorEncoderDistPerPulse);  
     }
 
     public void setLeftClimber(double speed){
