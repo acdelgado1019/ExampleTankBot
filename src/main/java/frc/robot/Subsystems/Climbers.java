@@ -5,6 +5,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -108,10 +109,10 @@ public class Climbers extends SubsystemBase{
 
     public void updateDashboard()
     {
-        SmartDashboard.putNumber("Right Climber Position ", climberEncoderRight.getPosition());
-        SmartDashboard.putNumber("Left Climber Position ", climberEncoderLeft.getPosition());
-        SmartDashboard.putNumber("Left Rotator Position ", -leftRotateEncoder.getPosition());
-        SmartDashboard.putNumber("Right Rotator Position ", rightRotateEncoder.getPosition());
+        SmartDashboard.putNumber("Right Climber Position ", climberEncoderRight.getPosition()/8);
+        SmartDashboard.putNumber("Left Climber Position ", climberEncoderLeft.getPosition()/8);
+        SmartDashboard.putNumber("Left Rotator Position ", -Units.radiansToDegrees(leftRotateEncoder.getPosition()));
+        SmartDashboard.putNumber("Right Rotator Position ", Units.radiansToDegrees(rightRotateEncoder.getPosition()));
         SmartDashboard.putBoolean("Climber Mode", climbMode);
     }
 
