@@ -1,13 +1,13 @@
 package frc.robot.Subsystems;
 
-import java.util.HashMap;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Commands.ClimbersTOCom;
 
 public class Climbers extends SubsystemBase{
@@ -22,6 +22,8 @@ public class Climbers extends SubsystemBase{
     private RelativeEncoder climberEncoderLeft;
     private RelativeEncoder leftRotateEncoder;
     private boolean climbMode = false;
+    public final PIDController L_controller = new PIDController(Constants.kLArmKp, 0, 0);
+    public final PIDController R_controller = new PIDController(Constants.kRArmKp, 0, 0);
 
 
     public Climbers(int climberL0, int climberL1, int climberLR, int climberR0, int climberR1, int climberRR) {
@@ -64,15 +66,6 @@ public class Climbers extends SubsystemBase{
         rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
     }
 
-    public HashMap<String, Double> getEncoderValues() {
-        HashMap<String, Double> encoderMap =  new HashMap<String, Double>();
-        encoderMap.put("leftClimberEncoder", climberEncoderLeft.getPosition());
-        encoderMap.put("rightClimberEncoder", climberEncoderRight.getPosition());
-        encoderMap.put("leftRotationEncoder", leftRotateEncoder.getPosition());
-        encoderMap.put("rightRotationEncoder", rightRotateEncoder.getPosition());
-        return encoderMap;
-    }
-
     public void setLeftClimber(double speed){
         leftClimber0.set(-speed);
         leftClimber1.set(-speed);
@@ -83,14 +76,20 @@ public class Climbers extends SubsystemBase{
         rightClimber1.set(-speed);
     }
 
-    public void setClimberRotation(double speed)
-    {
-        leftClimberRotate.set(-speed);
-        rightClimberRotate.set(speed);
+    public void setLeftClimberRotation(double voltage){
+        leftClimberRotate.setVoltage(voltage);
+    }
+
+    public void setRightClimberRotation(double voltage){
+        rightClimberRotate.setVoltage(voltage);
     }
 
     public void setClimbMode(){
-        climbMode = !climbMode;
+        climbMode = true;
+    }
+
+    public void resetClimbMode(){
+        climbMode = false;
     }
 
     public boolean getClimbMode(){
@@ -108,12 +107,17 @@ public class Climbers extends SubsystemBase{
     {
         SmartDashboard.putNumber("Right Climber Position ", climberEncoderRight.getPosition());
         SmartDashboard.putNumber("Left Climber Position ", climberEncoderLeft.getPosition());
-        SmartDashboard.putNumber("Left Rotator Position ", leftRotateEncoder.getPosition());
+        SmartDashboard.putNumber("Left Rotator Position ", -leftRotateEncoder.getPosition());
         SmartDashboard.putNumber("Right Rotator Position ", rightRotateEncoder.getPosition());
+        SmartDashboard.putBoolean("Climber Mode", climbMode);
     }
 
     public double getRightEncoder(){
         return rightRotateEncoder.getPosition();
+    }
+
+    public double getLeftEncoder(){
+        return leftRotateEncoder.getPosition();
     }
 
     @Override

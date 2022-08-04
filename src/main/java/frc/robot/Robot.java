@@ -97,7 +97,6 @@ public class Robot extends TimedRobot {
     // Put the choosers on the dashboard
     SmartDashboard.putData(m_chooser);
     SmartDashboard.putData(t_chooser);
-    SmartDashboard.putString("System Testing", "NOT TESTED");
     SmartDashboard.putString("Auto Step", "NOT STARTED");
 
     AutoMethods.getConstraint();
@@ -107,8 +106,6 @@ public class Robot extends TimedRobot {
     m_field = new Field2d();
 
     SmartDashboard.putData(m_field);
-    SmartDashboard.putData(logo);
-    SmartDashboard.putBoolean("Test Complete", testComplete);
   }
 
   /**
@@ -137,6 +134,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    climbers.setLeftClimberRotation(-0.5);
+    climbers.setRightClimberRotation(0.5);
     if (preMoveMode){
       if (autoSequence == "One Ball Auto"){
         AutoMethods.timerDrive(0.6, 2);
@@ -233,89 +232,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
-    if (!testComplete){
-      //Intake Lift Test
-      SmartDashboard.putString("System Testing", "INTAKE LIFT");
-      shooterIntake.setIntakeLift(-Constants.INTAKE_LIFT_SPEED);
-      Timer.delay(2);
-      shooterIntake.setIntakeLift(0);
-      Timer.delay(2);
-      shooterIntake.setIntakeLift(Constants.INTAKE_LIFT_SPEED);
-      Timer.delay(2);
-      shooterIntake.setIntakeLift(0);
-
-      //Intake Test
-      SmartDashboard.putString("System Testing", "INTAKE");
-      shooterIntake.setHorizontalIntake(-Constants.HORIZONTAL_INTAKE_SPEED);
-      Timer.delay(1);
-      shooterIntake.setHorizontalIntake(0);
-      Timer.delay(0.5);
-      shooterIntake.setHorizontalIntake(Constants.HORIZONTAL_INTAKE_SPEED);
-      Timer.delay(1);
-      shooterIntake.setHorizontalIntake(0);
-
-      //Trigger Test
-      SmartDashboard.putString("System Testing", "TRIGGER");
-      shooterIntake.setTrigger(-Constants.TRIGGER_SPEED);
-      Timer.delay(1);
-      shooterIntake.setTrigger(0);
-      Timer.delay(0.5);
-      shooterIntake.setTrigger(Constants.TRIGGER_SPEED);
-      Timer.delay(1);
-      shooterIntake.setTrigger(0);
-
-      //Shooter Test
-      SmartDashboard.putString("System Testing", "SHOOTER");
-      shooter.setShooterMotor(-Constants.SHOOTER_IDLE_SPEED);
-      Timer.delay(2);
-      shooter.setShooterMotor(-Constants.SHOOTER_LOW_SPEED);
-      Timer.delay(2);
-      shooter.setShooterMotor(-Constants.SHOOTER_MID_SPEED);
-      Timer.delay(2);
-      shooter.setShooterMotor(-Constants.SHOOTER_HI_SPEED);
-      Timer.delay(2);
-      shooter.setShooterMotor(0);
-
-      //Climber Rotate Test
-      SmartDashboard.putString("System Testing", "CLIMBER ROT");
-      climbers.setClimberRotation(Constants.CLIMBER_ROTATION_STATIC);
-      Timer.delay(2);
-      climbers.setClimberRotation(-Constants.CLIMBER_ROTATION_SPEED);
-      Timer.delay(2);
-      climbers.setClimberRotation(0);
-      Timer.delay(0.5);
-      climbers.setClimberRotation(Constants.CLIMBER_ROTATION_SPEED);
-      Timer.delay(2);
-      climbers.setClimberRotation(0);
-
-      //Climber Rotate Test
-      SmartDashboard.putString("System Testing", "CLIMBER EXT");
-      climbers.setLeftClimber(1);
-      climbers.setRightClimber(1);
-      Timer.delay(2);
-      climbers.setLeftClimber(-1);
-      climbers.setRightClimber(-1);
-      Timer.delay(2);
-      climbers.setLeftClimber(0);
-      climbers.setRightClimber(0);
-
-      //Drivetrain Test
-      SmartDashboard.putString("System Testing", "DRIVETRAIN");
-      drivetrain.setLeftDrivetrain(Constants.MAX_DRIVE_SPEED);
-      Timer.delay(1);
-      drivetrain.setRightDrivetrain(Constants.MAX_DRIVE_SPEED);
-      drivetrain.setLeftDrivetrain(0);
-      Timer.delay(1);
-      drivetrain.setRightDrivetrain(0);
-      drivetrain.setLeftDrivetrain(-Constants.MAX_DRIVE_SPEED);
-      Timer.delay(1);
-      drivetrain.setRightDrivetrain(-Constants.MAX_DRIVE_SPEED);
-      Timer.delay(1);
-      drivetrain.setRightDrivetrain(0);
-    }
-    SmartDashboard.putString("System Testing", "COMPLETE");
-    testComplete = true;
-    SmartDashboard.putBoolean("Test Complete", testComplete);
   }
 
   /** This function is called once when the robot is first started up. */

@@ -28,12 +28,28 @@ public class ClimbersTOCom extends CommandBase{
             Robot.climbers.setClimbMode();
             Robot.climbers.setLeftClimber(1);
             Robot.climbers.setRightClimber(1);
+        } else if (Robot.controller1.getButton(Constants.BUTTON_START)){
+            Robot.climbers.resetClimbMode();
         } else {
             Robot.climbers.setLeftClimber(controller1_leftJoystickY);
             Robot.climbers.setRightClimber(controller1_rightJoystickY);
         }
 
-        Robot.climbers.setClimberRotation(controller1_dpad == 180 ? Constants.CLIMBER_ROTATION_SPEED : (controller1_dpad == 0 ? -Constants.CLIMBER_ROTATION_SPEED : Constants.CLIMBER_ROTATION_STATIC));
+        if (controller1_dpad == 180){
+            var lPIDOutput =
+                Robot.climbers.L_controller.calculate(Robot.climbers.getLeftEncoder(), Constants.LarmPositionDeg);
+            Robot.climbers.setLeftClimberRotation(lPIDOutput);
+            var rPIDOutput =
+                Robot.climbers.R_controller.calculate(Robot.climbers.getRightEncoder(), Constants.RarmPositionDeg);
+            Robot.climbers.setRightClimberRotation(rPIDOutput);
+        } else {
+            var lPIDOutput =
+                Robot.climbers.L_controller.calculate(Robot.climbers.getLeftEncoder(), 0);
+            Robot.climbers.setLeftClimberRotation(lPIDOutput);
+            var rPIDOutput =
+                Robot.climbers.R_controller.calculate(Robot.climbers.getRightEncoder(), 0);
+            Robot.climbers.setRightClimberRotation(rPIDOutput);
+        }
         Robot.climbers.updateDashboard();
     }
 }

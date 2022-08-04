@@ -90,4 +90,18 @@ public class Constants {
         public static final double camHeight = 40;
         public static final double goalHeight = 102.5;
         public static final double camAngle = 15;
+
+    //Climber Constants
+        public static final double m_armReduction = 30;
+        public static final double m_armMass = 5.2; // Kilograms
+        public static final double m_armLength = Units.inchesToMeters(40);
+        public static final double kArmEncoderDistPerPulse = 2.0 * Math.PI / 4000;
+        public static final String kLArmPositionKey = "LArmPosition";
+        public static final String kLArmPKey = "LArmP";
+        public static final String kRArmPositionKey = "RArmPosition";
+        public static final String kRArmPKey = "RArmP";
+        public static double kLArmKp = 50;
+        public static double LarmPositionDeg = Units.degreesToRadians(-26.0);
+        public static double kRArmKp = 50;
+        public static double RarmPositionDeg = Units.degreesToRadians(26.0);
 }
