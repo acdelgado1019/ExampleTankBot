@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.Commands.IntakeTOCom;
 
 public class Intake extends SubsystemBase{
@@ -20,7 +21,6 @@ public class Intake extends SubsystemBase{
     private RelativeEncoder intakeLiftEncoder;
     private VictorSPX trigger;
     public final PIDController Lift_controller = new PIDController(Constants.kIntakeLiftKp, 0, 0);
-
 
     private boolean pulsing = false;
 
@@ -50,7 +50,10 @@ public class Intake extends SubsystemBase{
         }
         if (Timer.getFPGATimestamp() % 1 > 0.5){
             setTrigger(Constants.TRIGGER_SPEED);
-        } else {setTrigger(0);}
+            Robot.ledStrip.solid(60);
+        } else {
+            setTrigger(0);
+            Robot.ledStrip.solid(90);}
         SmartDashboard.putBoolean("Firing", (Timer.getFPGATimestamp() % 1)<0.5);
     }
 

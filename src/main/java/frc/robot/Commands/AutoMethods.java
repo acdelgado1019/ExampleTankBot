@@ -27,11 +27,9 @@ public class AutoMethods {
 
     private static HashMap<String, Double> drivetrainEncoderValues;
 
-    public static void limelightShoot(double power)
+    public static void limelightShoot()
     {
         double degOff = Robot.limelight.getTX();
-        Robot.shooter.setShooterMotor(power);
-        Timer.delay(2);
         while(Math.abs(degOff) > 1 && Robot.limelight.getTV() != 0)
         {
             double speed = .15 * degOff/(Math.abs(degOff));
@@ -42,7 +40,7 @@ public class AutoMethods {
         }
         Robot.drivetrain.setLeftDrivetrain(0);
         Robot.drivetrain.setRightDrivetrain(0);
-        Timer.delay(1);
+        Timer.delay(2);
         Robot.shooterIntake.pulse();
         Timer.delay(.5);
         Robot.shooterIntake.stopPulse();

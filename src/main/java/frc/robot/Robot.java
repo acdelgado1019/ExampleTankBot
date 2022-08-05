@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -16,6 +17,7 @@ import frc.robot.Subsystems.Drivetrain;
 import frc.robot.Subsystems.Limelight;
 import frc.robot.Subsystems.Shooter;
 import frc.robot.Subsystems.Intake;
+import frc.robot.Subsystems.LEDs;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -53,6 +55,8 @@ public class Robot extends TimedRobot {
   );
   
   public static final Limelight limelight = new Limelight();
+
+  public static final LEDs ledStrip = new LEDs(4,10);
 
   //Controllers
   public static final Controller controller0 = new Controller(Constants.DRIVER_CONTROLLER_0);
@@ -124,6 +128,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    Constants.teamColor = DriverStation.getAlliance().toString();
     climbers.resetEncoders();
     shooterIntake.resetEncoder();
     preMoveMode = true;
@@ -138,14 +143,13 @@ public class Robot extends TimedRobot {
     climbers.setRightClimberRotation(0.5);
     if (preMoveMode){
       if (autoSequence == "One Ball Auto"){
-        AutoMethods.timerDrive(0.6, 2);
         SmartDashboard.putString("Auto Step", "Delay");
         Timer.delay(0);
 
         SmartDashboard.putString("Auto Step", "Intake Down");
         AutoMethods.lowerIntake();
         SmartDashboard.putString("Auto Step", "Shooting");
-        AutoMethods.limelightShoot(Constants.SHOOTER_HI_SPEED);
+        AutoMethods.limelightShoot();
         SmartDashboard.putString("Auto Step", "Run Away");
       } else if (autoSequence == "Two Ball Auto"){
         SmartDashboard.putString("Auto Step", "Intake Down");
@@ -157,7 +161,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putString("Auto Step", "Intake Down");
         AutoMethods.lowerIntake();
         SmartDashboard.putString("Auto Step", "Shooting");
-        AutoMethods.limelightShoot(Constants.SHOOTER_HI_SPEED);
+        AutoMethods.limelightShoot();
         SmartDashboard.putString("Auto Step", "Run Intake");
         AutoMethods.runIntake(Constants.HORIZONTAL_INTAKE_SPEED);
         SmartDashboard.putString("Auto Step", "Collect");
@@ -180,12 +184,12 @@ public class Robot extends TimedRobot {
           SmartDashboard.putString("Auto Step", "Stop Intake");
           AutoMethods.runIntake(0);
           SmartDashboard.putString("Auto Step", "Shoot");
-          AutoMethods.limelightShoot(Constants.SHOOTER_LOW_SPEED);
+          AutoMethods.limelightShoot();
         } else if (autoSequence == "Three Ball Auto") {
           SmartDashboard.putString("Auto Step", "Stop Intake");
           AutoMethods.runIntake(0);
           SmartDashboard.putString("Auto Step", "Shoot");
-          AutoMethods.limelightShoot(Constants.SHOOTER_LOW_SPEED);
+          AutoMethods.limelightShoot();
         }
         postMoveMode = false;
       }
@@ -194,7 +198,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {Constants.teamColor = DriverStation.getAlliance().toString();}
 
   /** This function is called periodically during operator control. */
   @Override
@@ -220,6 +224,7 @@ public class Robot extends TimedRobot {
     AutoMethods.getTrajectory(path);
     m_field.getObject("traj").setTrajectory(AutoMethods.trajectory);
     AutoMethods.resetOdometry(AutoMethods.trajectory);
+    ledStrip.rainbow();
   }
 
   /** This function is called once when test mode is enabled. */

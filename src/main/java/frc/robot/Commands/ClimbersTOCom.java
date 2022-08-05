@@ -50,6 +50,8 @@ public class ClimbersTOCom extends CommandBase{
                 Robot.climbers.R_controller.calculate(Robot.climbers.getRightEncoder(), 0);
             Robot.climbers.setRightClimberRotation(rPIDOutput);
         }
+
+        if (Robot.climbers.getClimbMode()){Robot.ledStrip.rainbow();}
         Robot.climbers.updateDashboard();
     }
 }

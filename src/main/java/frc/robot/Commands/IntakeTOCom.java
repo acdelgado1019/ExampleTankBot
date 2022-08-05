@@ -40,11 +40,13 @@ public class IntakeTOCom extends CommandBase{
             Robot.shooterIntake.setIntakeLift(pidOutput);
         }   
 
-        if (controller0_rightBumper){
+        if (controller1_rightBumper){
             Robot.shooterIntake.pulse();
-        } else if (controller0_rightTrigger){
+            Robot.ledStrip.solid(30);
+        } else if (controller1_rightTrigger){
             Robot.shooterIntake.setTrigger(-Constants.TRIGGER_SPEED);
             Robot.shooterIntake.stopPulse();
+            Robot.ledStrip.teamColor(Constants.teamColor);
         } else {
             Robot.shooterIntake.setTrigger(0);
             Robot.shooterIntake.stopPulse();
