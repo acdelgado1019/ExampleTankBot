@@ -23,8 +23,8 @@ public class Climbers extends SubsystemBase{
     private RelativeEncoder climberEncoderLeft;
     private RelativeEncoder leftRotateEncoder;
     private boolean climbMode = false;
-    public final PIDController L_controller = new PIDController(Constants.kLArmKp, 0, 0);
-    public final PIDController R_controller = new PIDController(Constants.kRArmKp, 0, 0);
+    public final PIDController L_controller = new PIDController(Constants.kLRotatorKp, 0, 0);
+    public final PIDController R_controller = new PIDController(Constants.kRRotatorKp, 0, 0);
 
 
     public Climbers(int climberL0, int climberL1, int climberLR, int climberR0, int climberR1, int climberRR) {
@@ -40,10 +40,15 @@ public class Climbers extends SubsystemBase{
         rightRotateEncoder = rightClimberRotate.getEncoder();
         leftRotateEncoder = leftClimberRotate.getEncoder();
 
-        // leftClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward,true);
-        // leftClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse,true);
-        // rightClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward,true);
-        // rightClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse,true);
+        rightRotateEncoder.setPositionConversionFactor(Constants.kRotatorEncoderDistPerPulse);
+        leftRotateEncoder.setPositionConversionFactor(Constants.kRotatorEncoderDistPerPulse);  
+        climberEncoderRight.setPositionConversionFactor(Constants.kRotatorEncoderDistPerPulse);
+        climberEncoderLeft.setPositionConversionFactor(Constants.kClimberEncoderDistPerPulse); 
+
+        leftClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward,true);
+        leftClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse,true);
+        rightClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward,true);
+        rightClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse,true);
 
         leftClimber0.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
         leftClimber1.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
@@ -54,8 +59,10 @@ public class Climbers extends SubsystemBase{
         rightClimber0.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
         rightClimber1.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
-        // leftClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) -4);
-        // rightClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 4);
+        leftClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) -4);
+        rightClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 4);
+        leftClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 0);
+        rightClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) 0);
 
         leftClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 270);
         leftClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
@@ -65,9 +72,6 @@ public class Climbers extends SubsystemBase{
         leftClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
         rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 270);
         rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
-
-        rightRotateEncoder.setPositionConversionFactor(Constants.kRotatorEncoderDistPerPulse);
-        leftRotateEncoder.setPositionConversionFactor(Constants.kRotatorEncoderDistPerPulse);  
     }
 
     public void setLeftClimber(double speed){
@@ -78,6 +82,13 @@ public class Climbers extends SubsystemBase{
     public void setRightClimber(double speed){
         rightClimber0.set(-speed);
         rightClimber1.set(-speed);
+    }
+
+    public void setClimberRotation(double setpoint){
+        var lPIDOutput = L_controller.calculate(getLeftEncoder(), -setpoint);
+        setLeftClimberRotation(lPIDOutput);
+        var rPIDOutput = R_controller.calculate(getRightEncoder(), setpoint);
+        setRightClimberRotation(rPIDOutput);
     }
 
     public void setLeftClimberRotation(double voltage){

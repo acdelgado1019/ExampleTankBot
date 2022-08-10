@@ -2,8 +2,7 @@ package frc.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.simulation.AddressableLEDSim;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LEDs extends SubsystemBase{
@@ -12,6 +11,7 @@ public class LEDs extends SubsystemBase{
 
     // Store what the last hue of the first pixel is
     private int m_rainbowFirstPixelHue;
+    private int m_mardiGrasStartPoint;
 
     //Shooter constructor - creates a shooter in robot memory
     public LEDs(int pwmPort, int bufferSize){
@@ -43,6 +43,25 @@ public class LEDs extends SubsystemBase{
         update();
     }
 
+    public void mardiGras() {
+      int val;
+      if(Timer.getFPGATimestamp()*100%20>18){
+        // For every pixel
+        for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+          final var hue = (int)(30*Math.exp((m_mardiGrasStartPoint+i)%3)-10*(Math.exp((m_mardiGrasStartPoint+i)%3)-1));
+          if (hue>100){val = 200;}
+          else {val = 255;}
+          // Set the value
+          m_ledBuffer.setHSV(i, hue, 255, val);
+        }
+      }
+      // Increase by to make the colors "move"
+      m_mardiGrasStartPoint += 1;
+      // Check bounds
+      m_mardiGrasStartPoint %= 3;
+      update();
+    }
+
     public void solid(int hue) {
         // For every pixel
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
@@ -60,5 +79,15 @@ public class LEDs extends SubsystemBase{
           m_ledBuffer.setHSV(i, hue, 255, 255);
         }
         update();
+    }
+
+    public void stripeRB() {
+      // For every pixel
+      for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+        // Set the value
+        int hue = 120*(i%2);
+        m_ledBuffer.setHSV(i, hue, 255, 255);
+      }
+      update();
     }
 }

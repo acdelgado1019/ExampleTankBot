@@ -38,6 +38,13 @@ public class Intake extends SubsystemBase{
 
     public void setTrigger(double speed) {
         trigger.set(ControlMode.PercentOutput, speed);
+        if (speed < 0){
+            Robot.ledStrip.solid(60);
+        } else if (speed > 0){
+            Robot.ledStrip.solid(30);
+        } else {
+            Robot.ledStrip.solid(90);
+        }
     }
 
     public void setIntakeLift(double voltage){
@@ -48,12 +55,11 @@ public class Intake extends SubsystemBase{
         if (pulsing == false){
             pulsing = true;
         }
-        if (Timer.getFPGATimestamp() % 1 > 0.5){
+        if (Timer.getFPGATimestamp() % 1 < 0.5){
             setTrigger(Constants.TRIGGER_SPEED);
-            Robot.ledStrip.solid(60);
         } else {
             setTrigger(0);
-            Robot.ledStrip.solid(90);}
+        }
         SmartDashboard.putBoolean("Firing", (Timer.getFPGATimestamp() % 1)<0.5);
     }
 

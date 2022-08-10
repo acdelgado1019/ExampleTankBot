@@ -72,7 +72,7 @@ public class Constants {
         public static final double LEFT_RIGHT_TRIM = -.1; // Min = -1, Max = 1;+
         public static final double INTAKE_LIFT_SPEED = .3;
         public static final double HORIZONTAL_INTAKE_SPEED = -.8;
-        public static final double TRIGGER_SPEED = 1;
+        public static final double TRIGGER_SPEED = -1;
         public static final double SHOOTER_HI_SPEED = 12;
         public static final double SHOOTER_MID_SPEED = 10;
         public static final double SHOOTER_LOW_SPEED = 7.2;
@@ -99,10 +99,15 @@ public class Constants {
         public static final double m_armMass = 5.2; // Kilograms
         public static final double m_armLength = Units.inchesToMeters(40);
         public static final double kRotatorEncoderDistPerPulse = 2.0 * Math.PI / m_armReduction;
-        public static double kLArmKp = 50;
-        public static double LarmPositionDeg = Units.degreesToRadians(-26.0);
-        public static double kRArmKp = 50;
-        public static double RarmPositionDeg = Units.degreesToRadians(26.0);
+        public static final double kClimberEncoderDistPerPulse = 2.0 * Math.PI / 8.0;
+        // The P gain for the PID controller that drives this Rotator.
+        public static double kLRotatorKp = 10;
+
+        // The P gain for the PID controller that drives this Rotator.
+        public static double kRRotatorKp = 10;
+
+        public static double RotatorFullPositionDeg = 26.0;
+        public static double RotatorUnhookPositionDeg = 3.0;
 
     //Intake Lift Constants
         public static final double m_IntakeLiftReduction = 125;

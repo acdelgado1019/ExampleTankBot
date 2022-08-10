@@ -1,5 +1,10 @@
 {
   "HALProvider": {
+    "Addressable LEDs": {
+      "window": {
+        "visible": true
+      }
+    },
     "Other Devices": {
       "REV Color Sensor V3[0,82]": {
         "header": {
@@ -33,6 +38,7 @@
       "/LiveWindow/Climbers": "Subsystem",
       "/LiveWindow/Drivetrain": "Subsystem",
       "/LiveWindow/Intake": "Subsystem",
+      "/LiveWindow/LEDs": "Subsystem",
       "/LiveWindow/Limelight": "Subsystem",
       "/LiveWindow/Shooter": "Subsystem",
       "/LiveWindow/ShooterIntake": "Subsystem",
@@ -74,11 +80,6 @@
           "width": 0.03999999910593033
         },
         "width": 16.5,
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/Scheduler": {
         "window": {
           "visible": true
         }

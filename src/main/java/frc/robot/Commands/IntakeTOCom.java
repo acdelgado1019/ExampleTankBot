@@ -21,8 +21,8 @@ public class IntakeTOCom extends CommandBase{
         boolean controller0_rightTrigger = Robot.controller0.getTrigger(Constants.RIGHT_TRIGGER);
         
         //vertical
-        boolean controller1_rightBumper = Robot.controller1.getButton(Constants.RIGHT_BUMPER);
-        boolean controller1_rightTrigger = Robot.controller1.getTrigger(Constants.RIGHT_TRIGGER);
+        boolean controller1_leftBumper = Robot.controller1.getButton(Constants.LEFT_BUMPER);
+        boolean controller1_leftTrigger = Robot.controller1.getTrigger(Constants.LEFT_TRIGGER);
 
         Robot.shooterIntake.setHorizontalIntake(controller0_leftTrigger ? Constants.HORIZONTAL_INTAKE_SPEED : (controller0_leftBumper ? -Constants.HORIZONTAL_INTAKE_SPEED : 0));
         
@@ -40,16 +40,14 @@ public class IntakeTOCom extends CommandBase{
             Robot.shooterIntake.setIntakeLift(pidOutput);
         }   
 
-        if (controller1_rightBumper){
+        if (controller1_leftBumper){
             Robot.shooterIntake.pulse();
-            Robot.ledStrip.solid(30);
-        } else if (controller1_rightTrigger){
+        } else if (controller1_leftTrigger){
             Robot.shooterIntake.setTrigger(-Constants.TRIGGER_SPEED);
-            Robot.shooterIntake.stopPulse();
-            Robot.ledStrip.teamColor(Constants.teamColor);
-        } else {
+        } else if (!Robot.climbers.getClimbMode()){
             Robot.shooterIntake.setTrigger(0);
             Robot.shooterIntake.stopPulse();
+            Robot.ledStrip.teamColor(Constants.teamColor);
         }
     }
 }

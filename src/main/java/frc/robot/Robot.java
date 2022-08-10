@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
   
   public static final Limelight limelight = new Limelight();
 
-  public static final LEDs ledStrip = new LEDs(4,10);
+  public static final LEDs ledStrip = new LEDs(0,10);
 
   //Controllers
   public static final Controller controller0 = new Controller(Constants.DRIVER_CONTROLLER_0);
@@ -129,6 +129,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     Constants.teamColor = DriverStation.getAlliance().toString();
+    ledStrip.stripeRB();
     climbers.resetEncoders();
     shooterIntake.resetEncoder();
     preMoveMode = true;
@@ -139,8 +140,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    climbers.setLeftClimberRotation(-0.5);
-    climbers.setRightClimberRotation(0.5);
+    climbers.setLeftClimberRotation(-0.02);
+    climbers.setRightClimberRotation(0.02);
     if (preMoveMode){
       if (autoSequence == "One Ball Auto"){
         SmartDashboard.putString("Auto Step", "Delay");
@@ -224,7 +225,7 @@ public class Robot extends TimedRobot {
     AutoMethods.getTrajectory(path);
     m_field.getObject("traj").setTrajectory(AutoMethods.trajectory);
     AutoMethods.resetOdometry(AutoMethods.trajectory);
-    ledStrip.rainbow();
+    ledStrip.mardiGras();
   }
 
   /** This function is called once when test mode is enabled. */

@@ -1,6 +1,5 @@
 package frc.robot.Commands;
 
-import java.util.HashMap;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.controller.PIDController;
@@ -24,8 +23,6 @@ public class AutoMethods {
     public static TrajectoryConfig config;
     public static Trajectory trajectory;
     public static RamseteCommand ramseteCommand;
-
-    private static HashMap<String, Double> drivetrainEncoderValues;
 
     public static void limelightShoot()
     {
@@ -69,23 +66,6 @@ public class AutoMethods {
         Timer.delay(delayTime);
     }
 
-    public static void drive(double distanceInInches){
-        updateEncoderValues();
-        //6:1, 4 inch radius
-        double current = 0;
-        double target = (distanceInInches / (2 * Math.PI * 4) * 6) + drivetrainEncoderValues.get("leftDrivetrain");
-        while(current < target){
-            updateEncoderValues();
-            current = drivetrainEncoderValues.get("leftDrivetrain");
-            double speed = target / current * .1;
-            speed = speed < .15 ? .15 : speed;
-            Robot.drivetrain.setLeftDrivetrain(speed);
-            Robot.drivetrain.setRightDrivetrain(speed);
-        }
-        Robot.drivetrain.setRightDrivetrain(0);
-        Robot.drivetrain.setLeftDrivetrain(0);
-    }
-
     public static void rotate(double time){
             Robot.drivetrain.setLeftDrivetrain(-0.3);
             Robot.drivetrain.setRightDrivetrain(0.3);
@@ -93,10 +73,6 @@ public class AutoMethods {
             Robot.drivetrain.setLeftDrivetrain(0);
             Robot.drivetrain.setRightDrivetrain(0);
     }   
-
-    public static void updateEncoderValues() {
-        drivetrainEncoderValues = Robot.drivetrain.getEncoderValues();
-    }
 
     public Integer PathSelect(int red, int blue){
         SmartDashboard.putString("Auto Step", "Start Auto");
