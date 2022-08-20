@@ -44,15 +44,12 @@ public class LEDs extends SubsystemBase{
     }
 
     public void mardiGras() {
-      int val;
       if(Timer.getFPGATimestamp()*100%20>18){
         // For every pixel
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-          final var hue = (int)(30*Math.exp((m_mardiGrasStartPoint+i)%3)-10*(Math.exp((m_mardiGrasStartPoint+i)%3)-1));
-          if (hue>100){val = 200;}
-          else {val = 255;}
+          final var hue = (int)(19*((m_mardiGrasStartPoint+i)%3)*((m_mardiGrasStartPoint+i)%3)+14*((m_mardiGrasStartPoint+i)%3)+30);
           // Set the value
-          m_ledBuffer.setHSV(i, hue, 255, val);
+          m_ledBuffer.setHSV(i, hue, 255, 255);
         }
       }
       // Increase by to make the colors "move"
