@@ -66,6 +66,8 @@ public class Robot extends TimedRobot {
   public static String autoSequence;
   public static String team;
   public static int path = 0;
+  public static String prevTeam;
+  public static int prevPath = 0;
   private final String oneBall = "One Ball Auto";
   private final String twoBall = "Two Ball Auto";
   private final String threeBall = "Three Ball Auto";
@@ -144,28 +146,16 @@ public class Robot extends TimedRobot {
     climbers.setRightClimberRotation(0.02);
     if (preMoveMode){
       if (autoSequence == "One Ball Auto"){
-        SmartDashboard.putString("Auto Step", "Delay");
         Timer.delay(0);
-
-        SmartDashboard.putString("Auto Step", "Intake Down");
         AutoMethods.lowerIntake();
-        SmartDashboard.putString("Auto Step", "Shooting");
         AutoMethods.limelightShoot();
-        SmartDashboard.putString("Auto Step", "Run Away");
       } else if (autoSequence == "Two Ball Auto"){
-        SmartDashboard.putString("Auto Step", "Intake Down");
         AutoMethods.lowerIntake();
-        SmartDashboard.putString("Auto Step", "Run Intake");
         AutoMethods.runIntake(Constants.HORIZONTAL_INTAKE_SPEED);
-        SmartDashboard.putString("Auto Step", "Collect");
       } else if (autoSequence == "Three Ball Auto") {
-        SmartDashboard.putString("Auto Step", "Intake Down");
         AutoMethods.lowerIntake();
-        SmartDashboard.putString("Auto Step", "Shooting");
         AutoMethods.limelightShoot();
-        SmartDashboard.putString("Auto Step", "Run Intake");
         AutoMethods.runIntake(Constants.HORIZONTAL_INTAKE_SPEED);
-        SmartDashboard.putString("Auto Step", "Collect");
       }
       moveMode = true;
       preMoveMode = false;
@@ -175,24 +165,23 @@ public class Robot extends TimedRobot {
       moveMode = false;
       timeCheck = Timer.getFPGATimestamp();
     } else if (postMoveMode){
-      if(Timer.getFPGATimestamp() - timeCheck > 5){
-        if (autoSequence == "One Ball Auto"){
-          SmartDashboard.putString("Auto Step", "Run Intake");
+      if (autoSequence == "One Ball Auto"){
+        if(Timer.getFPGATimestamp() - timeCheck > 3){
           AutoMethods.runIntake(-Constants.HORIZONTAL_INTAKE_SPEED);
-          SmartDashboard.putString("Auto Step", "Rotate");
-          AutoMethods.rotate(1);
-        } else if (autoSequence == "Two Ball Auto"){
-          SmartDashboard.putString("Auto Step", "Stop Intake");
-          AutoMethods.runIntake(0);
-          SmartDashboard.putString("Auto Step", "Shoot");
-          AutoMethods.limelightShoot();
-        } else if (autoSequence == "Three Ball Auto") {
-          SmartDashboard.putString("Auto Step", "Stop Intake");
-          AutoMethods.runIntake(0);
-          SmartDashboard.putString("Auto Step", "Shoot");
-          AutoMethods.limelightShoot();
+          postMoveMode = false;
         }
-        postMoveMode = false;
+      } else if (autoSequence == "Two Ball Auto"){
+        if(Timer.getFPGATimestamp() - timeCheck > 3){
+          AutoMethods.runIntake(0);
+          AutoMethods.limelightShoot();
+          postMoveMode = false;
+        }
+      } else if (autoSequence == "Three Ball Auto") {
+        if(Timer.getFPGATimestamp() - timeCheck > 4){
+          AutoMethods.runIntake(0);
+          AutoMethods.limelightShoot();
+          postMoveMode = false;
+        }
       }
     }
   }
@@ -222,9 +211,13 @@ public class Robot extends TimedRobot {
     else if (team == "BLUE" && autoSequence == "Three Ball Auto"){path = 2;}
     else if (team == "BLUE" && autoSequence == "Two Ball Auto"){path = 1;}
     
-    AutoMethods.getTrajectory(path);
-    m_field.getObject("traj").setTrajectory(AutoMethods.trajectory);
-    AutoMethods.resetOdometry(AutoMethods.trajectory);
+    if (prevPath!=path || prevTeam != team){
+      AutoMethods.getTrajectory(path);
+      m_field.getObject("traj").setTrajectory(AutoMethods.trajectory);
+      AutoMethods.resetOdometry(AutoMethods.trajectory);
+      prevPath = path;
+      prevTeam = team;
+    }
     ledStrip.mardiGras();
   }
 
