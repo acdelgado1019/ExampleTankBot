@@ -1,6 +1,7 @@
 package frc.robot.Subsystems;
 
 import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.Commands.DrivetrainTOCom;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
@@ -12,7 +13,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.AHRS;
-import java.util.HashMap;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -32,6 +32,8 @@ public class Drivetrain extends SubsystemBase{
 
     public DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.kTrackwidthMeters);
     public DifferentialDriveOdometry odometry;
+
+    public double initPose = 0.0;
 
     public Drivetrain (int l0, int l1, int r0, int r1){
         motorLeft0 = new CANSparkMax(l0, MotorType.kBrushless);
@@ -112,6 +114,18 @@ public class Drivetrain extends SubsystemBase{
         return -gyro.getRotation2d().getDegrees();
     }
 
+    public double getNormHeading(){
+        double heading = 0.0;
+        if((getHeading()+ initPose) % 360 > -180 && (getHeading()+ initPose) % 360 < 180){
+            heading = (getHeading()+ initPose)%360;
+        } else if((getHeading()+ initPose) % 360 < -180){
+            heading = 360 + (getHeading()+ initPose)%360;
+        } else if((getHeading()+ initPose) % 360 > 180){
+            heading = -360 + (getHeading()+ initPose)%360;
+        }
+        return heading;
+    }
+
     public double getTurnRate() {
         return -gyro.getRate();
     }
@@ -129,11 +143,20 @@ public class Drivetrain extends SubsystemBase{
         m_drive.feed();
     }
 
-    public HashMap<String, Double> getEncoderValues()
+    //Adjusts the pose of the robot to center on the hub
+    public void limelightTrack()
     {
-        HashMap<String, Double> encoderMap = new HashMap<String, Double>();
-        encoderMap.put("rightDrivetrain", rightDrivetrain.getPosition());
-        encoderMap.put("leftDrivetrain", leftDrivetrain.getPosition());
-        return encoderMap;
+        double degOff = 0.0;
+        
+        if(Robot.limelight.getTV() != 0){
+            degOff = Robot.limelight.getTX();
+        } else {
+            degOff = getNormHeading() - Robot.limelight.getOffset();
+        }
+        if(Math.abs(degOff) > 1){
+                double speed = .15 * degOff/90;
+                setLeftDrivetrain(speed);
+                setRightDrivetrain(speed);
+        }
     }
 }

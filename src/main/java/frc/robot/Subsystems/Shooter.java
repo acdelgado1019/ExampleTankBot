@@ -32,18 +32,6 @@ public class Shooter extends SubsystemBase{
         return outputVoltage;
     }
 
-    public void limelightTrack()
-    {
-        double degOff = Robot.limelight.getTX();
-        if(Math.abs(degOff) > 1 && Robot.limelight.getTV() != 0)
-        {
-            double speed = .15 * degOff/(Math.abs(degOff));
-            Robot.drivetrain.setLeftDrivetrain(-speed);
-            Robot.drivetrain.setRightDrivetrain(speed);
-            degOff = Robot.limelight.getTX();
-        }
-    }
-
     public void updateDashboard(){
         SmartDashboard.putNumber("Shooter Speed ", shooterEncoder.getVelocity());
     } 
