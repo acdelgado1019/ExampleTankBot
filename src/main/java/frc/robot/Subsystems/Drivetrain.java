@@ -28,7 +28,7 @@ public class Drivetrain extends SubsystemBase{
     private final MotorControllerGroup m_rightMotors;
     public final DifferentialDrive m_drive;
 
-    private AHRS gyro = new AHRS(SerialPort.Port.kUSB);
+    public AHRS gyro = new AHRS(SerialPort.Port.kUSB);
 
     public DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.kTrackwidthMeters);
     public DifferentialDriveOdometry odometry;

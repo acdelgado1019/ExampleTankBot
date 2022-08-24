@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -35,7 +36,7 @@ public class Robot extends TimedRobot {
     Constants.RIGHT_DRIVE_TRAIN_1
   );
   
-  public static final Intake shooterIntake = new Intake(
+  public static final Intake intake = new Intake(
     Constants.HORIZONTAL_INTAKE,
     Constants.TRIGGER,
     Constants.INTAKE_LIFT
@@ -63,21 +64,26 @@ public class Robot extends TimedRobot {
   public static final Controller controller1 = new Controller(Constants.DRIVER_CONTROLLER_1);
 
   //Auto Commands
-  public static String autoSequence;
-  public static String team;
-  public static int path = 0;
-  public static String prevTeam;
-  public static int prevPath = 0;
-  private final String oneBall = "One Ball Auto";
-  private final String twoBall = "Two Ball Auto";
-  private final String threeBall = "Three Ball Auto";
+  public enum DesiredMode {
+    BACK_UP_BLUE,
+    BACK_UP_RED, 
+    ONE_BALL_RED,
+    ONE_BALL_BLUE,
+    TWO_BALL_RED,
+    TWO_BALL_BLUE,
+    THREE_BALL_RED,
+    THREE_BALL_BLUE,
+  }
+
+  public static DesiredMode desiredMode;
+  public static String prevAuto = "";
+  public static DesiredMode prevMode;
   public Boolean preMoveMode;
   public Boolean moveMode;
   public Boolean postMoveMode;
   public double timeCheck;
   
-  public static SendableChooser<String> m_chooser = new SendableChooser<>();
-  public static SendableChooser<String> t_chooser = new SendableChooser<>();
+  public static SendableChooser<DesiredMode> m_chooser = new SendableChooser<>();
 
   //Field display to Shuffleboard
   public static Field2d m_field;
@@ -93,17 +99,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_chooser.setDefaultOption("Three Ball Auto", threeBall);
-    m_chooser.addOption("Two Ball Auto", twoBall);
-    m_chooser.addOption("One Ball Auto", oneBall);
-
-    t_chooser.setDefaultOption("Red", "RED");
-    t_chooser.addOption("Blue", "BLUE");
+    m_chooser.setDefaultOption("One Ball Red", DesiredMode.ONE_BALL_RED);
+    m_chooser.addOption("Two Ball Red", DesiredMode.TWO_BALL_RED);
+    m_chooser.addOption("Three Ball Red", DesiredMode.THREE_BALL_RED);
+    m_chooser.addOption("Back Up Red", DesiredMode.BACK_UP_RED);
+    m_chooser.addOption("One Ball Blue", DesiredMode.ONE_BALL_BLUE);
+    m_chooser.addOption("Two Ball Blue", DesiredMode.TWO_BALL_BLUE);
+    m_chooser.addOption("Three Ball Blue", DesiredMode.THREE_BALL_BLUE);
+    m_chooser.addOption("Back Up Blue", DesiredMode.BACK_UP_BLUE);
 
     // Put the choosers on the dashboard
     SmartDashboard.putData(m_chooser);
-    SmartDashboard.putData(t_chooser);
-    SmartDashboard.putString("Auto Step", "NOT STARTED");
 
     AutoMethods.getConstraint();
     AutoMethods.getTrajectoryConfig();
@@ -112,6 +118,8 @@ public class Robot extends TimedRobot {
     m_field = new Field2d();
 
     SmartDashboard.putData(m_field);
+    LiveWindow.disableAllTelemetry();
+    LiveWindow.enableTelemetry(drivetrain.gyro);
   }
 
   /**
@@ -126,6 +134,7 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     m_field.setRobotPose(drivetrain.odometry.getPoseMeters());
     drivetrain.m_drive.feed();
+    SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
   }
 
   @Override
@@ -133,7 +142,7 @@ public class Robot extends TimedRobot {
     Constants.teamColor = DriverStation.getAlliance().toString();
     ledStrip.stripeRB();
     climbers.resetEncoders();
-    shooterIntake.resetEncoder();
+    intake.resetEncoder();
     preMoveMode = true;
     moveMode = false;
     postMoveMode = false;
@@ -145,14 +154,15 @@ public class Robot extends TimedRobot {
     climbers.setLeftClimberRotation(-0.02);
     climbers.setRightClimberRotation(0.02);
     if (preMoveMode){
-      if (autoSequence == "One Ball Auto"){
+      if (desiredMode == DesiredMode.ONE_BALL_RED || desiredMode == DesiredMode.ONE_BALL_BLUE || 
+          desiredMode == DesiredMode.BACK_UP_RED || desiredMode == DesiredMode.BACK_UP_BLUE){
         Timer.delay(0);
         AutoMethods.lowerIntake();
         AutoMethods.limelightShoot();
-      } else if (autoSequence == "Two Ball Auto"){
+      } else if (desiredMode == DesiredMode.TWO_BALL_RED || desiredMode == DesiredMode.TWO_BALL_BLUE){
         AutoMethods.lowerIntake();
         AutoMethods.runIntake(Constants.HORIZONTAL_INTAKE_SPEED);
-      } else if (autoSequence == "Three Ball Auto") {
+      } else if (desiredMode == DesiredMode.THREE_BALL_RED || desiredMode == DesiredMode.THREE_BALL_BLUE) {
         AutoMethods.lowerIntake();
         AutoMethods.limelightShoot();
         AutoMethods.runIntake(Constants.HORIZONTAL_INTAKE_SPEED);
@@ -160,23 +170,25 @@ public class Robot extends TimedRobot {
       moveMode = true;
       preMoveMode = false;
     } else if (moveMode){
-      AutoMethods.runRamsete(path).schedule();
+      AutoMethods.runRamsete().schedule();
       postMoveMode = true;
       moveMode = false;
       timeCheck = Timer.getFPGATimestamp();
     } else if (postMoveMode){
-      if (autoSequence == "One Ball Auto"){
+      if (desiredMode == DesiredMode.BACK_UP_RED || desiredMode == DesiredMode.BACK_UP_BLUE){
+          postMoveMode = false;
+      } else if (desiredMode == DesiredMode.ONE_BALL_RED || desiredMode == DesiredMode.ONE_BALL_BLUE){
         if(Timer.getFPGATimestamp() - timeCheck > 3){
           AutoMethods.runIntake(-Constants.HORIZONTAL_INTAKE_SPEED);
           postMoveMode = false;
         }
-      } else if (autoSequence == "Two Ball Auto"){
+      } else if (desiredMode == DesiredMode.TWO_BALL_RED || desiredMode == DesiredMode.TWO_BALL_BLUE){
         if(Timer.getFPGATimestamp() - timeCheck > 3){
           AutoMethods.runIntake(0);
           AutoMethods.limelightShoot();
           postMoveMode = false;
         }
-      } else if (autoSequence == "Three Ball Auto") {
+      } else if (desiredMode == DesiredMode.THREE_BALL_RED || desiredMode == DesiredMode.THREE_BALL_BLUE) {
         if(Timer.getFPGATimestamp() - timeCheck > 4){
           AutoMethods.runIntake(0);
           AutoMethods.limelightShoot();
@@ -196,28 +208,24 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    intake.setIntakeLift(0.0);
+    climbers.setLeftClimberRotation(0.0);
+    climbers.setRightClimberRotation(0.0);
+  }
 
   /** This function is called periodically when disabled. */
   @Override
   public void disabledPeriodic() {
-    autoSequence = m_chooser.getSelected();
-    team = Robot.t_chooser.getSelected();
-
-    if (team == "RED" && autoSequence == "One Ball Auto"){path = 6;}
-    else if (team == "BLUE" && autoSequence == "One Ball Auto"){path = 5;}
-    else if (team == "RED" && autoSequence == "Three Ball Auto"){path = 4;}
-    else if (team == "RED" && autoSequence == "Two Ball Auto"){path = 3;}
-    else if (team == "BLUE" && autoSequence == "Three Ball Auto"){path = 2;}
-    else if (team == "BLUE" && autoSequence == "Two Ball Auto"){path = 1;}
+    desiredMode = m_chooser.getSelected();
     
-    if (prevPath!=path || prevTeam != team){
-      AutoMethods.getTrajectory(path);
+    if (prevMode!=desiredMode){
+      AutoMethods.getTrajectory();
       m_field.getObject("traj").setTrajectory(AutoMethods.trajectory);
       AutoMethods.resetOdometry(AutoMethods.trajectory);
-      prevPath = path;
-      prevTeam = team;
+      prevMode = desiredMode;
     }
+
     ledStrip.mardiGras();
   }
 
@@ -225,7 +233,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit() {
     climbers.resetEncoders();
-    shooterIntake.resetEncoder();
+    intake.resetEncoder();
   }
 
   /** This function is called periodically during test mode. */
