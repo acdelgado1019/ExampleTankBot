@@ -32,25 +32,17 @@ public class AutoMethods {
             Robot.drivetrain.setLeftDrivetrain(-speed);
             Robot.drivetrain.setRightDrivetrain(speed);
             degOff = Robot.limelight.getTX();
-            Robot.shooter.setShooterMotor(Robot.shooter.shooterSpeedAdjust(Robot.limelight.getDistance()));
         }
         Robot.drivetrain.setLeftDrivetrain(0);
         Robot.drivetrain.setRightDrivetrain(0);
-        Timer.delay(2);
-        Robot.intake.pulse();
-        Timer.delay(.5);
-        Robot.intake.stopPulse();
-        Robot.shooter.setShooterMotor(Constants.SHOOTER_IDLE_SPEED);
+        Robot.intake.setTrigger(Constants.TRIGGER_SPEED);
+        Robot.ledStrip.solid(60);
+        Timer.delay(1);
+        Robot.intake.setTrigger(0);
     }
 
     public static void runIntake(double speed){
         Robot.intake.setHorizontalIntake(speed);
-    }
-
-    public static void lowerIntake(){
-        Robot.intake.setIntakeLift(-Constants.INTAKE_LIFT_SPEED);
-        Timer.delay(1);
-        Robot.intake.setIntakeLift(0);
     }
     
     public static void timerDrive(double power, double time) {
@@ -64,14 +56,6 @@ public class AutoMethods {
     public static void delay(double delayTime){
         Timer.delay(delayTime);
     }
-
-    public static void rotate(double time){
-            Robot.drivetrain.setLeftDrivetrain(-0.3);
-            Robot.drivetrain.setRightDrivetrain(0.3);
-            Timer.delay(time);
-            Robot.drivetrain.setLeftDrivetrain(0);
-            Robot.drivetrain.setRightDrivetrain(0);
-    }   
 
     // Create a voltage constraint to ensure we don't accelerate too fast
     public static DifferentialDriveVoltageConstraint getConstraint(){
