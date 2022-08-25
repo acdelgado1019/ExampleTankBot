@@ -7,6 +7,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -47,8 +48,11 @@ public class Intake extends SubsystemBase{
         }
     }
 
-    public void setIntakeLift(double voltage){
-        intakeLift.setVoltage(voltage);
+    public void setIntakeLift(double setpoint){
+        var pidOutput = Robot.intake.Lift_controller.calculate(
+            Robot.intake.getEncoder(), 
+            Units.degreesToRadians(setpoint));
+        intakeLift.setVoltage(pidOutput);
     }
 
     public void pulse(){

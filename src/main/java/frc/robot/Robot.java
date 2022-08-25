@@ -88,7 +88,6 @@ public class Robot extends TimedRobot {
   public static DesiredMode desiredMode;
   public static DesiredMode prevMode;
   public static AutoSection autoSection;
-  public static String prevAuto = "";
   public double timeCheck;
   
   public static SendableChooser<DesiredMode> m_chooser = new SendableChooser<>();
