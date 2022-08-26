@@ -26,6 +26,19 @@ public class Climbers extends SubsystemBase{
     public final PIDController L_controller = new PIDController(Constants.kLRotatorKp, 0, 0);
     public final PIDController R_controller = new PIDController(Constants.kRRotatorKp, 0, 0);
 
+    public enum AutoClimbStep{
+        MANUAL_MODE,
+        MID_BAR_RETRACT,
+        MID_BAR_RELEASE,
+        HIGH_BAR_EXTEND,
+        HIGH_BAR_RETRACT,
+        HIGH_BAR_RELEASE,
+        TRAVERSAL_BAR_EXTEND,
+        TRAVERSAL_BAR_RETRACT,
+        CLIMB_COMPLETE
+    }
+
+    public AutoClimbStep autoClimbStep;
 
     public Climbers(int climberL0, int climberL1, int climberLR, int climberR0, int climberR1, int climberRR) {
         leftClimber0 = new CANSparkMax(climberL0, MotorType.kBrushless);
@@ -85,9 +98,9 @@ public class Climbers extends SubsystemBase{
     }
 
     public void setClimberRotation(double setpoint){
-        var lPIDOutput = L_controller.calculate(getLeftEncoder(), -setpoint);
+        var lPIDOutput = L_controller.calculate(getLeftRotEncoder(), -setpoint);
         setLeftClimberRotation(lPIDOutput);
-        var rPIDOutput = R_controller.calculate(getRightEncoder(), setpoint);
+        var rPIDOutput = R_controller.calculate(getRightRotEncoder(), setpoint);
         setRightClimberRotation(rPIDOutput);
     }
 
@@ -120,18 +133,26 @@ public class Climbers extends SubsystemBase{
 
     public void updateDashboard()
     {
-        SmartDashboard.putNumber("Right Climber Position ", climberEncoderRight.getPosition()/8);
-        SmartDashboard.putNumber("Left Climber Position ", climberEncoderLeft.getPosition()/8);
-        SmartDashboard.putNumber("Left Rotator Position ", -Units.radiansToDegrees(leftRotateEncoder.getPosition()));
-        SmartDashboard.putNumber("Right Rotator Position ", Units.radiansToDegrees(rightRotateEncoder.getPosition()));
+        SmartDashboard.putNumber("Right Climber Position ", getRightClimbEncoder()/8);
+        SmartDashboard.putNumber("Left Climber Position ", getLeftClimbEncoder()/8);
+        SmartDashboard.putNumber("Left Rotator Position ", -Units.radiansToDegrees(getLeftRotEncoder()));
+        SmartDashboard.putNumber("Right Rotator Position ", Units.radiansToDegrees(getRightRotEncoder()));
         SmartDashboard.putBoolean("Climber Mode", climbMode);
     }
 
-    public double getRightEncoder(){
+    public double getRightClimbEncoder(){
+        return climberEncoderRight.getPosition();
+    }
+
+    public double getLeftClimbEncoder(){
+        return climberEncoderLeft.getPosition();
+    }
+
+    public double getRightRotEncoder(){
         return rightRotateEncoder.getPosition();
     }
 
-    public double getLeftEncoder(){
+    public double getLeftRotEncoder(){
         return leftRotateEncoder.getPosition();
     }
 
