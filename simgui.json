@@ -1,6 +1,9 @@
 {
   "HALProvider": {
     "Addressable LEDs": {
+      "0": {
+        "columns": 15
+      },
       "window": {
         "visible": true
       }
@@ -85,11 +88,6 @@
         }
       },
       "/SmartDashboard/SendableChooser[0]": {
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/SendableChooser[1]": {
         "window": {
           "visible": true
         }

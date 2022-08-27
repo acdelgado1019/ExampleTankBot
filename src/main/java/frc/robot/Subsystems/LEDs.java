@@ -43,13 +43,32 @@ public class LEDs extends SubsystemBase{
         update();
     }
 
+    public void varRainbow(int sat) {
+      // For every pixel
+      for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+        // Calculate the hue - hue is easier for rainbows because the color
+        // shape is a circle so only one value needs to precess
+        final var hue = (m_rainbowFirstPixelHue + (i * 180 / m_ledBuffer.getLength())) % 180;
+        // Set the value
+        m_ledBuffer.setHSV(i, hue, sat, 255);
+      }
+      // Increase by to make the rainbow "move"
+      m_rainbowFirstPixelHue += 3;
+      // Check bounds
+      m_rainbowFirstPixelHue %= 180;
+      update();
+  }
+
     public void mardiGras() {
+      int val;
       if(Timer.getFPGATimestamp()*100%20>18){
         // For every pixel
         for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-          final var hue = (int)(19*((m_mardiGrasStartPoint+i)%3)*((m_mardiGrasStartPoint+i)%3)+14*((m_mardiGrasStartPoint+i)%3)+30);
+          final var hue = (int)(30*Math.exp((m_mardiGrasStartPoint+i)%3)-10*(Math.exp((m_mardiGrasStartPoint+i)%3)-1));
+          if (hue>100){val = 200;}
+          else {val = 255;}
           // Set the value
-          m_ledBuffer.setHSV(i, hue, 255, 255);
+          m_ledBuffer.setHSV(i, hue, 255, val);
         }
       }
       // Increase by to make the colors "move"
@@ -66,6 +85,15 @@ public class LEDs extends SubsystemBase{
           m_ledBuffer.setHSV(i, hue, 255, 255);
         }
         update();
+    }
+
+    public void varSat(int sat, int val) {
+      // For every pixel
+      for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+        // Set the value
+        m_ledBuffer.setHSV(i, 0, sat, val);
+      }
+      update();
     }
 
     public void teamColor(String isRed) {

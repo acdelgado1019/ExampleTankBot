@@ -68,6 +68,7 @@ public class Constants {
         // public static final double SLOW_SPEED = .4;
         public static final double CLIMBER_ROTATION_SPEED = .25;
         public static final double CLIMBER_ROTATION_STATIC = -.02;
+        public static final double CLIMBER_MOVEMENT_SPEED = 1;
         public static final double MAX_TURN_SPEED = 1; // Min = 0, Max = 1;
         public static final double LEFT_RIGHT_TRIM = -.1; // Min = -1, Max = 1;+
         public static final double INTAKE_LIFT_SPEED = .3;

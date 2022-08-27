@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
   
   public static final Limelight limelight = new Limelight();
 
-  public static final LEDs ledStrip = new LEDs(0,10);
+  public static final LEDs ledStrip = new LEDs(0,15);
 
   //Controllers
   public static final Controller controller0 = new Controller(Constants.DRIVER_CONTROLLER_0);
