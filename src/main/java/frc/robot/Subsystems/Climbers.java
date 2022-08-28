@@ -5,7 +5,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -55,13 +54,17 @@ public class Climbers extends SubsystemBase{
 
         rightRotateEncoder.setPositionConversionFactor(Constants.kRotatorEncoderDistPerPulse);
         leftRotateEncoder.setPositionConversionFactor(Constants.kRotatorEncoderDistPerPulse);  
-        climberEncoderRight.setPositionConversionFactor(Constants.kRotatorEncoderDistPerPulse);
+        climberEncoderRight.setPositionConversionFactor(Constants.kClimberEncoderDistPerPulse);
         climberEncoderLeft.setPositionConversionFactor(Constants.kClimberEncoderDistPerPulse); 
 
         leftClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward,true);
         leftClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse,true);
         rightClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward,true);
         rightClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse,true);
+        leftClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) -24);
+        leftClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 0);
+        rightClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 24);
+        rightClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) 0);
 
         leftClimber0.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
         leftClimber1.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
@@ -71,20 +74,14 @@ public class Climbers extends SubsystemBase{
         leftClimber1.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
         rightClimber0.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
         rightClimber1.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
-
-        leftClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) -4);
-        rightClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 4);
-        leftClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 0);
-        rightClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) 0);
-
-        leftClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 270);
-        leftClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
-        rightClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 270);
-        rightClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
-        leftClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 270);
-        leftClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
-        rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 270);
-        rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
+        leftClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 34);
+        leftClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float)0.25);
+        rightClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 34);
+        rightClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float)0.25);
+        leftClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 34);
+        leftClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float)0.25);
+        rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 34);
+        rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float)0.25);
     }
 
     public void setLeftClimber(double speed){
@@ -133,10 +130,10 @@ public class Climbers extends SubsystemBase{
 
     public void updateDashboard()
     {
-        SmartDashboard.putNumber("Right Climber Position ", getRightClimbEncoder()/8);
-        SmartDashboard.putNumber("Left Climber Position ", getLeftClimbEncoder()/8);
-        SmartDashboard.putNumber("Left Rotator Position ", -Units.radiansToDegrees(getLeftRotEncoder()));
-        SmartDashboard.putNumber("Right Rotator Position ", Units.radiansToDegrees(getRightRotEncoder()));
+        SmartDashboard.putNumber("Right Climber Position ", getRightClimbEncoder());
+        SmartDashboard.putNumber("Left Climber Position ", getLeftClimbEncoder());
+        SmartDashboard.putNumber("Left Rotator Position ", getLeftRotEncoder());
+        SmartDashboard.putNumber("Right Rotator Position ", getRightRotEncoder());
         SmartDashboard.putBoolean("Climber Mode", climbMode);
     }
 
