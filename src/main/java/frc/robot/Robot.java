@@ -80,7 +80,6 @@ public class Robot extends TimedRobot {
   public enum AutoSection {
     STARTUP,
     OPENING_ACTION,
-    MOVEMENT,
     CLOSING_ACTION,
     FINISH,
     EXIT_AUTO
@@ -161,55 +160,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    climbers.setLeftClimberRotation(-0.02);
-    climbers.setRightClimberRotation(0.02);
-    if (autoSection == AutoSection.STARTUP){  
-      var pidOutput = Robot.intake.Lift_controller.calculate(
-      Robot.intake.getEncoder(), 
-      Units.degreesToRadians(Constants.loILPositionDeg));
-      Robot.intake.setIntakeLift(pidOutput);
-      Robot.shooter.setShooterMotor(Robot.shooter.shooterSpeedAdjust(Robot.limelight.getDistance()));
-      if(Timer.getFPGATimestamp() - timeCheck > 1.5){autoSection = AutoSection.OPENING_ACTION;}      
-    } else if (autoSection == AutoSection.OPENING_ACTION){
-      if (desiredMode == DesiredMode.BACK_UP_RED || desiredMode == DesiredMode.BACK_UP_BLUE ||
-          desiredMode == DesiredMode.ONE_BALL_RED || desiredMode == DesiredMode.ONE_BALL_BLUE){
-        AutoMethods.limelightShoot();
-      } else if (desiredMode == DesiredMode.TWO_BALL_RED || desiredMode == DesiredMode.TWO_BALL_BLUE){
-        Robot.intake.setHorizontalIntake(Constants.HORIZONTAL_INTAKE_SPEED);
-      } else if (desiredMode == DesiredMode.THREE_BALL_RED || desiredMode == DesiredMode.THREE_BALL_BLUE) {
-        AutoMethods.limelightShoot();
-        Robot.intake.setHorizontalIntake(Constants.HORIZONTAL_INTAKE_SPEED);
-      }
-      autoSection = AutoSection.MOVEMENT;
-      ledStrip.stripeRB();
-    } else if (autoSection == AutoSection.MOVEMENT){
-        AutoMethods.runRamsete().schedule();
-        autoSection = AutoSection.CLOSING_ACTION;
-        timeCheck = Timer.getFPGATimestamp();
-    } else if (autoSection == AutoSection.CLOSING_ACTION){
-      if (desiredMode == DesiredMode.BACK_UP_RED || desiredMode == DesiredMode.BACK_UP_BLUE){
-        autoSection = AutoSection.FINISH;
-      } else if (desiredMode == DesiredMode.ONE_BALL_RED || desiredMode == DesiredMode.ONE_BALL_BLUE){
-        if(Timer.getFPGATimestamp() - timeCheck > 3.5){
-          Robot.intake.setHorizontalIntake(-Constants.HORIZONTAL_INTAKE_SPEED);
-          autoSection = AutoSection.FINISH;
-        }
-      } else if (desiredMode == DesiredMode.TWO_BALL_RED || desiredMode == DesiredMode.TWO_BALL_BLUE){
-        if(Timer.getFPGATimestamp() - timeCheck > 3){
-          Robot.intake.setHorizontalIntake(0);
-          AutoMethods.limelightShoot();
-          autoSection = AutoSection.FINISH;
-        }
-      } else if (desiredMode == DesiredMode.THREE_BALL_RED || desiredMode == DesiredMode.THREE_BALL_BLUE) {
-        if(Timer.getFPGATimestamp() - timeCheck > 4){
-          Robot.intake.setHorizontalIntake(0);
-          AutoMethods.limelightShoot();
-          autoSection = AutoSection.FINISH;
-        }
-      }
-    } else if (autoSection == AutoSection.FINISH){
-      ledStrip.rainbow();
-    }
+    AutoMethods.runAutonomous(timeCheck);
   }
 
   /** This function is called once when teleop is enabled. */
