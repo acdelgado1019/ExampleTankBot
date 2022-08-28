@@ -29,8 +29,13 @@ public class Intake extends SubsystemBase{
         horizontalIntake = new VictorSPX(horIntake);
         trigger = new VictorSPX(vertIntake);
         intakeLift = new CANSparkMax(inLift, MotorType.kBrushless);
+        intakeLift.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+        intakeLift.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+        intakeLift.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 0);
+        intakeLift.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, -60);
+
         intakeLiftEncoder = intakeLift.getEncoder();
-        intakeLiftEncoder.setPositionConversionFactor(Constants.kIntakeLiftEncoderDistPerPulse);
+        intakeLiftEncoder.setPositionConversionFactor(Constants.kIntakeLiftEncoderDistPerRot);
     }
 
     public void setHorizontalIntake(double speed) {

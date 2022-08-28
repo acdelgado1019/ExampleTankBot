@@ -84,13 +84,12 @@ public class Constants {
         public static final double kvVoltSecondsPerMeter = 0.34464;
         public static final double kaVoltSecondsSquaredPerMeter = 0.2;
         public static final double kPDriveVel = 3.9966;
-        public static final double kPDriveRot = 0.5;
         public static final double kTrackwidthMeters = Units.inchesToMeters(19.25);
         public static final double kMaxSpeedMetersPerSecond = 3;
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
-        public static final double kEncoderDistancePerPulse = 1/6 * 2 * Math.PI * Units.inchesToMeters(4);
+        public static final double kEncoderDistancePerPulse = Math.PI * Units.inchesToMeters(4) / 3;
 
         public static final double camHeight = 40;
         public static final double goalHeight = 102.5;
@@ -98,29 +97,25 @@ public class Constants {
 
     //Climber Constants
         public static final double m_armReduction = 30;
-        public static final double m_armMass = 5.2; // Kilograms
-        public static final double m_armLength = Units.inchesToMeters(40);
-        public static final double kRotatorEncoderDistPerPulse = 2.0 * Math.PI / m_armReduction;
-        public static final double kClimberEncoderDistPerPulse = 2.0 * Math.PI / 8.0;
+        public static final double kRotatorEncoderDistPerPulse = 360 / m_armReduction;
+        public static final double kClimberEncoderDistPerPulse =  0.125;
         // The P gain for the PID controller that drives this Rotator.
         public static double kLRotatorKp = 10;
 
         // The P gain for the PID controller that drives this Rotator.
         public static double kRRotatorKp = 10;
 
-        public static double RotatorFullPositionDeg = Units.degreesToRadians(26.0);
-        public static double RotatorUnhookPositionDeg = Units.degreesToRadians(3.0);
-        public static double RotatorVerticalPositionDeg = Units.degreesToRadians(0.0);
+        public static double RotatorFullPositionDeg = 24.0;
+        public static double RotatorUnhookPositionDeg = 3.0;
+        public static double RotatorVerticalPositionDeg = 0.0;
 
     //Intake Lift Constants
         public static final double m_IntakeLiftReduction = 125;
-        public static final double m_IntakeLiftMass = 8; // Kilograms
-        public static final double m_IntakeLiftLength = Units.inchesToMeters(40);
-        public static final double kIntakeLiftEncoderDistPerPulse = 2.0 * Math.PI / m_IntakeLiftReduction;
+        public static final double kIntakeLiftEncoderDistPerRot = 360 / m_IntakeLiftReduction;
 
         // The P gain for the PID controller that drives this Lift.
         public static double kIntakeLiftKp = 5;
-        public static double hiILPositionDeg = Units.degreesToRadians(-10);
-        public static double midILPositionDeg = Units.degreesToRadians(-50);
-        public static double loILPositionDeg = Units.degreesToRadians(-80);
+        public static double hiILPositionDeg = -10;
+        public static double midILPositionDeg = -30;
+        public static double loILPositionDeg = -60;
 }
