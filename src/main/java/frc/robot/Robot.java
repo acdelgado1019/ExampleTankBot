@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Commands.AutoMethods;
+import frc.robot.Commands.Autonomous.AutoMethods;
+import frc.robot.Commands.Autonomous.AutoRoutine;
 import frc.robot.Subsystems.Climbers;
 import frc.robot.Subsystems.Drivetrain;
 import frc.robot.Subsystems.Limelight;
@@ -153,13 +154,13 @@ public class Robot extends TimedRobot {
     climbers.resetEncoders();
     intake.resetEncoder();
     autoSection = AutoSection.STARTUP;
-    timeCheck = Timer.getFPGATimestamp();
+    AutoRoutine.timeCheck = Timer.getFPGATimestamp();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    AutoMethods.runAutonomous(timeCheck);
+    AutoRoutine.runAutonomous();
   }
 
   /** This function is called once when teleop is enabled. */
