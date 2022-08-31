@@ -62,7 +62,8 @@
       "/SmartDashboard/Field": "Field2d",
       "/SmartDashboard/Scheduler": "Scheduler",
       "/SmartDashboard/SendableChooser[0]": "String Chooser",
-      "/SmartDashboard/SendableChooser[1]": "String Chooser"
+      "/SmartDashboard/SendableChooser[1]": "String Chooser",
+      "/SmartDashboard/SendableChooser[2]": "String Chooser"
     },
     "windows": {
       "/FMSInfo": {
@@ -88,6 +89,16 @@
         }
       },
       "/SmartDashboard/SendableChooser[0]": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/SendableChooser[1]": {
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/SendableChooser[2]": {
         "window": {
           "visible": true
         }
