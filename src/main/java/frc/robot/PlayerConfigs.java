@@ -87,8 +87,8 @@ public class PlayerConfigs {
                 intakeLiftHi = Robot.controller0.getTrigger(Constants.LEFT_TRIGGER);
 
                 //vertical
-                fireTrigger = Robot.controller1.getButton(Constants.LEFT_BUMPER);
-                rejectTrigger = Robot.controller1.getTrigger(Constants.LEFT_TRIGGER);
+                fireTrigger = Robot.controller0.getButton(Constants.LEFT_BUMPER);
+                rejectTrigger = Robot.controller0.getTrigger(Constants.LEFT_TRIGGER);
 
                 //limelight
                 switchPipeline = Robot.controller0.getButton(Constants.BUTTON_START);
@@ -104,8 +104,8 @@ public class PlayerConfigs {
                 intakeLiftHi = Robot.controller0.getTrigger(Constants.LEFT_TRIGGER);
 
                 //vertical
-                fireTrigger = Robot.controller1.getButton(Constants.LEFT_BUMPER);
-                rejectTrigger = Robot.controller1.getTrigger(Constants.LEFT_TRIGGER);
+                fireTrigger = Robot.controller0.getButton(Constants.LEFT_BUMPER);
+                rejectTrigger = Robot.controller0.getTrigger(Constants.LEFT_TRIGGER);
 
                 //limelight
                 switchPipeline = Robot.controller0.getButton(Constants.BUTTON_START);
@@ -121,8 +121,8 @@ public class PlayerConfigs {
                 intakeLiftHi = Robot.controller0.getTrigger(Constants.LEFT_TRIGGER);
 
                 //vertical
-                fireTrigger = Robot.controller1.getButton(Constants.LEFT_BUMPER);
-                rejectTrigger = Robot.controller1.getTrigger(Constants.LEFT_TRIGGER);
+                fireTrigger = Robot.controller0.getButton(Constants.LEFT_BUMPER);
+                rejectTrigger = Robot.controller0.getTrigger(Constants.LEFT_TRIGGER);
 
                 //limelight
                 switchPipeline = Robot.controller0.getButton(Constants.BUTTON_START);
@@ -133,8 +133,8 @@ public class PlayerConfigs {
         switch(coDriver){
             case ANTHONY :
                 //horizontal
-                acceptIntake = Robot.controller0.getButton(Constants.LEFT_BUMPER);
-                rejectIntake = Robot.controller0.getButton(Constants.LEFT_TRIGGER);
+                acceptIntake = Robot.controller1.getButton(Constants.LEFT_BUMPER);
+                rejectIntake = Robot.controller1.getTrigger(Constants.LEFT_TRIGGER);
 
                 //climber
                 climberLeftExtension = Robot.controller1.getJoystickAxis(Constants.LEFT_STICK_Y);
@@ -142,14 +142,14 @@ public class PlayerConfigs {
                 autoClimbTriggerA = Robot.controller1.getButton(Constants.LEFT_JOYSTICK_BUTTON);
                 autoClimbTriggerB = Robot.controller1.getButton(Constants.RIGHT_JOYSTICK_BUTTON);
                 climberExtend = Robot.controller1.getButton(Constants.RIGHT_BUMPER);
-                climberRetract = Robot.controller1.getButton(Constants.RIGHT_TRIGGER);
+                climberRetract = Robot.controller1.getTrigger(Constants.RIGHT_TRIGGER);
                 climberRotate = Robot.controller1.getButton(Constants.BUTTON_B);
                 climbModeReset = Robot.controller1.getButton(Constants.BUTTON_BACK);
 
             case CHRISTIAN :
                 //horizontal
-                acceptIntake = Robot.controller0.getButton(Constants.LEFT_BUMPER);
-                rejectIntake = Robot.controller0.getButton(Constants.LEFT_TRIGGER);
+                acceptIntake = Robot.controller1.getButton(Constants.LEFT_BUMPER);
+                rejectIntake = Robot.controller1.getTrigger(Constants.LEFT_TRIGGER);
 
                 //climber
                 climberLeftExtension = Robot.controller1.getJoystickAxis(Constants.LEFT_STICK_Y);
@@ -157,14 +157,14 @@ public class PlayerConfigs {
                 autoClimbTriggerA = Robot.controller1.getButton(Constants.LEFT_JOYSTICK_BUTTON);
                 autoClimbTriggerB = Robot.controller1.getButton(Constants.RIGHT_JOYSTICK_BUTTON);
                 climberExtend = Robot.controller1.getButton(Constants.RIGHT_BUMPER);
-                climberRetract = Robot.controller1.getButton(Constants.RIGHT_TRIGGER);
+                climberRetract = Robot.controller1.getTrigger(Constants.RIGHT_TRIGGER);
                 climberRotate = Robot.controller1.getButton(Constants.BUTTON_B);
                 climbModeReset = Robot.controller1.getButton(Constants.BUTTON_BACK);
 
             case ANTONIO :
                 //horizontal
-                acceptIntake = Robot.controller0.getButton(Constants.LEFT_BUMPER);
-                rejectIntake = Robot.controller0.getButton(Constants.LEFT_TRIGGER);
+                acceptIntake = Robot.controller1.getButton(Constants.LEFT_BUMPER);
+                rejectIntake = Robot.controller1.getTrigger(Constants.LEFT_TRIGGER);
 
                 //climber
                 climberLeftExtension = Robot.controller1.getJoystickAxis(Constants.LEFT_STICK_Y);
@@ -172,7 +172,7 @@ public class PlayerConfigs {
                 autoClimbTriggerA = Robot.controller1.getButton(Constants.LEFT_JOYSTICK_BUTTON);
                 autoClimbTriggerB = Robot.controller1.getButton(Constants.RIGHT_JOYSTICK_BUTTON);
                 climberExtend = Robot.controller1.getButton(Constants.RIGHT_BUMPER);
-                climberRetract = Robot.controller1.getButton(Constants.RIGHT_TRIGGER);
+                climberRetract = Robot.controller1.getTrigger(Constants.RIGHT_TRIGGER);
                 climberRotate = Robot.controller1.getButton(Constants.BUTTON_B);
                 climbModeReset = Robot.controller1.getButton(Constants.BUTTON_BACK);
         }
