@@ -53,10 +53,8 @@ public class Constants {
         public static String teamColor;
 
     //Speed Variables
-        public static final double MAX_DRIVE_SPEED = .8; // Min = 0, Max = 1
         public static final double CLIMBER_ROTATION_SPEED = .3;
         public static final double CLIMBER_MOVEMENT_SPEED = 1;
-        public static final double MAX_TURN_SPEED = 1; // Min = 0, Max = 1;
         public static final double LEFT_RIGHT_TRIM = -.1; // Min = -1, Max = 1;+
         public static final double INTAKE_LIFT_SPEED = .3;
         public static final double HORIZONTAL_INTAKE_SPEED = -.8;

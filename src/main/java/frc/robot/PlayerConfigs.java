@@ -25,6 +25,8 @@ public class PlayerConfigs {
     public static double accelerator;
     public static double steering;
     public static boolean autoTarget;
+    public static double turnSpeed;
+    public static double driveSpeed;
 
     //lift
     public static boolean intakeLiftMid;
@@ -81,6 +83,8 @@ public class PlayerConfigs {
                 accelerator = Robot.controller0.getJoystickAxis(Constants.RIGHT_STICK_X);
                 steering = Robot.controller0.getJoystickAxis(Constants.LEFT_STICK_Y);
                 autoTarget = Robot.controller0.getButton(Constants.BUTTON_A);
+                turnSpeed = 0.3;
+                driveSpeed = 0.8;
 
                 //lift
                 intakeLiftMid = Robot.controller0.getButton(Constants.LEFT_BUMPER);
@@ -98,6 +102,8 @@ public class PlayerConfigs {
                 accelerator = Robot.controller0.getJoystickAxis(Constants.RIGHT_STICK_X);
                 steering = Robot.controller0.getJoystickAxis(Constants.LEFT_STICK_Y);
                 autoTarget = Robot.controller0.getButton(Constants.BUTTON_A);
+                turnSpeed = 0.5;
+                driveSpeed = 0.8;
 
                 //lift
                 intakeLiftMid = Robot.controller0.getButton(Constants.LEFT_BUMPER);
@@ -115,6 +121,8 @@ public class PlayerConfigs {
                 accelerator = Robot.controller0.getJoystickAxis(Constants.RIGHT_STICK_X);
                 steering = Robot.controller0.getJoystickAxis(Constants.LEFT_STICK_Y);
                 autoTarget = Robot.controller0.getButton(Constants.BUTTON_A);
+                turnSpeed = 1.0;
+                driveSpeed = 1.0;
 
                 //lift
                 intakeLiftMid = Robot.controller0.getButton(Constants.LEFT_BUMPER);
@@ -136,6 +144,11 @@ public class PlayerConfigs {
                 acceptIntake = Robot.controller1.getButton(Constants.LEFT_BUMPER);
                 rejectIntake = Robot.controller1.getTrigger(Constants.LEFT_TRIGGER);
 
+                //shooter
+                lowPowerShooter = Robot.controller1.getButton(Constants.BUTTON_A);
+                midPowerShooter = Robot.controller1.getButton(Constants.BUTTON_X);
+                highPowerShooter = Robot.controller1.getButton(Constants.BUTTON_Y);
+
                 //climber
                 climberLeftExtension = Robot.controller1.getJoystickAxis(Constants.LEFT_STICK_Y);
                 climberRightExtension = Robot.controller1.getJoystickAxis(Constants.RIGHT_STICK_Y);
@@ -150,6 +163,11 @@ public class PlayerConfigs {
                 //horizontal
                 acceptIntake = Robot.controller1.getButton(Constants.LEFT_BUMPER);
                 rejectIntake = Robot.controller1.getTrigger(Constants.LEFT_TRIGGER);
+
+                //shooter
+                lowPowerShooter = Robot.controller1.getButton(Constants.BUTTON_A);
+                midPowerShooter = Robot.controller1.getButton(Constants.BUTTON_X);
+                highPowerShooter = Robot.controller1.getButton(Constants.BUTTON_Y);
 
                 //climber
                 climberLeftExtension = Robot.controller1.getJoystickAxis(Constants.LEFT_STICK_Y);
@@ -166,6 +184,11 @@ public class PlayerConfigs {
                 acceptIntake = Robot.controller1.getButton(Constants.LEFT_BUMPER);
                 rejectIntake = Robot.controller1.getTrigger(Constants.LEFT_TRIGGER);
 
+                //shooter
+                lowPowerShooter = Robot.controller1.getButton(Constants.BUTTON_A);
+                midPowerShooter = Robot.controller1.getButton(Constants.BUTTON_X);
+                highPowerShooter = Robot.controller1.getButton(Constants.BUTTON_Y);
+                
                 //climber
                 climberLeftExtension = Robot.controller1.getJoystickAxis(Constants.LEFT_STICK_Y);
                 climberRightExtension = Robot.controller1.getJoystickAxis(Constants.RIGHT_STICK_Y);
