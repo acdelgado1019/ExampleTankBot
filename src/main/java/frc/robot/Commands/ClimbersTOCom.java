@@ -50,7 +50,9 @@ public class ClimbersTOCom extends CommandBase{
 
                 if (PlayerConfigs.climberRotate){
                     Robot.climbers.setClimberRotation(Constants.RotatorFullPositionDeg);
-                } else if(!PlayerConfigs.climberRetract){
+                } else if(PlayerConfigs.climberExtend){
+                    Robot.climbers.setClimberRotation(Constants.RotatorUnhookPositionDeg);
+                } else {
                     Robot.climbers.setClimberRotation(Constants.RotatorVerticalPositionDeg);
                 }
                 break;
@@ -59,7 +61,7 @@ public class ClimbersTOCom extends CommandBase{
                 Robot.climbers.setClimberRotation(Constants.RotatorVerticalPositionDeg);
                 Robot.climbers.setLeftClimber(Constants.CLIMBER_MOVEMENT_SPEED);
                 Robot.climbers.setRightClimber(Constants.CLIMBER_MOVEMENT_SPEED);
-                if (Robot.climbers.getLeftClimbEncoder() < 3 && Robot.climbers.getRightClimbEncoder() < 3){
+                if (Robot.climbers.getLeftClimbEncoder() < 1 && Robot.climbers.getRightClimbEncoder() < 1){
                     Robot.climbers.autoClimbStep = AutoClimbStep.MID_BAR_RELEASE;
                 }
                 break;
@@ -86,7 +88,7 @@ public class ClimbersTOCom extends CommandBase{
                 Robot.climbers.setClimberRotation(Constants.RotatorVerticalPositionDeg);
                 Robot.climbers.setLeftClimber(Constants.CLIMBER_MOVEMENT_SPEED);
                 Robot.climbers.setRightClimber(Constants.CLIMBER_MOVEMENT_SPEED);
-                if (Robot.climbers.getLeftClimbEncoder() < 0.2 && Robot.climbers.getRightClimbEncoder() < 0.2){
+                if (Robot.climbers.getLeftClimbEncoder() < 1 && Robot.climbers.getRightClimbEncoder() < 1){
                     Robot.climbers.autoClimbStep = AutoClimbStep.HIGH_BAR_RELEASE;
                 }
                 break;
@@ -113,7 +115,7 @@ public class ClimbersTOCom extends CommandBase{
                 Robot.climbers.setClimberRotation(Constants.RotatorVerticalPositionDeg);
                 Robot.climbers.setLeftClimber(Constants.CLIMBER_MOVEMENT_SPEED);
                 Robot.climbers.setRightClimber(Constants.CLIMBER_MOVEMENT_SPEED);
-                if (Robot.climbers.getLeftClimbEncoder() < 0.2 && Robot.climbers.getRightClimbEncoder() < 0.2){
+                if (Robot.climbers.getLeftClimbEncoder() < 1 && Robot.climbers.getRightClimbEncoder() < 1){
                     Robot.climbers.autoClimbStep = AutoClimbStep.CLIMB_COMPLETE;
                 }
                 break;

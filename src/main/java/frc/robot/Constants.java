@@ -54,7 +54,7 @@ public class Constants {
 
     //Speed Variables
         public static final double CLIMBER_ROTATION_SPEED = .3;
-        public static final double CLIMBER_MOVEMENT_SPEED = 1;
+        public static final double CLIMBER_MOVEMENT_SPEED = -1;
         public static final double LEFT_RIGHT_TRIM = -.1; // Min = -1, Max = 1;+
         public static final double INTAKE_LIFT_SPEED = .3;
         public static final double HORIZONTAL_INTAKE_SPEED = -.8;
@@ -84,7 +84,7 @@ public class Constants {
     //Climber Constants
         public static final double m_armReduction = 30;
         public static final double kRotatorEncoderDistPerPulse = 360 / m_armReduction;
-        public static final double kClimberEncoderDistPerPulse =  0.125;
+        public static final double kClimberEncoderDistPerPulse =  1/8*32/50;
 
         public static double kLRotatorKp = 10;
         public static double kRRotatorKp = 10;
