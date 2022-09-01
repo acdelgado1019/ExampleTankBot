@@ -85,13 +85,13 @@ public class Climbers extends SubsystemBase{
     }
 
     public void setLeftClimber(double speed){
-        leftClimber0.set(-speed);
-        leftClimber1.set(-speed);
+        leftClimber0.set(speed);
+        leftClimber1.set(speed);
     }
 
     public void setRightClimber(double speed){
-        rightClimber0.set(-speed);
-        rightClimber1.set(-speed);
+        rightClimber0.set(speed);
+        rightClimber1.set(speed);
     }
 
     public void setClimberRotation(double setpoint){
@@ -130,10 +130,10 @@ public class Climbers extends SubsystemBase{
 
     public void updateDashboard()
     {
-        SmartDashboard.putNumber("Right Climber Position ", getRightClimbEncoder());
-        SmartDashboard.putNumber("Left Climber Position ", getLeftClimbEncoder());
+        SmartDashboard.putNumber("Right Climber Position ", -getRightClimbEncoder());
+        SmartDashboard.putNumber("Left Climber Position ", -getLeftClimbEncoder());
         SmartDashboard.putNumber("Left Rotator Position ", getLeftRotEncoder());
-        SmartDashboard.putNumber("Right Rotator Position ", getRightRotEncoder());
+        SmartDashboard.putNumber("Right Rotator Position ", -getRightRotEncoder());
         SmartDashboard.putBoolean("Climber Mode", climbMode);
     }
 

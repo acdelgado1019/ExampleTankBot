@@ -58,24 +58,6 @@ public class PlayerConfigs {
     public static boolean climberRotate;
     public static boolean climbModeReset;
 
-    public static void initTeamSetup(){
-        D_chooser.setDefaultOption("CHRISTIAN", Driver.CHRISTIAN);
-        D_chooser.addOption("ANTHONY", Driver.ANTHONY);
-        D_chooser.addOption("ANTONIO", Driver.ANTONIO);
-
-        CD_chooser.setDefaultOption("ANTHONY", CoDriver.ANTHONY);
-        CD_chooser.addOption("CHRISTIAN", CoDriver.CHRISTIAN);
-        CD_chooser.addOption("ANTONIO", CoDriver.ANTONIO);
-
-        SmartDashboard.putData(D_chooser);
-        SmartDashboard.putData(CD_chooser);
-    }
-
-    public static void getPlayers(){
-        driver = D_chooser.getSelected();
-        coDriver = CD_chooser.getSelected();
-    }
-
     public static void getDriverConfig(){
         switch(driver){
             case CHRISTIAN :
@@ -156,7 +138,7 @@ public class PlayerConfigs {
                 autoClimbTriggerB = Robot.controller1.getButton(Constants.RIGHT_JOYSTICK_BUTTON);
                 climberExtend = Robot.controller1.getButton(Constants.RIGHT_BUMPER);
                 climberRetract = Robot.controller1.getTrigger(Constants.RIGHT_TRIGGER);
-                climberRotate = Robot.controller1.getButton(Constants.BUTTON_B);
+                climberRotate = Robot.controller1.getPOV(180);
                 climbModeReset = Robot.controller1.getButton(Constants.BUTTON_BACK);
 
             case CHRISTIAN :
@@ -199,5 +181,23 @@ public class PlayerConfigs {
                 climberRotate = Robot.controller1.getButton(Constants.BUTTON_B);
                 climbModeReset = Robot.controller1.getButton(Constants.BUTTON_BACK);
         }
+    }
+
+    public static void initTeamSetup(){
+        D_chooser.setDefaultOption("CHRISTIAN", Driver.CHRISTIAN);
+        D_chooser.addOption("ANTHONY", Driver.ANTHONY);
+        D_chooser.addOption("ANTONIO", Driver.ANTONIO);
+
+        CD_chooser.setDefaultOption("ANTHONY", CoDriver.ANTHONY);
+        CD_chooser.addOption("CHRISTIAN", CoDriver.CHRISTIAN);
+        CD_chooser.addOption("ANTONIO", CoDriver.ANTONIO);
+
+        SmartDashboard.putData(D_chooser);
+        SmartDashboard.putData(CD_chooser);
+    }
+
+    public static void getPlayers(){
+        driver = D_chooser.getSelected();
+        coDriver = CD_chooser.getSelected();
     }
 }
