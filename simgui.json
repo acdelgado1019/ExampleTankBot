@@ -72,7 +72,6 @@
         }
       },
       "/SmartDashboard/Field": {
-        "image": "/Users/antoniosave/Downloads/2022_Field_Crop_White.png",
         "traj": {
           "color": [
             255.0,
