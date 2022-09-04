@@ -31,6 +31,11 @@ public class AutoRoutine {
                 } else if (HDD.desiredMode == DesiredMode.THREE_BALL_RED || HDD.desiredMode == DesiredMode.THREE_BALL_BLUE) {
                     AutoMethods.limelightShoot();
                     Robot.intake.setHorizontalIntake(Constants.HORIZONTAL_INTAKE_SPEED);
+                } else if (HDD.desiredMode == DesiredMode.FOUR_BALL_RED || HDD.desiredMode == DesiredMode.FOUR_BALL_BLUE) {
+                    AutoMethods.lineDrive(1.5);
+                    AutoMethods.rotate(-100);
+                    AutoMethods.limelightShoot();
+                    Robot.intake.setHorizontalIntake(Constants.HORIZONTAL_INTAKE_SPEED);
                 }
                 Robot.ledStrip.stripeRB();
                 AutoMethods.runRamsete().schedule();
@@ -55,6 +60,14 @@ public class AutoRoutine {
                 } else if (HDD.desiredMode == DesiredMode.THREE_BALL_RED || HDD.desiredMode == DesiredMode.THREE_BALL_BLUE) {
                     if(Timer.getFPGATimestamp() - timeCheck > 5){
                         Robot.intake.setHorizontalIntake(0);
+                        AutoMethods.limelightShoot();
+                        Robot.autoSection = AutoSection.FINISH;
+                    }
+                } else if (HDD.desiredMode == DesiredMode.FOUR_BALL_RED || HDD.desiredMode == DesiredMode.FOUR_BALL_BLUE) {
+                    if(Timer.getFPGATimestamp() - timeCheck > 5){
+                        Robot.intake.setHorizontalIntake(0);
+                        AutoMethods.rotate(-150);
+                        AutoMethods.lineDrive(4.0);
                         AutoMethods.limelightShoot();
                         Robot.autoSection = AutoSection.FINISH;
                     }
