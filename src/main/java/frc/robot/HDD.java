@@ -89,7 +89,7 @@ public class HDD {
             prevMode = desiredMode;
         } if (desiredMode == DesiredMode.FOUR_BALL_RED && prevMode!=desiredMode){
             AutoMethods.resetOdometry(TrajectoryGenerator.generateTrajectory(
-                new Pose2d(8.8,6.35,new Rotation2d(Units.degreesToRadians(90))), 
+                new Pose2d(9,6.35,new Rotation2d(Units.degreesToRadians(90))), 
                 List.of(new Translation2d(8.8, 7),new Translation2d(8.8, 8)), 
                 new Pose2d(8.8,9.0,new Rotation2d(Units.degreesToRadians(90))), 
                 AutoMethods.config));

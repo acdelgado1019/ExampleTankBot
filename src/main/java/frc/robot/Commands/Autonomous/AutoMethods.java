@@ -189,11 +189,11 @@ public class AutoMethods {
                 trajectory =
                 TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing goal
-                new Pose2d(8.8, 7.5, new Rotation2d(Units.degreesToRadians(-90))),
+                new Pose2d(9, 7.5, new Rotation2d(Units.degreesToRadians(-90))),
                 // Pass through ball 2 and 3
-                List.of(new Translation2d(8.8, 6.35), new Translation2d(11.4, 6.35)),
+                List.of(new Translation2d(9, 6.35), new Translation2d(11.4, 6.35)),
                 // Turn to goal and come in range
-                new Pose2d(14.8, 6.8, new Rotation2d(40*Math.PI*2/360)),
+                new Pose2d(15.2, 6.9, new Rotation2d(40*Math.PI*2/360)),
                 // Pass config
                 config);
                 break;
