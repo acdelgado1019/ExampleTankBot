@@ -80,6 +80,7 @@ public class Shooter extends SubsystemBase{
 
     public void updateDashboard(){
         SmartDashboard.putNumber("Shooter Speed ", shooterEncoder.getVelocity());
+        SmartDashboard.putBoolean("Auto Shoot Enabled", getAutoShootEnable());
     } 
 
     @Override
