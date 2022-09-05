@@ -7,6 +7,8 @@ import frc.robot.Robot;
 
 public class ShooterTOCom extends CommandBase{
 
+    private boolean prev_Button;
+
     public ShooterTOCom(){
         addRequirements(Robot.shooter);
     }
@@ -22,6 +24,28 @@ public class ShooterTOCom extends CommandBase{
                 )
             )
         );
+        
+        //Fire Go/No Go Logic
+        if (PlayerConfigs.fireTrigger){
+            Robot.shooter.pulse();
+        } else if (PlayerConfigs.rejectTrigger){
+            Robot.shooter.setTrigger(-Constants.TRIGGER_SPEED);
+        } else if (PlayerConfigs.autoTarget && Robot.shooter.getAutoShootEnable()){
+            if(Robot.limelight.getRange() && Robot.drivetrain.getStopped()){
+                Robot.shooter.pulse();
+            }
+        } else if (!Robot.climbers.getClimbMode() && Robot.autoSection == Robot.AutoSection.EXIT_AUTO){
+            Robot.shooter.setTrigger(0);
+            Robot.shooter.stopPulse();
+            Robot.ledStrip.teamColor(Constants.teamColor);
+        }
+
+        if(PlayerConfigs.changeAutoShootState != prev_Button){
+            prev_Button = PlayerConfigs.changeAutoShootState;
+            if(PlayerConfigs.changeAutoShootState){
+                Robot.shooter.changeAutoShootState();
+            }
+        }
         Robot.shooter.updateDashboard();
     }
 }
