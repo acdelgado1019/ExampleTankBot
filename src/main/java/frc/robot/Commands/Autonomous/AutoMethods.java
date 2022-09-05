@@ -137,7 +137,7 @@ public class AutoMethods {
                 trajectory =
                 TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing goal
-                new Pose2d(7.6, 0.7, new Rotation2d(Units.degreesToRadians(90))),
+                new Pose2d(7.7, 0.65, new Rotation2d(Units.degreesToRadians(90))),
                 // Pass through ball 2 and 3
                 List.of(new Translation2d(7.6, 1.85), new Translation2d(5.0, 1.85)),
                 // Turn to goal and come in range
@@ -189,7 +189,7 @@ public class AutoMethods {
                 trajectory =
                 TrajectoryGenerator.generateTrajectory(
                 // Start at the origin facing goal
-                new Pose2d(9, 7.5, new Rotation2d(Units.degreesToRadians(-90))),
+                new Pose2d(8.8, 7.5, new Rotation2d(Units.degreesToRadians(-90))),
                 // Pass through ball 2 and 3
                 List.of(new Translation2d(9, 6.35), new Translation2d(11.4, 6.35)),
                 // Turn to goal and come in range
@@ -251,7 +251,6 @@ public class AutoMethods {
     public static Command runRamsete(){
         trajectory = getTrajectory();
         ramseteCommand = getRamsete();
-        resetOdometry(trajectory);
         return ramseteCommand.andThen(() -> Robot.drivetrain.tankDriveVolts(0, 0));
     }
 }

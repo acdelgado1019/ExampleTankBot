@@ -53,7 +53,8 @@ public class Limelight extends SubsystemBase {
         return tv.getDouble(0.0);
     }
     public void getRange(){
-        SmartDashboard.putBoolean("IN RANGE", Math.abs(tx.getDouble(0.0))<15 && tx.getDouble(0.0)!= 0.0 ? true : false);
+        SmartDashboard.putBoolean("IN RANGE", 
+        (Math.abs(tx.getDouble(0.0))<15 && tx.getDouble(0.0)!= 0.0) || Math.abs(getOffset())<3 ? true : false);
     }
 
     public double getDistance(){
