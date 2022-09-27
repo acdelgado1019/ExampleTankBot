@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -25,8 +26,8 @@ public class Intake extends SubsystemBase{
         intakeLift = new CANSparkMax(inLift, MotorType.kBrushless);
         intakeLift.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
         intakeLift.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
-        intakeLift.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 0);
-        intakeLift.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, -60);
+        intakeLift.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 80);
+        intakeLift.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 20);
 
         intakeLiftEncoder = intakeLift.getEncoder();
         intakeLiftEncoder.setPositionConversionFactor(Constants.kIntakeLiftEncoderDistPerRot);
@@ -37,10 +38,10 @@ public class Intake extends SubsystemBase{
     }
 
     public void setIntakeLift(double setpoint){
-        var pidOutput = Robot.intake.Lift_controller.calculate(
-            Robot.intake.getEncoder(), 
-            Units.degreesToRadians(setpoint));
+        var pidOutput = Robot.intake.Lift_controller.calculate(Robot.intake.getEncoder(), setpoint);
         intakeLift.setVoltage(pidOutput);
+        SmartDashboard.putNumber("Intake Lift Setpoint", setpoint);
+        SmartDashboard.putNumber("Intake Lift Output", pidOutput);
     }
 
     public void resetEncoder(){

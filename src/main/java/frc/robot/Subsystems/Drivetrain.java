@@ -155,8 +155,8 @@ public class Drivetrain extends SubsystemBase{
             if (Math.abs(degOff)>180){degOff = -360+degOff;}
         }
         if(Math.abs(degOff) > 1){
-                double speed = .15 * degOff/90;
-                setLeftDrivetrain(speed);
+                double speed = .25 * degOff/90;
+                setLeftDrivetrain(-speed);
                 setRightDrivetrain(speed);
         }
     }

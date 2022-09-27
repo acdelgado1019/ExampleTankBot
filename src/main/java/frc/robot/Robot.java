@@ -139,9 +139,9 @@ public class Robot extends TimedRobot {
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {
-    intake.setIntakeLift(0.0);
-    climbers.setLeftClimberRotation(0.0);
-    climbers.setRightClimberRotation(0.0);
+    // intake.setIntakeLift(0.0);
+    //climbers.setLeftClimberRotation(0.0);
+    //climbers.setRightClimberRotation(0.0);
   }
 
   /** This function is called periodically when disabled. */
@@ -161,5 +161,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
+    SmartDashboard.putNumber("LClimber Rotator", climbers.getLeftRotEncoder());
+    SmartDashboard.putNumber("RClimber Rotator", climbers.getRightRotEncoder());
+    SmartDashboard.putNumber("Intake Lift", intake.getEncoder());
   }
 }

@@ -9,17 +9,17 @@ public class Constants {
         public static final int LEFT_DRIVE_TRAIN_1 = 19;    public static final int RIGHT_DRIVE_TRAIN_1 = 2;
         
         //Climbers
-        public static final int LEFT_CLIMBER_0 = 18;        public static final int RIGHT_CLIMBER_0 = 3;
-        public static final int LEFT_CLIMBER_1 = 17;        public static final int RIGHT_CLIMBER_1 = 4;
-        public static final int LEFT_CLIMBER_ROTATE = 16;   public static final int RIGHT_CLIMBER_ROTATE = 5;
+        public static final int LEFT_CLIMBER_0 = 12;        public static final int RIGHT_CLIMBER_0 = 11;
+        public static final int LEFT_CLIMBER_1 = 9;        public static final int RIGHT_CLIMBER_1 = 10;
+        public static final int LEFT_CLIMBER_ROTATE = 18;   public static final int RIGHT_CLIMBER_ROTATE = 3;
         
         //GAP = 15                                          //GAP = 6
         //GAP = 14                                          //GAP = 7
         //GAP = 13                                          //GAP = 8
 
         //Intake & Shooter
-        public static final int SHOOTER = 12;               public static final int HORIZONTAL_INTAKE = 9;      
-        public static final int TRIGGER = 11;               public static final int INTAKE_LIFT = 10;           
+        public static final int SHOOTER = 15;               public static final int HORIZONTAL_INTAKE = 17;      
+        public static final int TRIGGER = 16;               public static final int INTAKE_LIFT = 5;           
 
     //Controller Assignments
         public static final int DRIVER_CONTROLLER_0 = 0;
@@ -55,7 +55,7 @@ public class Constants {
     //Speed Variables
         public static final double CLIMBER_ROTATION_SPEED = .3;
         public static final double CLIMBER_MOVEMENT_SPEED = -1;
-        public static final double LEFT_RIGHT_TRIM = -.1; // Min = -1, Max = 1;+
+        public static final double LEFT_RIGHT_TRIM = 0; // Min = -1, Max = 1;+
         public static final double INTAKE_LIFT_SPEED = .3;
         public static final double HORIZONTAL_INTAKE_SPEED = -.8;
         public static final double TRIGGER_SPEED = -1;
@@ -84,22 +84,22 @@ public class Constants {
         public static final double camAngle = 15;
 
     //Climber Constants
-        public static final double m_armReduction = 30;
+        public static final double m_armReduction = 60;
         public static final double kRotatorEncoderDistPerPulse = 360 / m_armReduction;
-        public static final double kClimberEncoderDistPerPulse =  1/8*32/50;
+        public static final double kClimberEncoderDistPerPulse =  1/8*48/64;
 
-        public static double kLRotatorKp = 10;
-        public static double kRRotatorKp = 10;
-        public static double RotatorFullPositionDeg = 24.0;
-        public static double RotatorUnhookPositionDeg = 3.0;
+        public static double kLRotatorKp = 1;
+        public static double kRRotatorKp = 1;
+        public static double RotatorFullPositionDeg = 21.0;
+        public static double RotatorUnhookPositionDeg = 1.0;
         public static double RotatorVerticalPositionDeg = 0.0;
 
     //Intake Lift Constants
         public static final double m_IntakeLiftReduction = 125;
         public static final double kIntakeLiftEncoderDistPerRot = 360 / m_IntakeLiftReduction;
 
-        public static double kIntakeLiftKp = 5;
-        public static double hiILPositionDeg = -10;
-        public static double midILPositionDeg = -30;
-        public static double loILPositionDeg = -60;
+        public static double kIntakeLiftKp = 0.09;
+        public static double hiILPositionDeg = 20;
+        public static double midILPositionDeg = 30;
+        public static double loILPositionDeg = 80;
 }

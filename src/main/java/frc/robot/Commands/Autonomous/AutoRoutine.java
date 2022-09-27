@@ -22,7 +22,7 @@ public class AutoRoutine {
                 var pidOutput = Robot.intake.Lift_controller.calculate(
                 Robot.intake.getEncoder(), 
                 Units.degreesToRadians(Constants.loILPositionDeg));
-                Robot.intake.setIntakeLift(pidOutput);
+                // Robot.intake.setIntakeLift(pidOutput);
                 Robot.shooter.setShooterMotor(Robot.shooter.shooterSpeedAdjust(Robot.limelight.getDistance()));
                 if(Timer.getFPGATimestamp() - timeCheck > 1.5 || 
                 ((HDD.desiredMode == DesiredMode.TWO_BALL_RED || HDD.desiredMode == DesiredMode.TWO_BALL_BLUE || 

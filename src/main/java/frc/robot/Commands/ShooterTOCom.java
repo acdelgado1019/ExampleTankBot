@@ -27,17 +27,18 @@ public class ShooterTOCom extends CommandBase{
         
         //Fire Go/No Go Logic
         if (PlayerConfigs.fireTrigger){
-            Robot.shooter.pulse();
+            Robot.shooter.setTrigger(Constants.TRIGGER_SPEED);
         } else if (PlayerConfigs.rejectTrigger){
             Robot.shooter.setTrigger(-Constants.TRIGGER_SPEED);
         } else if (PlayerConfigs.autoTarget && Robot.shooter.getAutoShootEnable()){
             if(Robot.limelight.getRange() && Robot.drivetrain.getStopped()){
-                Robot.shooter.pulse();
+                Robot.shooter.setTrigger(Constants.TRIGGER_SPEED);
             }
         } else if (!Robot.climbers.getClimbMode() && Robot.autoSection == Robot.AutoSection.EXIT_AUTO){
             Robot.shooter.setTrigger(0);
-            Robot.shooter.stopPulse();
             Robot.ledStrip.teamColor(Constants.teamColor);
+        } else {
+            Robot.shooter.setTrigger(0);
         }
 
         if(PlayerConfigs.changeAutoShootState != prev_Button){

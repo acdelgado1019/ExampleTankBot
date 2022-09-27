@@ -6,7 +6,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,7 +17,6 @@ public class Shooter extends SubsystemBase{
     private static RelativeEncoder shooterEncoder;
     private VictorSPX trigger;
 
-    private boolean pulsing = false;
     public boolean autoShoot = true;
 
     public Shooter(int shoot, int trig){
@@ -52,23 +50,6 @@ public class Shooter extends SubsystemBase{
     }
 
     //Pulses the trigger in half-second increments to allow for flywheel recovery
-    public void pulse(){
-        if (pulsing == false){
-            pulsing = true;
-        }
-        if (Timer.getFPGATimestamp() % 1 < 0.5){
-            setTrigger(Constants.TRIGGER_SPEED);
-        } else {
-            setTrigger(0);
-        }
-        SmartDashboard.putBoolean("Firing", (Timer.getFPGATimestamp() % 1)<0.5);
-    }
-
-    public void stopPulse(){
-        SmartDashboard.putBoolean("Firing", false);
-        setTrigger(0);
-        pulsing = false;
-    }
 
     public boolean getAutoShootEnable(){
         return autoShoot;
@@ -79,7 +60,7 @@ public class Shooter extends SubsystemBase{
     }
 
     public void updateDashboard(){
-        SmartDashboard.putNumber("Shooter Speed ", shooterEncoder.getVelocity());
+        SmartDashboard.putNumber("Shooter Speed ", -shooterEncoder.getVelocity());
         SmartDashboard.putBoolean("Auto Shoot Enabled", getAutoShootEnable());
     } 
 
