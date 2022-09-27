@@ -90,7 +90,7 @@ public class Constants {
 
         public static double kLRotatorKp = 1;
         public static double kRRotatorKp = 1;
-        public static double RotatorFullPositionDeg = 21.0;
+        public static double RotatorFullPositionDeg = 30.0;
         public static double RotatorUnhookPositionDeg = 1.0;
         public static double RotatorVerticalPositionDeg = 0.0;
 
