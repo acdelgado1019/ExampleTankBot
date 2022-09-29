@@ -164,5 +164,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("LClimber Rotator", climbers.getLeftRotEncoder());
     SmartDashboard.putNumber("RClimber Rotator", climbers.getRightRotEncoder());
     SmartDashboard.putNumber("Intake Lift", intake.getEncoder());
+    
+    //print Gear Ratios
+    SmartDashboard.putNumber("RDT Gear", Robot.drivetrain.rightDrivetrain.getPositionConversionFactor());
+    SmartDashboard.putNumber("LDT Gear", Robot.drivetrain.leftDrivetrain.getPositionConversionFactor());
+    SmartDashboard.putNumber("R Climber Gear", Robot.climbers.climberEncoderRight.getPositionConversionFactor());
+    SmartDashboard.putNumber("L Climber Gear", Robot.climbers.climberEncoderLeft.getPositionConversionFactor());
+    SmartDashboard.putNumber("R Rotate Gear", Robot.climbers.rightRotateEncoder.getPositionConversionFactor());
+    SmartDashboard.putNumber("L Rotate Gear", Robot.climbers.leftRotateEncoder.getPositionConversionFactor());
+    SmartDashboard.putNumber("Intake Lift Gear", Robot.intake.intakeLiftEncoder.getPositionConversionFactor());
   }
 }

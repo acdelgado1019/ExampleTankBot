@@ -22,8 +22,8 @@ public class Drivetrain extends SubsystemBase{
     private CANSparkMax motorLeft1;
     private CANSparkMax motorRight0;
     private CANSparkMax motorRight1;
-    private RelativeEncoder rightDrivetrain;
-    private RelativeEncoder leftDrivetrain;   
+    public RelativeEncoder rightDrivetrain;
+    public RelativeEncoder leftDrivetrain;   
     private final MotorControllerGroup m_leftMotors;
     private final MotorControllerGroup m_rightMotors;
     public final DifferentialDrive m_drive;
@@ -45,7 +45,7 @@ public class Drivetrain extends SubsystemBase{
         m_rightMotors = new MotorControllerGroup(motorRight0,motorRight1); 
         m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
-        m_rightMotors.setInverted(true);
+        m_leftMotors.setInverted(true);
 
         leftDrivetrain = motorLeft0.getEncoder();
         rightDrivetrain = motorRight0.getEncoder();
@@ -61,7 +61,7 @@ public class Drivetrain extends SubsystemBase{
         odometry.update(
             gyro.getRotation2d(), 
             leftDrivetrain.getPosition(), 
-            rightDrivetrain.getPosition()
+            -rightDrivetrain.getPosition()
         );
         setDefaultCommand(new DrivetrainTOCom());
     }
@@ -130,19 +130,6 @@ public class Drivetrain extends SubsystemBase{
         return Math.abs(-gyro.getRate()) < 3;
     }
 
-    //Drive Methods
-    public void setLeftDrivetrain(double speed){
-        motorLeft0.set(speed);
-        motorLeft1.set(speed);
-        m_drive.feed();
-    }
-
-    public void setRightDrivetrain(double speed){
-        motorRight0.set(-speed);
-        motorRight1.set(-speed);
-        m_drive.feed();
-    }
-
     //Adjusts the pose of the robot to center on the hub
     public void hubTrack()
     {
@@ -155,9 +142,8 @@ public class Drivetrain extends SubsystemBase{
             if (Math.abs(degOff)>180){degOff = -360+degOff;}
         }
         if(Math.abs(degOff) > 1){
-                double speed = .25 * degOff/90;
-                setLeftDrivetrain(-speed);
-                setRightDrivetrain(speed);
+                double speed = .15 * degOff/90;
+                tankDriveVolts(-speed*12,speed*12);
         }
     }
 }

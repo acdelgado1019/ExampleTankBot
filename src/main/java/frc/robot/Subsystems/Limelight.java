@@ -6,7 +6,6 @@ import frc.robot.Robot;
 import frc.robot.Commands.LimelightTOCom;
 import edu.wpi.first.math.util.Units;
 /* LimeLight specific Imports*/
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -55,9 +54,7 @@ public class Limelight extends SubsystemBase {
     public boolean getRange(){
         boolean limeRange = Math.abs(tx.getDouble(0.0))<15 && tx.getDouble(0.0)!= 0.0;
         boolean localRange = Math.abs(getOffset()-Robot.drivetrain.getNormHeading())<15;
-        SmartDashboard.putNumber("Offset", Math.abs(getOffset()-Robot.drivetrain.getNormHeading()));
-        SmartDashboard.putBoolean("IN RANGE", 
-        (limeRange || localRange) ? true : false);
+        SmartDashboard.putBoolean("IN RANGE", (limeRange || localRange) ? true : false);
         return limeRange || localRange;
     }
 

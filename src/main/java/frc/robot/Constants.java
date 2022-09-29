@@ -86,7 +86,7 @@ public class Constants {
     //Climber Constants
         public static final double m_armReduction = 60;
         public static final double kRotatorEncoderDistPerPulse = 360 / m_armReduction;
-        public static final double kClimberEncoderDistPerPulse =  1/8*48/64;
+        public static final double kClimberEncoderDistPerPulse =  0.09375;
 
         public static double kLRotatorKp = 1;
         public static double kRRotatorKp = 1;

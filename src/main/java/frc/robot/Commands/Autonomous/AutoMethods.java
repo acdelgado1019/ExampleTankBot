@@ -39,8 +39,7 @@ public class AutoMethods {
         {
             Robot.drivetrain.hubTrack();
         }
-        Robot.drivetrain.setLeftDrivetrain(0);
-        Robot.drivetrain.setRightDrivetrain(0);
+        Robot.drivetrain.tankDriveVolts(0,0);
         Robot.shooter.setTrigger(Constants.TRIGGER_SPEED);
         Robot.ledStrip.solid(60);
         Timer.delay(1);

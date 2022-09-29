@@ -7,8 +7,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -18,7 +16,7 @@ public class Intake extends SubsystemBase{
 
     private VictorSPX horizontalIntake;
     private CANSparkMax intakeLift;
-    private RelativeEncoder intakeLiftEncoder;
+    public RelativeEncoder intakeLiftEncoder;
     public final PIDController Lift_controller = new PIDController(Constants.kIntakeLiftKp, 0, 0);
 
     public Intake (int horIntake, int inLift) {
@@ -40,8 +38,6 @@ public class Intake extends SubsystemBase{
     public void setIntakeLift(double setpoint){
         var pidOutput = Robot.intake.Lift_controller.calculate(Robot.intake.getEncoder(), setpoint);
         intakeLift.setVoltage(pidOutput);
-        SmartDashboard.putNumber("Intake Lift Setpoint", setpoint);
-        SmartDashboard.putNumber("Intake Lift Output", pidOutput);
     }
 
     public void resetEncoder(){
