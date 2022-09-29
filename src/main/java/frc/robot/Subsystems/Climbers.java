@@ -17,10 +17,10 @@ public class Climbers extends SubsystemBase{
     private CANSparkMax rightClimber0;
     private CANSparkMax rightClimber1;
     private CANSparkMax rightClimberRotate;
-    private RelativeEncoder climberEncoderRight;
-    private RelativeEncoder rightRotateEncoder;
-    private RelativeEncoder climberEncoderLeft;
-    private RelativeEncoder leftRotateEncoder;
+    public RelativeEncoder climberEncoderRight;
+    public RelativeEncoder rightRotateEncoder;
+    public RelativeEncoder climberEncoderLeft;
+    public RelativeEncoder leftRotateEncoder;
     private boolean climbMode = false;
     public final PIDController L_controller = new PIDController(Constants.kLRotatorKp, 0, 0);
     public final PIDController R_controller = new PIDController(Constants.kRRotatorKp, 0, 0);
@@ -61,8 +61,8 @@ public class Climbers extends SubsystemBase{
         leftClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse,true);
         rightClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward,true);
         rightClimberRotate.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse,true);
-        leftClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) -25);
         leftClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 0);
+        leftClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) -25);
         rightClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float) 25);
         rightClimberRotate.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float) 0);
 
@@ -74,14 +74,14 @@ public class Climbers extends SubsystemBase{
         leftClimber1.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
         rightClimber0.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
         rightClimber1.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
-        leftClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 270);
-        leftClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
-        rightClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 270);
-        rightClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
-        leftClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 270);
-        leftClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
-        rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 270);
-        rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 2);
+        leftClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float)25.3);
+        leftClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float)0.5);
+        rightClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float)25.3);
+        rightClimber0.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float)0.5);
+        leftClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float)25.3);
+        leftClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float)0.5);
+        rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, (float)25.3);
+        rightClimber1.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, (float)0.5);
     }
 
     public void setLeftClimber(double speed){
@@ -132,8 +132,6 @@ public class Climbers extends SubsystemBase{
     {
         SmartDashboard.putNumber("Right Climber Position ", getRightClimbEncoder());
         SmartDashboard.putNumber("Left Climber Position ", getLeftClimbEncoder());
-        SmartDashboard.putNumber("Left Rotator Position ", getLeftRotEncoder());
-        SmartDashboard.putNumber("Right Rotator Position ", -getRightRotEncoder());
         SmartDashboard.putBoolean("Climber Mode", climbMode);
     }
 
