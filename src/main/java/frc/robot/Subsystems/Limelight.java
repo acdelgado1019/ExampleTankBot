@@ -83,6 +83,10 @@ public class Limelight extends SubsystemBase {
         table.getEntry("ledMode").setNumber(table.getEntry("ledMode").getDouble(0.0) == 0 ? 3 : 0);
     }
 
+    public void setLED(int mode){
+        table.getEntry("ledMode").setNumber(mode);
+    }
+
     @Override
     public void periodic() {
         setDefaultCommand(new LimelightTOCom());

@@ -25,7 +25,7 @@ public class Intake extends SubsystemBase{
         intakeLift.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
         intakeLift.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
         intakeLift.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 80);
-        intakeLift.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 20);
+        intakeLift.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 10);
 
         intakeLiftEncoder = intakeLift.getEncoder();
         intakeLiftEncoder.setPositionConversionFactor(Constants.kIntakeLiftEncoderDistPerRot);

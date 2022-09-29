@@ -92,14 +92,14 @@ public class Constants {
         public static double kRRotatorKp = 1;
         public static double RotatorFullPositionDeg = 30.0;
         public static double RotatorUnhookPositionDeg = 1.0;
-        public static double RotatorVerticalPositionDeg = 0.0;
+        public static double RotatorVerticalPositionDeg = -0.5;
 
     //Intake Lift Constants
         public static final double m_IntakeLiftReduction = 125;
         public static final double kIntakeLiftEncoderDistPerRot = 360 / m_IntakeLiftReduction;
 
         public static double kIntakeLiftKp = 0.09;
-        public static double hiILPositionDeg = 20;
+        public static double hiILPositionDeg = 10;
         public static double midILPositionDeg = 30;
         public static double loILPositionDeg = 80;
 }

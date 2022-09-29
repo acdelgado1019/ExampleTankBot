@@ -35,6 +35,7 @@ public class AutoMethods {
 
     public static void limelightShoot()
     {
+        Robot.limelight.setLED(3);
         while(Robot.limelight.getTV() != 0 && Math.abs(Robot.limelight.getTX()) > 3)
         {
             Robot.drivetrain.hubTrack();
@@ -44,6 +45,7 @@ public class AutoMethods {
         Robot.ledStrip.solid(60);
         Timer.delay(1);
         Robot.shooter.setTrigger(0);
+        Robot.limelight.setLED(0);
     }
 
     public static void lineDrive(double distance){
