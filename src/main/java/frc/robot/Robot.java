@@ -125,7 +125,7 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
-    Robot.drivetrain.brakeModeEngage(true);
+    Robot.drivetrain.brakeModeEngage(false);
     autoSection = AutoSection.EXIT_AUTO;
     Constants.teamColor = DriverStation.getAlliance().toString();
     PlayerConfigs.getPlayers();

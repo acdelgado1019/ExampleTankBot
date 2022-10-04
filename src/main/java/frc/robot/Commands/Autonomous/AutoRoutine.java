@@ -26,7 +26,8 @@ public class AutoRoutine {
                 Robot.shooter.setShooterMotor(Robot.shooter.shooterSpeedAdjust(Robot.limelight.getDistance()));
                 if(Timer.getFPGATimestamp() - timeCheck > 1.5 || 
                 ((HDD.desiredMode == DesiredMode.TWO_BALL_RED || HDD.desiredMode == DesiredMode.TWO_BALL_BLUE || 
-                HDD.desiredMode == DesiredMode.FOUR_BALL_RED || HDD.desiredMode == DesiredMode.FOUR_BALL_BLUE) && Timer.getFPGATimestamp() - timeCheck > 0.5)){
+                HDD.desiredMode == DesiredMode.FOUR_BALL_RED || HDD.desiredMode == DesiredMode.FOUR_BALL_BLUE) 
+                && Timer.getFPGATimestamp() - timeCheck > 0.5)){
                     Robot.autoSection = AutoSection.OPENING_ACTION;
                 } 
                 break;     

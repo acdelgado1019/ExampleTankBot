@@ -19,7 +19,9 @@ public class ShooterTOCom extends CommandBase{
             PlayerConfigs.lowPowerShooter ? Constants.SHOOTER_LOW_SPEED : 
                 (PlayerConfigs.highPowerShooter ? Constants.SHOOTER_HI_SPEED :
                     (PlayerConfigs.midPowerShooter ? Constants.SHOOTER_MID_SPEED :
-                        (!Robot.climbers.getClimbMode() ? Robot.shooter.shooterSpeedAdjust(Robot.limelight.getDistance()) : 0
+                        (PlayerConfigs.autoTarget ? Robot.shooter.shooterSpeedAdjust(Robot.limelight.getDistance()) :
+                            (!Robot.climbers.getClimbMode() ? Constants.SHOOTER_IDLE_SPEED : 0
+                        )
                     )
                 )
             )
