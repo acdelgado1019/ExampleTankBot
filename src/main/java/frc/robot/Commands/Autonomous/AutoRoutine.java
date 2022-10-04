@@ -24,7 +24,7 @@ public class AutoRoutine {
                 Units.degreesToRadians(Constants.loILPositionDeg));
                 Robot.intake.setIntakeLift(pidOutput);
                 Robot.shooter.setShooterMotor(Robot.shooter.shooterSpeedAdjust(Robot.limelight.getDistance()));
-                if(Timer.getFPGATimestamp() - timeCheck > 1.5 || 
+                if(Timer.getFPGATimestamp() - timeCheck > 2 || 
                 ((HDD.desiredMode == DesiredMode.TWO_BALL_RED || HDD.desiredMode == DesiredMode.TWO_BALL_BLUE || 
                 HDD.desiredMode == DesiredMode.FOUR_BALL_RED || HDD.desiredMode == DesiredMode.FOUR_BALL_BLUE) 
                 && Timer.getFPGATimestamp() - timeCheck > 0.5)){
@@ -69,8 +69,8 @@ public class AutoRoutine {
                 break;
             case MOVEMENT :
                 Robot.ledStrip.stripeRB();
-                AutoMethods.runRamsete().schedule();
-                Robot.autoSection = AutoSection.CLOSING_ACTION;
+                //AutoMethods.runRamsete().schedule();
+                //Robot.autoSection = AutoSection.CLOSING_ACTION;
                 timeCheck = Timer.getFPGATimestamp();
                 break;
             case CLOSING_ACTION :

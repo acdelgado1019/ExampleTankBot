@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.PlayerConfigs;
 import frc.robot.Robot;
+import frc.robot.Robot.AutoSection;
 
 public class ShooterTOCom extends CommandBase{
 
@@ -19,7 +20,7 @@ public class ShooterTOCom extends CommandBase{
             PlayerConfigs.lowPowerShooter ? Constants.SHOOTER_LOW_SPEED : 
                 (PlayerConfigs.highPowerShooter ? Constants.SHOOTER_HI_SPEED :
                     (PlayerConfigs.midPowerShooter ? Constants.SHOOTER_MID_SPEED :
-                        (PlayerConfigs.autoTarget ? Robot.shooter.shooterSpeedAdjust(Robot.limelight.getDistance()) :
+                        (PlayerConfigs.autoTarget || Robot.autoSection != AutoSection.EXIT_AUTO ? Robot.shooter.shooterSpeedAdjust(Robot.limelight.getDistance()) :
                             (!Robot.climbers.getClimbMode() ? Constants.SHOOTER_IDLE_SPEED : 0
                         )
                     )
