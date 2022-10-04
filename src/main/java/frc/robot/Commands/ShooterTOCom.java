@@ -30,10 +30,10 @@ public class ShooterTOCom extends CommandBase{
             Robot.shooter.setTrigger(Constants.TRIGGER_SPEED);
         } else if (PlayerConfigs.rejectTrigger){
             Robot.shooter.setTrigger(-Constants.TRIGGER_SPEED);
-        } else if (PlayerConfigs.autoTarget && Robot.shooter.getAutoShootEnable()){
-            if(Robot.limelight.getRange() && Robot.drivetrain.getStopped()){
-                Robot.shooter.setTrigger(Constants.TRIGGER_SPEED);
-            }
+        // } else if (PlayerConfigs.autoTarget && Robot.shooter.getAutoShootEnable()){
+        //     if(Robot.limelight.getRange() && Robot.drivetrain.getStopped()){
+        //         Robot.shooter.setTrigger(Constants.TRIGGER_SPEED);
+        //     }
         } else if (!Robot.climbers.getClimbMode() && Robot.autoSection == Robot.AutoSection.EXIT_AUTO){
             Robot.shooter.setTrigger(0);
             Robot.ledStrip.teamColor(Constants.teamColor);

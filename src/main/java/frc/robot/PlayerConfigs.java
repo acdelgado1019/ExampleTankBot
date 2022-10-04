@@ -8,6 +8,7 @@ public class PlayerConfigs {
         RYAN,
         ALLISON,
         JULISSA,
+        KYLIE,
         MENTOR
     }
 
@@ -15,6 +16,7 @@ public class PlayerConfigs {
         KEVIN,
         SHANNON,
         ALLISON,
+        CHANTELLE,
         MENTOR
     }
 
@@ -63,11 +65,13 @@ public class PlayerConfigs {
         D_chooser.setDefaultOption("RYAN", Driver.RYAN);
         D_chooser.addOption("JULISSA", Driver.JULISSA);
         D_chooser.addOption("ALLISON", Driver.ALLISON);
+        D_chooser.addOption("KYLIE", Driver.KYLIE);
         D_chooser.addOption("MENTOR", Driver.MENTOR);
 
         CD_chooser.setDefaultOption("KEVIN", CoDriver.KEVIN);
         CD_chooser.addOption("SHANNON", CoDriver.SHANNON);
         CD_chooser.addOption("ALLISON", CoDriver.ALLISON);
+        CD_chooser.addOption("CHANTELLE", CoDriver.CHANTELLE);
         CD_chooser.addOption("MENTOR", CoDriver.MENTOR);
 
         SmartDashboard.putData(D_chooser);
@@ -90,8 +94,7 @@ public class PlayerConfigs {
                 driveSpeed = 0.5;
 
                 //lift
-                intakeLiftMid = Robot.controller0.getButton(Constants.RIGHT_BUMPER);
-                intakeLiftHi = Robot.controller0.getTrigger(Constants.RIGHT_TRIGGER);
+                intakeLiftHi = Robot.controller0.getTrigger(Constants.RIGHT_BUMPER);
 
                 //shooter
                 fireTrigger = Robot.controller0.getButton(Constants.LEFT_BUMPER);
@@ -110,8 +113,7 @@ public class PlayerConfigs {
                 driveSpeed = 0.5;
 
                 //lift
-                intakeLiftMid = Robot.controller0.getButton(Constants.RIGHT_BUMPER);
-                intakeLiftHi = Robot.controller0.getTrigger(Constants.RIGHT_TRIGGER);
+                intakeLiftHi = Robot.controller0.getTrigger(Constants.RIGHT_BUMPER);
 
                 //shooter
                 fireTrigger = Robot.controller0.getTrigger(Constants.LEFT_TRIGGER);
@@ -130,8 +132,26 @@ public class PlayerConfigs {
                 driveSpeed = 0.5;
 
                 //lift
-                intakeLiftMid = Robot.controller0.getButton(Constants.RIGHT_BUMPER);
-                intakeLiftHi = Robot.controller0.getTrigger(Constants.RIGHT_TRIGGER);
+                intakeLiftHi = Robot.controller0.getTrigger(Constants.RIGHT_BUMPER);
+
+                //shooter
+                fireTrigger = Robot.controller0.getButton(Constants.LEFT_BUMPER);
+                rejectTrigger = Robot.controller0.getTrigger(Constants.LEFT_TRIGGER);
+                changeAutoShootState = Robot.controller0.getButton(Constants.BUTTON_BACK);
+
+                //limelight
+                switchPipeline = Robot.controller0.getButton(Constants.BUTTON_START);
+
+            case KYLIE :
+                //drivetrain
+                accelerator = Robot.controller0.getJoystickAxis(Constants.RIGHT_STICK_Y);
+                steering = Robot.controller0.getJoystickAxis(Constants.LEFT_STICK_X);
+                autoTarget = Robot.controller0.getButton(Constants.BUTTON_A);
+                turnSpeed = 0.4;
+                driveSpeed = 0.5;
+
+                //lift
+                intakeLiftHi = Robot.controller0.getTrigger(Constants.RIGHT_BUMPER);
 
                 //shooter
                 fireTrigger = Robot.controller0.getButton(Constants.LEFT_BUMPER);
@@ -150,8 +170,7 @@ public class PlayerConfigs {
                 driveSpeed = 0.7;
 
                 //lift
-                intakeLiftMid = Robot.controller0.getButton(Constants.RIGHT_BUMPER);
-                intakeLiftHi = Robot.controller0.getTrigger(Constants.RIGHT_TRIGGER);
+                intakeLiftHi = Robot.controller0.getTrigger(Constants.RIGHT_BUMPER);
 
                 //shooter
                 fireTrigger = Robot.controller0.getButton(Constants.LEFT_BUMPER);
@@ -206,6 +225,26 @@ public class PlayerConfigs {
                 climbModeReset = Robot.controller1.getButton(Constants.BUTTON_BACK);
             
             case SHANNON :
+                //horizontal
+                acceptIntake = Robot.controller1.getButton(Constants.LEFT_BUMPER);
+                rejectIntake = Robot.controller1.getTrigger(Constants.LEFT_TRIGGER);
+
+                //shooter
+                lowPowerShooter = Robot.controller1.getButton(Constants.BUTTON_A);
+                midPowerShooter = Robot.controller1.getButton(Constants.BUTTON_X);
+                highPowerShooter = Robot.controller1.getButton(Constants.BUTTON_Y);
+                
+                //climber
+                climberLeftExtension = Robot.controller1.getJoystickAxis(Constants.LEFT_STICK_Y);
+                climberRightExtension = Robot.controller1.getJoystickAxis(Constants.RIGHT_STICK_Y);
+                autoClimbTriggerA = Robot.controller1.getButton(Constants.LEFT_JOYSTICK_BUTTON);
+                autoClimbTriggerB = Robot.controller1.getButton(Constants.RIGHT_JOYSTICK_BUTTON);
+                climberExtend = Robot.controller1.getButton(Constants.RIGHT_BUMPER);
+                climberRetract = Robot.controller1.getTrigger(Constants.RIGHT_TRIGGER);
+                climberRotate = Robot.controller1.getButton(Constants.BUTTON_B);
+                climbModeReset = Robot.controller1.getButton(Constants.BUTTON_BACK);
+            
+            case CHANTELLE :
                 //horizontal
                 acceptIntake = Robot.controller1.getButton(Constants.LEFT_BUMPER);
                 rejectIntake = Robot.controller1.getTrigger(Constants.LEFT_TRIGGER);

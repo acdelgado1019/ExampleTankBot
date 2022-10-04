@@ -61,7 +61,7 @@ public class ClimbersTOCom extends CommandBase{
                 Robot.climbers.setClimberRotation(Constants.RotatorVerticalPositionDeg);
                 Robot.climbers.setLeftClimber(-Constants.CLIMBER_MOVEMENT_SPEED);
                 Robot.climbers.setRightClimber(-Constants.CLIMBER_MOVEMENT_SPEED);
-                if (Robot.climbers.getLeftClimbEncoder() < 1 && Robot.climbers.getRightClimbEncoder() < 1){
+                if (Robot.climbers.getLeftClimbEncoder() < 0.5 && Robot.climbers.getRightClimbEncoder() < 1){
                     Robot.climbers.autoClimbStep = AutoClimbStep.MID_BAR_RELEASE;
                 }
                 break;
@@ -115,7 +115,7 @@ public class ClimbersTOCom extends CommandBase{
                 Robot.climbers.setClimberRotation(Constants.RotatorVerticalPositionDeg);
                 Robot.climbers.setLeftClimber(-Constants.CLIMBER_MOVEMENT_SPEED);
                 Robot.climbers.setRightClimber(-Constants.CLIMBER_MOVEMENT_SPEED);
-                if (Robot.climbers.getLeftClimbEncoder() < 20 && Robot.climbers.getRightClimbEncoder() < 20){
+                if (Robot.climbers.getLeftClimbEncoder() < 18 && Robot.climbers.getRightClimbEncoder() < 18){
                     Robot.climbers.autoClimbStep = AutoClimbStep.CLIMB_COMPLETE;
                 }
                 break;
