@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Drivetrain extends SubsystemBase{
@@ -128,6 +129,20 @@ public class Drivetrain extends SubsystemBase{
 
     public boolean getStopped() {
         return Math.abs(-gyro.getRate()) < 3;
+    }
+
+    public void brakeModeEngage(boolean engaged){
+        if(engaged = true){
+            motorLeft0.setIdleMode(IdleMode.kBrake);
+            motorLeft1.setIdleMode(IdleMode.kBrake);
+            motorRight0.setIdleMode(IdleMode.kBrake);
+            motorRight1.setIdleMode(IdleMode.kBrake);
+        } else {
+            motorLeft0.setIdleMode(IdleMode.kCoast);
+            motorLeft1.setIdleMode(IdleMode.kCoast);
+            motorRight0.setIdleMode(IdleMode.kCoast);
+            motorRight1.setIdleMode(IdleMode.kCoast);
+        }
     }
 
     //Adjusts the pose of the robot to center on the hub
