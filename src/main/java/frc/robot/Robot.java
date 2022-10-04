@@ -106,6 +106,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    Robot.drivetrain.brakeModeEngage(true);
     Constants.teamColor = DriverStation.getAlliance().toString();
     ledStrip.stripeRB();
     climbers.resetEncoders();
@@ -124,6 +125,7 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
+    Robot.drivetrain.brakeModeEngage(true);
     autoSection = AutoSection.EXIT_AUTO;
     Constants.teamColor = DriverStation.getAlliance().toString();
     PlayerConfigs.getPlayers();
@@ -139,6 +141,7 @@ public class Robot extends TimedRobot {
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {
+    Robot.drivetrain.brakeModeEngage(false);
     // intake.setIntakeLift(0.0);
     //climbers.setLeftClimberRotation(0.0);
     //climbers.setRightClimberRotation(0.0);
