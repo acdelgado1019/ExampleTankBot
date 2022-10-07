@@ -59,7 +59,7 @@ public class Limelight extends SubsystemBase {
     }
 
     public double getDistance(){
-        if(getTV() == 1.0){distance = (Constants.goalHeight - Constants.camHeight)/Math.tan((Constants.camAngle + getTY()) * (Math.PI / 180.0))/12;
+        if(getTV() == 1.0){distance = (Constants.goalRadius + (Constants.goalHeight - Constants.camHeight)/Math.tan((Constants.camAngle + getTY()) * (Math.PI / 180.0)))/12;
         } else {
             double x = Robot.drivetrain.odometry.getPoseMeters().getX();
             double y = Robot.drivetrain.odometry.getPoseMeters().getY();

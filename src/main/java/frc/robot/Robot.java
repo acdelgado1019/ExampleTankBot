@@ -106,11 +106,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    Robot.limelight.setLED(3);
     Robot.drivetrain.brakeModeEngage(true);
     Constants.teamColor = DriverStation.getAlliance().toString();
-    ledStrip.stripeRB();
-    climbers.resetEncoders();
-    intake.resetEncoder();
     ledStrip.stripeRB();
     autoSection = AutoSection.STARTUP;
     AutoRoutine.timeCheck = Timer.getFPGATimestamp();
@@ -125,6 +123,7 @@ public class Robot extends TimedRobot {
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
+    Robot.limelight.setLED(0);
     Robot.drivetrain.brakeModeEngage(false);
     autoSection = AutoSection.EXIT_AUTO;
     Constants.teamColor = DriverStation.getAlliance().toString();
@@ -142,9 +141,6 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     Robot.drivetrain.brakeModeEngage(false);
-    // intake.setIntakeLift(0.0);
-    //climbers.setLeftClimberRotation(0.0);
-    //climbers.setRightClimberRotation(0.0);
   }
 
   /** This function is called periodically when disabled. */
@@ -159,22 +155,12 @@ public class Robot extends TimedRobot {
   public void testInit() {
     climbers.resetEncoders();
     intake.resetEncoder();
+    ledStrip.stripeRB();
   }
 
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
-    SmartDashboard.putNumber("LClimber Rotator", climbers.getLeftRotEncoder());
-    SmartDashboard.putNumber("RClimber Rotator", climbers.getRightRotEncoder());
-    SmartDashboard.putNumber("Intake Lift", intake.getEncoder());
-    
-    //print Gear Ratios
-    SmartDashboard.putNumber("RDT Gear", Robot.drivetrain.rightDrivetrain.getPositionConversionFactor());
-    SmartDashboard.putNumber("LDT Gear", Robot.drivetrain.leftDrivetrain.getPositionConversionFactor());
-    SmartDashboard.putNumber("R Climber Gear", Robot.climbers.climberEncoderRight.getPositionConversionFactor());
-    SmartDashboard.putNumber("L Climber Gear", Robot.climbers.climberEncoderLeft.getPositionConversionFactor());
-    SmartDashboard.putNumber("R Rotate Gear", Robot.climbers.rightRotateEncoder.getPositionConversionFactor());
-    SmartDashboard.putNumber("L Rotate Gear", Robot.climbers.leftRotateEncoder.getPositionConversionFactor());
-    SmartDashboard.putNumber("Intake Lift Gear", Robot.intake.intakeLiftEncoder.getPositionConversionFactor());
+
   }
 }

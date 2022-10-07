@@ -30,13 +30,12 @@ public class Shooter extends SubsystemBase{
     }
 
     public double shooterSpeedAdjust(double distance){
-        double outputVoltage = 9;
-        //(4-Math.sqrt(16+0.8*(-3.5-distance)))/0.4;
-        if (Double.isNaN(outputVoltage)){
+        double outputVoltage = 0.57*distance;
+        if ((outputVoltage > 12 || outputVoltage < 6) && !Robot.climbers.getClimbMode()){
             outputVoltage = Constants.SHOOTER_IDLE_SPEED;
             Robot.ledStrip.solid(15);
         }
-        return outputVoltage;
+        return -outputVoltage;
     }
 
     public void setTrigger(double speed) {

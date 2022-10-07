@@ -14,12 +14,12 @@ public class LimelightTOCom extends CommandBase{
 
     @Override
     public void execute(){
-        // if(PlayerConfigs.autoTarget || PlayerConfigs.lowPowerShooter || 
-        //    PlayerConfigs.midPowerShooter || PlayerConfigs.highPowerShooter){
-        //     Robot.limelight.setLED(3);
-        // } else{
-        //     Robot.limelight.setLED(1);
-        // }
+        if(PlayerConfigs.autoTarget || PlayerConfigs.lowPowerShooter || 
+           PlayerConfigs.midPowerShooter || PlayerConfigs.highPowerShooter){
+            Robot.limelight.setLED(3);
+        } else{
+            Robot.limelight.setLED(0);
+        }
 
         Robot.limelight.updateData();
         Robot.limelight.getRange();

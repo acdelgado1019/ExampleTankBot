@@ -61,7 +61,7 @@ public class Constants {
         public static final double TRIGGER_SPEED = -1;
         public static final double SHOOTER_HI_SPEED = 12;
         public static final double SHOOTER_MID_SPEED = 8;
-        public static final double SHOOTER_LOW_SPEED = 5;
+        public static final double SHOOTER_LOW_SPEED = 6;
         public static final double SHOOTER_IDLE_SPEED = 3;
         public static final double ROTATE_KP = 0.0017;
         public static final double ROTATE_FF = 0.02;
@@ -81,6 +81,7 @@ public class Constants {
     //Limelight Distance Constants
         public static final double camHeight = 40;
         public static final double goalHeight = 102.5;
+        public static final double goalRadius = 18;
         public static final double camAngle = 15;
 
     //Climber Constants
