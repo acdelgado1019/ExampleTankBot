@@ -55,13 +55,13 @@ public class Constants {
     //Speed Variables
         public static final double CLIMBER_ROTATION_SPEED = .3;
         public static final double CLIMBER_MOVEMENT_SPEED = -1;
-        public static final double LEFT_RIGHT_TRIM = 0.95; // Min = -1, Max = 1;+
+        public static final double LEFT_RIGHT_TRIM = 1.0; // Min = -1, Max = +1
         public static final double INTAKE_LIFT_SPEED = .3;
-        public static final double HORIZONTAL_INTAKE_SPEED = -.8;
+        public static final double HORIZONTAL_INTAKE_SPEED = -.5;
         public static final double TRIGGER_SPEED = -1;
         public static final double SHOOTER_HI_SPEED = 12;
-        public static final double SHOOTER_MID_SPEED = 10;
-        public static final double SHOOTER_LOW_SPEED = 7.2;
+        public static final double SHOOTER_MID_SPEED = 8;
+        public static final double SHOOTER_LOW_SPEED = 5;
         public static final double SHOOTER_IDLE_SPEED = 3;
         public static final double ROTATE_KP = 0.0017;
         public static final double ROTATE_FF = 0.02;
@@ -100,6 +100,6 @@ public class Constants {
 
         public static double kIntakeLiftKp = 0.09;
         public static double hiILPositionDeg = 10;
-        public static double midILPositionDeg = 30;
+        public static double midILPositionDeg = 60;
         public static double loILPositionDeg = 80;
 }

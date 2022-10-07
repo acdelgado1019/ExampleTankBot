@@ -16,8 +16,8 @@ public class DrivetrainTOCom extends CommandBase{
         double rightMotorSet = 0;
 
         // Calculate values to set motors
-        leftMotorSet = ((PlayerConfigs.accelerator + (PlayerConfigs.steering * PlayerConfigs.turnSpeed)) * PlayerConfigs.driveSpeed);
-        rightMotorSet = Constants.LEFT_RIGHT_TRIM * ((PlayerConfigs.accelerator - (PlayerConfigs.steering * PlayerConfigs.turnSpeed)) * PlayerConfigs.driveSpeed);
+        leftMotorSet = PlayerConfigs.driveSpeed * (PlayerConfigs.accelerator + (PlayerConfigs.steering * PlayerConfigs.turnSpeed));
+        rightMotorSet = Constants.LEFT_RIGHT_TRIM * PlayerConfigs.driveSpeed * (PlayerConfigs.accelerator - (PlayerConfigs.steering * PlayerConfigs.turnSpeed));
 
         //Set motors
         if (PlayerConfigs.autoTarget) {

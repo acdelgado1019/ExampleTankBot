@@ -30,7 +30,8 @@ public class Shooter extends SubsystemBase{
     }
 
     public double shooterSpeedAdjust(double distance){
-        double outputVoltage = (4-Math.sqrt(16+0.8*(-3.5-distance)))/0.4;
+        double outputVoltage = 9;
+        //(4-Math.sqrt(16+0.8*(-3.5-distance)))/0.4;
         if (Double.isNaN(outputVoltage)){
             outputVoltage = Constants.SHOOTER_IDLE_SPEED;
             Robot.ledStrip.solid(15);

@@ -15,7 +15,7 @@ public class Controller {
     }
 
     public double getJoystickAxis(int axisNumber) {
-        double joystick = (Math.abs(xboxController.getRawAxis(axisNumber)) < .1) ? 0 : xboxController.getRawAxis(axisNumber);
+        double joystick = -((Math.abs(xboxController.getRawAxis(axisNumber)) < .1) ? 0 : xboxController.getRawAxis(axisNumber));
         return joystick;
     }
 
