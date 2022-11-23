@@ -60,8 +60,8 @@ public class Drivetrain extends SubsystemBase{
     public void periodic(){
         odometry.update(
             gyro.getRotation2d(), 
-            leftDrivetrain.getPosition(), 
-            -rightDrivetrain.getPosition()
+            -leftDrivetrain.getPosition(), 
+            rightDrivetrain.getPosition()
         );
         setDefaultCommand(new DrivetrainTOCom());
     }

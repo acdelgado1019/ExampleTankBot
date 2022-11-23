@@ -105,9 +105,6 @@ public class Robot extends TimedRobot {
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {
-    // intake.setIntakeLift(0.0);
-    //climbers.setLeftClimberRotation(0.0);
-    //climbers.setRightClimberRotation(0.0);
   }
 
   /** This function is called periodically when disabled. */
