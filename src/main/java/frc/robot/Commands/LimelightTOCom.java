@@ -22,8 +22,6 @@ public class LimelightTOCom extends CommandBase{
         }
 
         Robot.limelight.updateData();
-        Robot.limelight.getRange();
-        Robot.limelight.getDistance();
         
         if(PlayerConfigs.switchPipeline != prev_StartButton){
             prev_StartButton = PlayerConfigs.switchPipeline;
