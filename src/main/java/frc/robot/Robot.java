@@ -9,13 +9,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.Commands.Autonomous.AutoRoutine;
-import frc.robot.Subsystems.Climbers;
 import frc.robot.Subsystems.Drivetrain;
 import frc.robot.Subsystems.Limelight;
-import frc.robot.Subsystems.Shooter;
-import frc.robot.Subsystems.Climbers.AutoClimbStep;
-import frc.robot.Subsystems.Intake;
 import frc.robot.Subsystems.LEDs;
 
 /**
@@ -32,25 +27,6 @@ public class Robot extends TimedRobot {
     Constants.LEFT_DRIVE_TRAIN_1,
     Constants.RIGHT_DRIVE_TRAIN_0,
     Constants.RIGHT_DRIVE_TRAIN_1
-  );
-  
-  public static final Intake intake = new Intake(
-    Constants.HORIZONTAL_INTAKE,
-    Constants.INTAKE_LIFT
-  );
-
-  public static final Shooter shooter = new Shooter(
-    Constants.SHOOTER,
-    Constants.TRIGGER
-  );
-
-  public static final Climbers climbers = new Climbers(
-    Constants.LEFT_CLIMBER_0,
-    Constants.LEFT_CLIMBER_1,
-    Constants.LEFT_CLIMBER_ROTATE, 
-    Constants.RIGHT_CLIMBER_0, 
-    Constants.RIGHT_CLIMBER_1, 
-    Constants.RIGHT_CLIMBER_ROTATE
   );
   
   public static final Limelight limelight = new Limelight();
@@ -85,8 +61,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     HDD.initBot();
     PlayerConfigs.initTeamSetup();
-    //Set init for autoclimb
-    climbers.autoClimbStep = AutoClimbStep.MANUAL_MODE;
   }
 
   /**
@@ -99,34 +73,24 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
-    HDD.m_field.setRobotPose(drivetrain.odometry.getPoseMeters());
+    HDD.m_field.setRobotPose(Drivetrain.odometry.getPoseMeters());
     drivetrain.m_drive.feed();
     SmartDashboard.putNumber("Match Time",Timer.getMatchTime());
   }
 
   @Override
   public void autonomousInit() {
-    Robot.drivetrain.brakeModeEngage(true);
     Constants.teamColor = DriverStation.getAlliance().toString();
     ledStrip.stripeRB();
-    climbers.resetEncoders();
-    intake.resetEncoder();
-    ledStrip.stripeRB();
-    autoSection = AutoSection.STARTUP;
-    AutoRoutine.timeCheck = Timer.getFPGATimestamp();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {
-    AutoRoutine.runAutonomous();
-  }
+  public void autonomousPeriodic() {}
 
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
-    Robot.drivetrain.brakeModeEngage(false);
-    autoSection = AutoSection.EXIT_AUTO;
     Constants.teamColor = DriverStation.getAlliance().toString();
     PlayerConfigs.getPlayers();
   }
@@ -141,7 +105,6 @@ public class Robot extends TimedRobot {
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {
-    Robot.drivetrain.brakeModeEngage(false);
     // intake.setIntakeLift(0.0);
     //climbers.setLeftClimberRotation(0.0);
     //climbers.setRightClimberRotation(0.0);
@@ -150,31 +113,14 @@ public class Robot extends TimedRobot {
   /** This function is called periodically when disabled. */
   @Override
   public void disabledPeriodic() {
-    HDD.updateStartupConfig();
     ledStrip.mardiGras();
   }
 
   /** This function is called once when test mode is enabled. */
   @Override
-  public void testInit() {
-    climbers.resetEncoders();
-    intake.resetEncoder();
-  }
+  public void testInit() {}
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
-    SmartDashboard.putNumber("LClimber Rotator", climbers.getLeftRotEncoder());
-    SmartDashboard.putNumber("RClimber Rotator", climbers.getRightRotEncoder());
-    SmartDashboard.putNumber("Intake Lift", intake.getEncoder());
-    
-    //print Gear Ratios
-    SmartDashboard.putNumber("RDT Gear", Robot.drivetrain.rightDrivetrain.getPositionConversionFactor());
-    SmartDashboard.putNumber("LDT Gear", Robot.drivetrain.leftDrivetrain.getPositionConversionFactor());
-    SmartDashboard.putNumber("R Climber Gear", Robot.climbers.climberEncoderRight.getPositionConversionFactor());
-    SmartDashboard.putNumber("L Climber Gear", Robot.climbers.climberEncoderLeft.getPositionConversionFactor());
-    SmartDashboard.putNumber("R Rotate Gear", Robot.climbers.rightRotateEncoder.getPositionConversionFactor());
-    SmartDashboard.putNumber("L Rotate Gear", Robot.climbers.leftRotateEncoder.getPositionConversionFactor());
-    SmartDashboard.putNumber("Intake Lift Gear", Robot.intake.intakeLiftEncoder.getPositionConversionFactor());
-  }
+  public void testPeriodic() {}
 }

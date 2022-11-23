@@ -1,12 +1,12 @@
 package frc.robot.Subsystems;
 
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.Commands.DrivetrainTOCom;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Drivetrain extends SubsystemBase{
@@ -23,16 +22,16 @@ public class Drivetrain extends SubsystemBase{
     private CANSparkMax motorLeft1;
     private CANSparkMax motorRight0;
     private CANSparkMax motorRight1;
-    public RelativeEncoder rightDrivetrain;
-    public RelativeEncoder leftDrivetrain;   
+    public static RelativeEncoder rightDrivetrain;
+    public static RelativeEncoder leftDrivetrain;   
     private final MotorControllerGroup m_leftMotors;
     private final MotorControllerGroup m_rightMotors;
     public final DifferentialDrive m_drive;
 
-    public AHRS gyro = new AHRS(SerialPort.Port.kUSB);
+    public static AHRS gyro = new AHRS(SerialPort.Port.kUSB);
 
     public DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Constants.kTrackwidthMeters);
-    public DifferentialDriveOdometry odometry;
+    public static DifferentialDriveOdometry odometry;
 
     public double initPose = 0.0;
 
@@ -78,9 +77,11 @@ public class Drivetrain extends SubsystemBase{
         ); 
     }
 
-    public void resetOdometry(Pose2d pose) {
+
+    // Reset odometry to the starting pose of the trajectory.
+    public static void resetOdometry(Trajectory trajectory){
         resetEncoders();
-        odometry.resetPosition(pose, gyro.getRotation2d());
+        odometry.resetPosition(trajectory.getInitialPose(), gyro.getRotation2d());
     }
 
     public void tankDriveVolts(double leftVolts, double rightVolts){
@@ -94,7 +95,7 @@ public class Drivetrain extends SubsystemBase{
         m_drive.feed();
     }
 
-    public void resetEncoders() {
+    public static void resetEncoders() {
         rightDrivetrain.setPosition(0);
         leftDrivetrain.setPosition(0);
     }
@@ -125,40 +126,5 @@ public class Drivetrain extends SubsystemBase{
             heading = -360 + (getHeading()+ initPose)%360;
         }
         return heading;
-    }
-
-    public boolean getStopped() {
-        return Math.abs(-gyro.getRate()) < 3;
-    }
-
-    public void brakeModeEngage(boolean engaged){
-        if(engaged = true){
-            motorLeft0.setIdleMode(IdleMode.kBrake);
-            motorLeft1.setIdleMode(IdleMode.kBrake);
-            motorRight0.setIdleMode(IdleMode.kBrake);
-            motorRight1.setIdleMode(IdleMode.kBrake);
-        } else {
-            motorLeft0.setIdleMode(IdleMode.kCoast);
-            motorLeft1.setIdleMode(IdleMode.kCoast);
-            motorRight0.setIdleMode(IdleMode.kCoast);
-            motorRight1.setIdleMode(IdleMode.kCoast);
-        }
-    }
-
-    //Adjusts the pose of the robot to center on the hub
-    public void hubTrack()
-    {
-        double degOff = 0.0;
-        
-        if(Robot.limelight.getTV() != 0){
-            degOff = Robot.limelight.getTX();
-        } else {
-            degOff = getNormHeading() - Robot.limelight.getOffset();
-            if (Math.abs(degOff)>180){degOff = -360+degOff;}
-        }
-        if(Math.abs(degOff) > 1){
-                double speed = .15 * degOff/90;
-                tankDriveVolts(-speed*12,speed*12);
-        }
     }
 }
