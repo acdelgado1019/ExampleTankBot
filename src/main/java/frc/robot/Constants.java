@@ -1,5 +1,8 @@
 package frc.robot;
 
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.math.util.Units;
 
 public class Constants {
@@ -77,29 +80,21 @@ public class Constants {
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
         public static final double kEncoderDistancePerPulse = Math.PI * Units.inchesToMeters(4) / 3;
-
-    //Limelight Distance Constants
-        public static final double camHeight = 40;
-        public static final double goalHeight = 102.5;
-        public static final double camAngle = 15;
-
-    //Climber Constants
-        public static final double m_armReduction = 60;
-        public static final double kRotatorEncoderDistPerPulse = 360 / m_armReduction;
-        public static final double kClimberEncoderDistPerPulse =  0.09375;
-
-        public static double kLRotatorKp = 1;
-        public static double kRRotatorKp = 1;
-        public static double RotatorFullPositionDeg = 30.0;
-        public static double RotatorUnhookPositionDeg = 1.0;
-        public static double RotatorVerticalPositionDeg = -0.5;
-
-    //Intake Lift Constants
-        public static final double m_IntakeLiftReduction = 125;
-        public static final double kIntakeLiftEncoderDistPerRot = 360 / m_IntakeLiftReduction;
-
-        public static double kIntakeLiftKp = 0.09;
-        public static double hiILPositionDeg = 10;
-        public static double midILPositionDeg = 60;
-        public static double loILPositionDeg = 80;
+        public static final DifferentialDriveVoltageConstraint kautoVoltageConstraint =
+        new DifferentialDriveVoltageConstraint(
+            new SimpleMotorFeedforward(
+                Constants.ksVolts,
+                Constants.kvVoltSecondsPerMeter,
+                Constants.kaVoltSecondsSquaredPerMeter),
+                Robot.drivetrain.kinematics,
+                10
+        );   
+        public static TrajectoryConfig kconfig =
+        new TrajectoryConfig(
+                Constants.kMaxSpeedMetersPerSecond,
+                Constants.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Robot.drivetrain.kinematics)
+            // Apply the voltage constraint
+            .addConstraint(kautoVoltageConstraint);
 }
